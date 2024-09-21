@@ -1,4 +1,4 @@
-package de.monteurzimmer.monteurzimmer_booking.user_management.dto.login;
+package de.monteurzimmer.monteurzimmer_booking.user_management.entity.dto.login;
 
 import lombok.Data;
 
