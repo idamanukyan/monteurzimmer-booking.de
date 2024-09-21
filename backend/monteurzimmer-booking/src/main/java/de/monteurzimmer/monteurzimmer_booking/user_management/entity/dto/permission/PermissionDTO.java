@@ -1,4 +1,4 @@
-package de.monteurzimmer.monteurzimmer_booking.user_management.dto.permission;
+package de.monteurzimmer.monteurzimmer_booking.user_management.entity.dto.permission;
 import lombok.Data;
 
 @Data
