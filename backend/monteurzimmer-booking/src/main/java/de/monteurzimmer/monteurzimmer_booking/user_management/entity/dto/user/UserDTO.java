@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class UserDTO {
-    private Long id;
     private String name;
     private String surname;
     private String email;
@@ -12,5 +11,8 @@ public class UserDTO {
     private String address;
     private String profilePicture;
     private boolean isVerified;
+    private boolean hasAdminApproved;
+    private String socialMediaProvider;
+    private String socialMediaId;
 }
 

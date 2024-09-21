@@ -2,6 +2,7 @@ package de.monteurzimmer.monteurzimmer_booking.user_management.service;
 
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.Role;
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.User;
+import de.monteurzimmer.monteurzimmer_booking.user_management.entity.dto.user.CreateUserDTO;
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.dto.user.UpdateUserDTO;
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.dto.user.UserDTO;
 import de.monteurzimmer.monteurzimmer_booking.user_management.repository.RoleRepository;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -49,7 +51,7 @@ public class UserService {
                         .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)))), UserDTO.class);
     }
 
-    public UserDTO createUser(UserDTO userDto) {
+    public CreateUserDTO createUser(CreateUserDTO userDto) {
         log.info("User creation started.");
         if (userRepository.existsByEmail(userDto.getEmail())) {
             log.error("User has tried to add a user with already registered email.");
@@ -60,7 +62,9 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("Something wrong please contact support"));
 
         user.setDeleted(false);
-
+        user.setVerified(false);
+        user.setHasAdminApproved(false);
+        user.setCreated(LocalDateTime.now());
         user.setRoles(Set.of(role));
         userRepository.save(user);
         return userDto;
@@ -68,6 +72,7 @@ public class UserService {
 
     public UserDTO updateUser(Long id, UpdateUserDTO userDetails) {
         log.info("User has tried to update information about a user");
+
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User with id : {%s} not found", id.toString())));
         Optional.ofNullable(userDetails.getName()).ifPresent(user::setName);
@@ -76,6 +81,7 @@ public class UserService {
         Optional.ofNullable(userDetails.getAddress()).ifPresent(user::setAddress);
         Optional.ofNullable(userDetails.getProfilePicture()).ifPresent(user::setProfilePicture);
 
+        user.setUpdated(LocalDateTime.now());
         userRepository.save(user);
         return modelMapper.map(user, UserDTO.class);
     }

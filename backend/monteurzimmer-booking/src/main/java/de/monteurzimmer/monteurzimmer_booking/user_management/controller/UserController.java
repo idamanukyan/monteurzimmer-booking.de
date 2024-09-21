@@ -1,5 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.user_management.controller;
 
+import de.monteurzimmer.monteurzimmer_booking.user_management.entity.dto.user.CreateUserDTO;
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.dto.user.UpdateUserDTO;
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.dto.user.UserDTO;
 import de.monteurzimmer.monteurzimmer_booking.user_management.service.UserService;
@@ -30,8 +31,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        UserDTO createdUser = userService.createUser(userDTO);
+    public ResponseEntity<CreateUserDTO> createUser(@RequestBody CreateUserDTO userDTO) {
+        CreateUserDTO createdUser = userService.createUser(userDTO);
         return ResponseEntity.status(201).body(createdUser);
     }
 
