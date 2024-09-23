@@ -78,3 +78,6 @@ CREATE TABLE related_properties
 
 ALTER TABLE properties
     MODIFY property_type VARCHAR(255);
+
+ALTER TABLE properties
+    ADD number_of_guests INT;

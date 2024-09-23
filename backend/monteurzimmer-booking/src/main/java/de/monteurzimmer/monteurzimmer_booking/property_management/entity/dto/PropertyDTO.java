@@ -1,7 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto;
 
 import lombok.Data;
-import org.modelmapper.spi.PropertyType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,13 +13,14 @@ public class PropertyDTO {
     private String propertyType;
     private String description;
     private String location;
-    private BigDecimal pricePerNight;
+    private BigDecimal price;
     private BigDecimal rating;
     private boolean isAvailable;
     private String country;
     private String city;
     private int roomCount;
     private int bedCount;
+    private Integer numberOfGuests;
     private String neighborhood;
     private BigDecimal reviewScore;
     private int bathrooms;
