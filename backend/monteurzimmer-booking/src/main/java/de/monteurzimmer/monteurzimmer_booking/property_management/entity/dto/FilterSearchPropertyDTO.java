@@ -2,31 +2,20 @@ package de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto;
 
 import lombok.Data;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 @Data
-public class PropertyDTO {
-    private Long propertyId;
-    private Long adminId;
-    private String propertyName;
-    private String propertyType;
-    private String description;
-    private String location;
-    private BigDecimal price;
-    private BigDecimal rating;
-    private boolean isAvailable;
-    private String country;
+public class FilterSearchPropertyDTO {
+
     private String city;
-    private int roomCount;
-    private int bedCount;
     private Integer numberOfGuests;
+    private String distance; //suche in stadt, suche in der nahe, suche im umkreis, suche im ereweiteren umkreis
+
+    //secondary popup filters
+    private String propertyType;
     private String neighborhood;
-    private BigDecimal reviewScore;
-    private int bathrooms;
-    private BigDecimal latitude;
-    private BigDecimal longitude;
-    private LocalDateTime createdAt;
+    private Long minPrice;
+    private Long maxPrice;
+    private int roomCount; //Alle, Einzelzimmer, DoppelZimmer, Mehrbettzimmer, Ganze Unterkunft
+
     // Facilities flags
     private boolean wlan;
     private boolean tv;
@@ -54,4 +43,3 @@ public class PropertyDTO {
     private boolean guteVerkehrsanbindung;
     private boolean geschaefteInDerNahe;
 }
-

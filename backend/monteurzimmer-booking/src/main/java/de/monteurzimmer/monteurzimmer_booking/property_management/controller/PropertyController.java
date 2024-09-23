@@ -1,5 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.controller;
 
+import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.service.PropertyService;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,12 @@ public class PropertyController {
     public ResponseEntity<PropertyDTO> getPropertyById(@PathVariable Long id) {
         PropertyDTO property = propertyService.getPropertyById(id);
         return ResponseEntity.ok(property);
+    }
+
+    @GetMapping("/search-result")
+    public ResponseEntity<List<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO) {
+        List<PropertyDTO> properties = propertyService.getFilteredProperties(filterSearchPropertyDTO);
+        return ResponseEntity.ok(properties);
     }
 
     @PostMapping
