@@ -30,7 +30,7 @@ public class Property {
 
     private String location;
 
-    @Column(nullable = false)
+    @Column(name = "price_per_night", nullable = false)
     private BigDecimal price;
 
     private BigDecimal rating;

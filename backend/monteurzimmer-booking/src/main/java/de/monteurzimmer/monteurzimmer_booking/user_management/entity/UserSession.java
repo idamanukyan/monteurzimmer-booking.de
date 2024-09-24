@@ -22,6 +22,8 @@ public class UserSession {
     @Column(name = "is_active")
     private Boolean isActive;
 
+    private String sessionId; // UUID as a string
+
     public Long getId() {
         return id;
     }
@@ -52,6 +54,14 @@ public class UserSession {
 
     public void setActive(Boolean active) {
         isActive = active;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }
 
