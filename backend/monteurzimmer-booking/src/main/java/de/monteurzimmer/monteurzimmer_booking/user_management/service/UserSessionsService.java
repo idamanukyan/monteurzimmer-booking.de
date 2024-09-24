@@ -29,7 +29,7 @@ public class UserSessionsService {
         return sessionId;
     }
 
-    @Scheduled(fixedRate = 60000) // Check every minute
+   /* @Scheduled(fixedRate = 60000) // Check every minute
     public void updateExpiredSessions() {
         List<UserSession> sessions = userSessionsRepository.findAll();
         for (UserSession session : sessions) {
@@ -38,6 +38,6 @@ public class UserSessionsService {
                 userSessionsRepository.save(session);
             }
         }
-    }
+    }*/
 }
 
