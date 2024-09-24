@@ -22,7 +22,6 @@ public class FavoriteController {
 
         System.out.println("Received request to add favorite with propertyId: " + propertyId + " and sessionId: " + sessionId);
 
-        // Validate session ID
         if (sessionId == null || sessionId.isEmpty()) {
             System.out.println("Session ID is null or empty.");
 

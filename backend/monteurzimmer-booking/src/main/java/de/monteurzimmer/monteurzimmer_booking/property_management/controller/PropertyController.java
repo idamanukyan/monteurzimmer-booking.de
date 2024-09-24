@@ -1,6 +1,5 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.controller;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.service.PropertyService;
@@ -36,7 +35,7 @@ public class PropertyController {
     }
 
     @GetMapping("/cheapest")
-    public ResponseEntity<List<PropertyDTO>> get20CheapestProperties(){
+    public ResponseEntity<List<PropertyDTO>> get20CheapestProperties() {
         List<PropertyDTO> propertyDTOS = propertyService.get20Chepeastproperties();
         return ResponseEntity.ok(propertyDTOS);
     }

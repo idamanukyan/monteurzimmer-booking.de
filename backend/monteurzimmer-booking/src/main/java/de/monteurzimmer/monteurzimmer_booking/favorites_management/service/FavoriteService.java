@@ -34,32 +34,26 @@ public class FavoriteService {
         PropertyDTO propertyDTO = propertyService.getPropertyById(propertyId);
         Property property = mapper.map(propertyDTO, Property.class);
 
-        // Initialize the favorite object
         Favorite favorite;
 
         User currentUser = userService.getCurrentUser();
 
         if (currentUser != null) {
-            // For logged-in users
             favorite = favoriteRepository.findByUserAndProperty(currentUser, property)
                     .orElse(new Favorite());
             favorite.setUser(currentUser);
         } else if (sessionId != null) {
-            // For anonymous users with a valid session ID
             favorite = favoriteRepository.findBySessionIdAndProperty(sessionId, property)
                     .orElse(new Favorite());
             favorite.setSessionId(sessionId);
         } else {
-            // Handle the case where sessionId is null (e.g., anonymous user without a session)
-            // You can decide what to do here, e.g., throw an exception or return a specific response
+
             throw new IllegalArgumentException("User must be logged in or provide a valid session ID.");
         }
 
-        // Set the property and creation time
         favorite.setProperty(property);
         favorite.setCreatedAt(LocalDateTime.now());
 
-        // Save and return the favorite
         return favoriteRepository.save(favorite);
     }
 

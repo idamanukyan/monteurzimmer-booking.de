@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 public class SearchHistoryDTO {
     private Long searchId;
     private Long userId; //can be null, if null ip
-    private LocalDateTime searchTimestamp;  //assigned in the service
+    private LocalDateTime searchTimestamp;
     private String city;
-    private String propertyType; // Use String, depending on your implementation
+    private String propertyType;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private int numberOfPeople;
