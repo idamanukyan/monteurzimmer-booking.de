@@ -86,3 +86,6 @@ CREATE TABLE password_resets
     is_reset         BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
+
+alter table user_sessions
+add column session_id varchar(255);

@@ -1,5 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.service;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.Property;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
@@ -8,9 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -149,6 +152,22 @@ public class PropertyService {
         Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
         return modelMapper.map(property, PropertyDTO.class);
+    }
+
+    public List<PropertyDTO> getPropertyByCity(String city) {
+        log.info("User has tried to get information about a user");
+        List<Property> propertyList = propertyRepository.findByCity(city);
+        return propertyList.stream()
+                .map(property -> modelMapper.map(property, PropertyDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<PropertyDTO> get20Chepeastproperties(){
+        log.info("User has tried to get information about a user");
+        List<Property> propertyList = propertyRepository.find20Chepeast();
+        return propertyList.stream()
+                .map(property -> modelMapper.map(property, PropertyDTO.class))
+                .collect(Collectors.toList());
     }
 
     public PropertyDTO createProperty(PropertyDTO propertyDTO) {
