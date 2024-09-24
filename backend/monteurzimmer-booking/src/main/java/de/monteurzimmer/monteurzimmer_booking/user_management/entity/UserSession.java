@@ -22,7 +22,7 @@ public class UserSession {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    private String sessionId; // UUID as a string
+    private String sessionId;
 
     public Long getId() {
         return id;

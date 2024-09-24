@@ -17,7 +17,7 @@ public class Favorite {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
-    private User user; // Nullable in case of anonymous users
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "property_id", nullable = false)

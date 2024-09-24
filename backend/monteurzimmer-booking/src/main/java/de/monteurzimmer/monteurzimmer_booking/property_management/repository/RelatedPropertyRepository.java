@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RelatedPropertyRepository extends JpaRepository<RelatedProperties, Long> {
-    // Custom query methods can be added here if needed
 }

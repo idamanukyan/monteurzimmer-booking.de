@@ -34,7 +34,7 @@ public class NewsletterSubscriptionService {
         Optional<NewsletterSubscription> subscription = repository.findByEmail(email);
         if (subscription.isPresent()) {
             NewsletterSubscription subs = subscription.get();
-            subs.setActive(false);  // Deactivate the subscription
+            subs.setActive(false);
             repository.save(subs);
         } else {
             throw new Exception("Subscription not found!");

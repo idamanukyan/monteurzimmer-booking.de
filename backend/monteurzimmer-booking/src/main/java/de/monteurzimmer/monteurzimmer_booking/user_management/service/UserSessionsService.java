@@ -3,11 +3,9 @@ package de.monteurzimmer.monteurzimmer_booking.user_management.service;
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.UserSession;
 import de.monteurzimmer.monteurzimmer_booking.user_management.repository.UserSessionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Service

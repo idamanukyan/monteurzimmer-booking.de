@@ -1,6 +1,5 @@
 package de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.controller;
 
-import de.monteurzimmer.monteurzimmer_booking.favorites_management.entity.Favorite;
 import de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.entity.NewsletterSubscriptionDTO;
 import de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.service.NewsletterSubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class NewsletterSubscriptionController {
     }
 
     @GetMapping("/active-subscriptions")
-    public ResponseEntity<List<String>> getAllSubscribedUserEmails(){
+    public ResponseEntity<List<String>> getAllSubscribedUserEmails() {
 
         List<String> subscriptions = subscriptionService.getAllSubscribedUserEmails();
         return ResponseEntity.ok(subscriptions);
