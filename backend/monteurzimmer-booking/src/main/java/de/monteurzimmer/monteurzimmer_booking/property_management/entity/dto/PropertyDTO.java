@@ -1,9 +1,11 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto;
 
+import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhoto;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class PropertyDTO {
@@ -53,5 +55,7 @@ public class PropertyDTO {
     private boolean ruhigeLage;
     private boolean guteVerkehrsanbindung;
     private boolean geschaefteInDerNahe;
+
+    private List<PropertyPhoto> photos;
 }
 

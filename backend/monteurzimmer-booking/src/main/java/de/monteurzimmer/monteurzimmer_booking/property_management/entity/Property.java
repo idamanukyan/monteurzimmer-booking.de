@@ -1,11 +1,13 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.entity;
 
+import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhoto;
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Data
@@ -80,5 +82,9 @@ public class Property {
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    private List<PropertyPhoto> photos;
+
 }
 
