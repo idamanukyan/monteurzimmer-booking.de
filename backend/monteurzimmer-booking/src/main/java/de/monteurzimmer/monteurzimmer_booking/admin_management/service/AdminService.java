@@ -1,37 +1,38 @@
 package de.monteurzimmer.monteurzimmer_booking.admin_management.service;
 
-import de.monteurzimmer.monteurzimmer_booking.admin_management.entity.AdminDTO;
-import de.monteurzimmer.monteurzimmer_booking.user_management.entity.Role;
-import de.monteurzimmer.monteurzimmer_booking.user_management.entity.User;
-import de.monteurzimmer.monteurzimmer_booking.user_management.repository.RoleRepository;
+import de.monteurzimmer.monteurzimmer_booking.admin_management.city_management.CityRepository;
+import de.monteurzimmer.monteurzimmer_booking.property_management.repository.PropertyRepository;
 import de.monteurzimmer.monteurzimmer_booking.user_management.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AdminService {
-
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private RoleRepository roleRepository;
+    private CityRepository cityRepository;
 
-   /* public AdminDTO createSuperAdmin(AdminDTO adminDTO) {
-        Role superAdminRole = roleRepository.findByName("ADMIN").get();
-        return createAdmin(adminDTO, "ADMIN");
-    }*/
+    @Autowired
+    private PropertyRepository propertyRepository;
 
-/*    public AdminDTO createAdmin(AdminDTO adminDTO, String role) {
-        User admin = new User();
-        admin.setName(adminDTO.getName());
-        admin.setEmail(adminDTO.getEmail());
-        admin.setPassword(adminDTO.getPassword());
-        Role adminRole = roleRepository.findByName(role).get();
-        admin.setRoles(adminRole);
+    /*public void addFavoriteCity(Long adminId, String cityName) {
+        User admin = userRepository.findById(adminId)
+                .orElseThrow(() -> new RuntimeException("Admin not found"));
+        City city = cityRepository.findByName(cityName)
+                .orElseThrow(() -> new RuntimeException("City not found"));
 
-        User savedAdmin = userRepository.save(admin);
-        return new AdminDTO(savedAdmin.getId(), savedAdmin.getName(), savedAdmin.getEmail(),
-                savedAdmin.getRoles().getName());
+        .getFavoriteCities().add(city);
+    }
+
+    public void addFavoriteProperty(Long adminId, Long propertyId) {
+        Admin admin = adminRepository.findById(adminId)
+                .orElseThrow(() -> new RuntimeException("Admin not found"));
+        Property property = propertyRepository.findById(propertyId)
+                .orElseThrow(() -> new RuntimeException("Property not found"));
+
+        admin.getFavoriteProperties().add(property);
+        adminRepository.save(admin);
     }*/
 }

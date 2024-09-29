@@ -24,7 +24,7 @@ public class CreateAdmin {
 
 
     public void createAdmin() {
-        if (userRepository.findByEmail("admin").isEmpty()) {
+        if (userRepository.findByEmail("idamyan01@gmail.com").isEmpty()) {
 
             User user = new User();
             user.setName("admin");
