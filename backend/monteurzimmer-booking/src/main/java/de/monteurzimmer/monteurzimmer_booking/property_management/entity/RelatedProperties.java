@@ -21,6 +21,9 @@ public class RelatedProperties {
     private String comparisonCriteria;
     private Integer sortOrder;
 
+    private String socialMediaLink;
+
+
     public Long getRelatedId() {
         return relatedId;
     }
@@ -59,6 +62,14 @@ public class RelatedProperties {
 
     public void setSortOrder(Integer sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    public String getSocialMediaLink() {
+        return socialMediaLink;
+    }
+
+    public void setSocialMediaLink(String socialMediaLink) {
+        this.socialMediaLink = socialMediaLink;
     }
 }
 

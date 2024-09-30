@@ -39,6 +39,7 @@ public class Property {
     private Boolean isAvailable = true;
     private String country;
     private String city;
+    private String socialMediaLink;
     private Integer roomCount;
     private Integer bedCount;
 
