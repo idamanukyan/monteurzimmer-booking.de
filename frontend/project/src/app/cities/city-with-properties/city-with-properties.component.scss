@@ -1,0 +1,21 @@
+.card {
+  width: 90%;
+  height: 370px;
+  margin-top: 20px;
+  padding: 0 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(#1890ff, 0.5);
+  }
+
+  img {
+    height: 100%;
+  }
+}
+
+.book-card {
+  margin-top: 20px;
+  background: #0c3d64;
+}

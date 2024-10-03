@@ -1,19 +1,45 @@
 <nz-layout>
   <nz-header>
-    <div class="logo">
-      <img src="assets/logo.png" alt="Logo" class="logo-image" />
-      <span class="logo-text">CHECK-ZIMMER</span>
-    </div>
-    <ul nz-menu  nzMode="horizontal" class="header-menu">
-      <li nz-menu-item>
-        Merkzettel (0)
-      </li>
-      <li nz-menu-item>
-        Unterkunft mieten
-      </li>
-    </ul>
-    <div class="contact-info">
-      <p class="phone-number">+49 157 92467400</p>
+    <div class="header-content">
+      <div class="logo">
+        <img src="assets/logo-blue-mobile.svg">
+      </div>
+      <div class="search-bar">
+        <form [formGroup]="searchForm">
+          <div class="w-100 h-100 d-flex items-center justify-center">
+            <div class="d-flex" *ngIf="!removeInput">
+              <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input
+                  nz-input
+                  placeholder="Search City..."
+                  formControlName="searchQuery"
+                  class="search-query"
+                  (keyup.enter)="onSearch()"
+                />
+              </nz-input-group>
+
+              <ng-template #suffixIconSearch>
+                <span nz-icon nzType="search"></span>
+              </ng-template>
+              <div *ngIf="isSearch">
+                <p class="link" (click)="onOpenFilters()">Add Filters</p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="header-icons" *ngIf="!removeContactUs">
+        <!--        <i nz-icon nzType="heart" nzTheme="outline"></i>-->
+        <!--        <span>Merkzettel</span>-->
+        <!--        <i nz-icon nzType="bell" nzTheme="outline"></i>-->
+        <!--        <span>Preiswecker</span>-->
+        <i nz-icon nzType="user" nzTheme="outline"></i>
+        <span (click)="goContactUs()">Contact Us</span>
+      </div>
     </div>
   </nz-header>
 </nz-layout>
+
+<ng-template #searchIcon>
+  <i nz-icon nzType="search"></i>
+</ng-template>
