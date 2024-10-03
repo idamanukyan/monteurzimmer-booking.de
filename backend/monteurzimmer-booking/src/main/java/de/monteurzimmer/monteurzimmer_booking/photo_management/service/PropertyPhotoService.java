@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PropertyPhotoService {
@@ -38,8 +39,12 @@ public class PropertyPhotoService {
         return propertyPhotoRepository.save(photo);
     }
 
-    public List<PropertyPhoto> getPhotosByPropertyId(Long propertyId) {
-        return propertyPhotoRepository.findByPropertyPropertyId(propertyId);
+    public List<String> getPhotosByPropertyId(Long propertyId) {
+        List<PropertyPhoto> photos = propertyPhotoRepository.findByPropertyPropertyId(propertyId);
+
+        return photos.stream()
+                .map(PropertyPhoto::getPhotoUrl) // Extract the photoUrl from each entity
+                .collect(Collectors.toList());
     }
 
     public String storePhoto(MultipartFile photoFile) {

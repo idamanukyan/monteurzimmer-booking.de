@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-@RequestMapping("/properties/photos/{propertyId}")
+@RequestMapping("/properties/photos/")
 public class PropertyPhotoController {
 
     @Autowired
@@ -38,9 +38,9 @@ public class PropertyPhotoController {
         return ResponseEntity.ok(photoDTO);
     }
 
-    @GetMapping
-    public ResponseEntity<List<PropertyPhoto>> getPhotos(@PathVariable Long propertyId) {
-        List<PropertyPhoto> photos = propertyPhotoService.getPhotosByPropertyId(propertyId);
+    @GetMapping("/{propertyId}")
+    public ResponseEntity<List<String>> getPhotos(@PathVariable Long propertyId) {
+        List<String> photos = propertyPhotoService.getPhotosByPropertyId(propertyId);
         return ResponseEntity.ok(photos);
     }
 }
