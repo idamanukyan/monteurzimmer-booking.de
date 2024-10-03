@@ -1,6 +1,7 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.service;
 
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.Property;
+import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FavoritePropertyDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.repository.PropertyRepository;
@@ -174,6 +175,17 @@ public class PropertyService {
 
         // Return the saved property as a DTO
         return modelMapper.map(savedProperty, PropertyDTO.class);
+    }
+
+    public PropertyDTO addFavoriteProperty(FavoritePropertyDto propertyDto) {
+        Property property = propertyRepository.findById(propertyDto.getPropertyId())
+                .orElseThrow(() -> new RuntimeException("Property not found"));
+
+        // Set the isFavorite status based on the incoming value
+        property.setIsFavorite(propertyDto.getIsFavorite());
+
+        Property updatedProperty = propertyRepository.save(property);
+        return modelMapper.map(updatedProperty, PropertyDTO.class);
     }
 
 

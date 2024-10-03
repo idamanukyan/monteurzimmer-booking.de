@@ -1,5 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.controller;
 
+import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FavoritePropertyDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyByLinkDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
@@ -8,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -52,6 +52,16 @@ public class PropertyController {
     public ResponseEntity<PropertyDTO> createProperty(@RequestBody PropertyDTO propertyDTO) {
         PropertyDTO createdProperty = propertyService.createProperty(propertyDTO);
         return ResponseEntity.status(201).body(createdProperty);
+    }
+
+    @PutMapping("/add-favorite-property/{id}")
+    public ResponseEntity<PropertyDTO> addFavoriteProperty(@PathVariable Long id) {
+
+        FavoritePropertyDto favoritePropertyDto = new FavoritePropertyDto();
+        favoritePropertyDto.setPropertyId(id);
+        favoritePropertyDto.setIsFavorite(true);
+        PropertyDTO createdProperty = propertyService.addFavoriteProperty(favoritePropertyDto);
+        return ResponseEntity.ok(createdProperty);
     }
 
     @PostMapping("/by-link")

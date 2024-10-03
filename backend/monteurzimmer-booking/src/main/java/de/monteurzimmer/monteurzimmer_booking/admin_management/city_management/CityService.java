@@ -58,7 +58,7 @@ public class CityService {
     }
 
     public String storePhoto(MultipartFile photoFile) {
-        String uploadDir = "storage/upload/icons/city";
+        String uploadDir = "frontend/project/src/assets/storage/upload/icons";
 
         String fileName = System.currentTimeMillis() + "_" + photoFile.getOriginalFilename();
 

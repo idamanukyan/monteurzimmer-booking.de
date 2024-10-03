@@ -43,7 +43,7 @@ public class PropertyPhotoService {
     }
 
     public String storePhoto(MultipartFile photoFile) {
-        String uploadDir = "storage/upload/";
+        String uploadDir = "frontend/project/src/assets/storage/upload/property-photos";
 
         String fileName = System.currentTimeMillis() + "_" + photoFile.getOriginalFilename();
 
