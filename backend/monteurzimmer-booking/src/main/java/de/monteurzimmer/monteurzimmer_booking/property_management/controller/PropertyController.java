@@ -1,12 +1,14 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.controller;
 
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
+import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyByLinkDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.service.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -49,6 +51,15 @@ public class PropertyController {
     @PostMapping
     public ResponseEntity<PropertyDTO> createProperty(@RequestBody PropertyDTO propertyDTO) {
         PropertyDTO createdProperty = propertyService.createProperty(propertyDTO);
+        return ResponseEntity.status(201).body(createdProperty);
+    }
+
+    @PostMapping("/by-link")
+    public ResponseEntity<PropertyDTO> createPropertyByLink(@RequestBody PropertyByLinkDto propertyByLinkDto) {
+        PropertyDTO createdProperty = new PropertyDTO();
+        createdProperty.setSocialMediaLink(propertyByLinkDto.getLink());
+        createdProperty.setPrice(propertyByLinkDto.getPrice());
+        propertyService.createProperty(createdProperty);
         return ResponseEntity.status(201).body(createdProperty);
     }
 
