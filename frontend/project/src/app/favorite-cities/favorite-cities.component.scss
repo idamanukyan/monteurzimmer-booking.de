@@ -1,0 +1,42 @@
+h1{
+  color: #1890ff;
+
+}
+.item {
+  width: 200px;
+  border-radius: 5px;
+  text-align: center;
+  background: #f0f0f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin: 0 !important;
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  h3 {
+    margin-top: 10px;
+    font-size: 1.5rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+
+.owl-nav {
+
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.owl-dots {
+  width: 200px;
+  height: 200px;
+  margin-top: 10px;
+  text-align: center;
+}

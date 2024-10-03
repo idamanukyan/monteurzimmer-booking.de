@@ -1,0 +1,48 @@
+<app-header
+  [isSearch]="true"
+></app-header>
+<div class="w-100 d-flex flex-column item-center justify-center">
+  <!--  <nz-card nzHoverable [nzCover]="coverTemplate" class="d-flex card">-->
+  <!--    <nz-card-meta-->
+  <!--      nzTitle="Leipzig"-->
+  <!--      nzDescription="128GB Schwarz"-->
+  <!--    ></nz-card-meta>-->
+
+  <!--    <div>-->
+  <!--      <p>13 Produktmeinungen:-->
+  <!--        <nz-rate [(ngModel)]="rating" [nzAllowHalf]="true" [nzDisabled]="true"></nz-rate>-->
+  <!--      </p>-->
+  <!--      <p>-->
+  <!--        <strong>Produktübersicht:</strong><br>-->
+  <!--        6,1 Zoll &middot; Full HD &middot; 48 MP &middot; 6 GB RAM &middot; 128 GB interner Speicher &middot; iOS 18-->
+  <!--        &middot; 3.349 mAh-->
+  <!--      </p>-->
+  <!--      <a nz-typography nzLink href="#">Produktdetails</a>-->
+
+  <!--      <p><strong>Ähnliche Produkte:</strong></p>-->
+  <!--      <p>-->
+  <!--        <a nz-typography nzLink href="#">Phablet</a> &middot;-->
+  <!--        <a nz-typography nzLink href="#">619 Apple Handys & Smartphones</a> &middot;-->
+  <!--        <a nz-typography nzLink href="#">5G Handy</a> &middot;-->
+  <!--        <a nz-typography nzLink href="#">LTE Smartphone</a> &middot;-->
+  <!--        <a nz-typography nzLink href="#">350 Apple 5G Handys</a>-->
+  <!--      </p>-->
+
+  <!--      <p><strong>Farbe:</strong></p>-->
+  <!--      <nz-tag>Schwarz</nz-tag>-->
+  <!--    </div>-->
+
+  <!--    <ng-template #coverTemplate>-->
+  <!--      <img alt="iPhone 15" [src]="'assets/list-main-mobile-bg.png'" style="width: 100%;"/>-->
+  <!--    </ng-template>-->
+  <!--  </nz-card>-->
+  <h1>3 Result in Berlin</h1>
+  <app-favorite-cities
+    [title]="''"
+    [bookmarks]="[]"
+  ></app-favorite-cities>
+  <nz-card class="w-80 book-card">
+    <app-bookmark></app-bookmark>
+  </nz-card>
+</div>
+<app-footer></app-footer>

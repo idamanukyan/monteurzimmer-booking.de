@@ -1,0 +1,23 @@
+
+.main {
+  height: 500px;
+
+  h1 {
+    color: #1890ff;
+    margin-top: 20px;
+  }
+
+  form {
+    width: 600px;
+
+    nz-select {
+      width: 200px;
+    }
+  }
+
+  button {
+    width: 100%;
+    color: #fff;
+  }
+}
+
