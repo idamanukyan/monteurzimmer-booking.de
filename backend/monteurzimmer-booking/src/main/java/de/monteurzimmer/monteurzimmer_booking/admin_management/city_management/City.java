@@ -16,6 +16,9 @@ public class City {
     @Column(name = "is_favorite")
     private Boolean isFavorite = false;
 
+    @Column(name = "photo_url")
+    private String photo;
+
     public City() {
     }
 
@@ -51,6 +54,14 @@ public class City {
 
     public void setIsFavorite(Boolean isFavorite) {
         this.isFavorite = isFavorite;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
 

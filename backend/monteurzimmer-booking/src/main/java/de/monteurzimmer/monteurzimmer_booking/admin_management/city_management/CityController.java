@@ -3,6 +3,7 @@ package de.monteurzimmer.monteurzimmer_booking.admin_management.city_management;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -14,7 +15,17 @@ public class CityController {
     private CityService cityService;
 
     @PostMapping
-    public ResponseEntity<City> addCity(@RequestBody City city) {
+    public ResponseEntity<City> addCity(@RequestParam("name") String name,
+                                        @RequestParam("isFavorite") Boolean isFavorite,
+                                        @RequestParam("photoFile") MultipartFile photoFile) {
+
+        City city = new City();
+        city.setName(name);
+        city.setIsFavorite(isFavorite);
+
+        String photoUrl = cityService.storePhoto(photoFile);
+        city.setPhoto(photoUrl);
+
         City createdCity = cityService.addCity(city);
         return ResponseEntity.ok(createdCity);
     }
