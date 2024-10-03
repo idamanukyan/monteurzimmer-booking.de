@@ -32,7 +32,7 @@ public class CityService {
         City savedCity = new City();
         savedCity.setName(city.getName());
         savedCity.setIsFavorite(city.getIsFavorite());
-
+        savedCity.setPhoto(city.getPhoto());
         return cityRepository.save(savedCity);
     }
 
