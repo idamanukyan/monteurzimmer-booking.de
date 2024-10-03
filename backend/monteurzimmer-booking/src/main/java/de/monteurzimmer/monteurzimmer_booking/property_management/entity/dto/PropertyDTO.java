@@ -57,5 +57,8 @@ public class PropertyDTO {
     private boolean geschaefteInDerNahe;
 
     private List<PropertyPhoto> photos;
+
+    private String socialMediaLink;
+
 }
 

@@ -42,4 +42,6 @@ public class FilterSearchPropertyDTO {
     private boolean ruhigeLage;
     private boolean guteVerkehrsanbindung;
     private boolean geschaefteInDerNahe;
+
+    private String socialMediaLink;
 }

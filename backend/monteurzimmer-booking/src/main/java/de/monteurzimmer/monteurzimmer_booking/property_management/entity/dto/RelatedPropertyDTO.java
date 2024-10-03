@@ -9,5 +9,8 @@ public class RelatedPropertyDTO {
     private Long relatedPropertyId;
     private String comparisonCriteria;
     private int sortOrder;
+
+    private String socialMediaLink;
+
 }
 

@@ -19,10 +19,10 @@ public class Property {
     private Long propertyId;
 
     @ManyToOne
-    @JoinColumn(name = "admin_id", nullable = true)
+    @JoinColumn(name = "admin_id")
     private User admin;
 
-    @Column(nullable = false)
+    @Column()
     private String propertyName;
 
     private String propertyType;
@@ -32,13 +32,14 @@ public class Property {
 
     private String location;
 
-    @Column(name = "price_per_night", nullable = false)
+    @Column(name = "price_per_night")
     private BigDecimal price;
 
     private BigDecimal rating;
     private Boolean isAvailable = true;
     private String country;
     private String city;
+    private String socialMediaLink;
     private Integer roomCount;
     private Integer bedCount;
 
