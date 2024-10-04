@@ -55,7 +55,7 @@ public class PropertyController {
         return ResponseEntity.ok(property);
     }
 
-    @GetMapping("/{city}")
+    @GetMapping("/city/{city}")
     public ResponseEntity<List<PropertyDTO>> getPropertyByCity(@PathVariable String city) {
         logger.debug("Fetching properties for city: {}", city);
         List<PropertyDTO> properties = propertyService.getPropertyByCity(city);
@@ -67,6 +67,14 @@ public class PropertyController {
     public ResponseEntity<List<PropertyDTO>> get20CheapestProperties() {
         logger.debug("Fetching 20 cheapest properties.");
         List<PropertyDTO> properties = propertyService.get20Chepeastproperties();
+        logger.info("Retrieved {} cheapest properties.", properties.size());
+        return ResponseEntity.ok(properties);
+    }
+
+    @GetMapping("/favorites")
+    public ResponseEntity<List<PropertyDTO>> get20FavoriteProperties() {
+        logger.debug("Fetching 20 favorite properties.");
+        List<PropertyDTO> properties = propertyService.get20FavoriteProperties();
         logger.info("Retrieved {} cheapest properties.", properties.size());
         return ResponseEntity.ok(properties);
     }

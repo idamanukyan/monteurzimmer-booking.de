@@ -16,4 +16,7 @@ public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSp
     @Query(value = "SELECT * FROM properties p ORDER BY p.price_per_night ASC LIMIT 20", nativeQuery = true)
     List<Property> find20Chepeast();
 
+    @Query(value = "SELECT * FROM properties p where p.is_favorite=true LIMIT 20", nativeQuery = true)
+    List<Property> find20Favorite();
+
 }
