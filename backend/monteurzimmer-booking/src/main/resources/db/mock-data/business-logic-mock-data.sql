@@ -81,13 +81,13 @@ VALUES ('Cosy Apartment', 'Wohnung', 'A quiet apartment in the city center.', 'M
 
 
 INSERT INTO property_photos (id, property_id, photo_url, uploaded_at, is_primary)
-VALUES (1, 1, 'frontend/project/src/assets/storage/upload/property-photos/photo1.jpg', '2024-10-04 10:30:00', true),
-       (2, 2, 'frontend/project/src/assets/storage/upload/property-photos/photo2.jpg', '2024-10-04 10:35:00', false),
-       (3, 3, 'frontend/project/src/assets/storage/upload/property-photos/photo3.jpg', '2024-10-03 11:00:00', true),
-       (4, 4, 'frontend/project/src/assets/storage/upload/property-photos/photo4.jpg', '2024-10-01 12:45:00', true),
-       (5, 5, 'frontend/project/src/assets/storage/upload/property-photos/photo5.jpg', '2024-09-30 09:00:00', false),
-       (6, 6, 'frontend/project/src/assets/storage/upload/property-photos/photo6.jpg', '2024-09-30 09:00:00', false),
-       (7, 7, 'frontend/project/src/assets/storage/upload/property-photos/photo7.jpg', '2024-09-30 09:00:00', false);
+VALUES (1, 1, 'storage/upload/property-photos/photo1.jpg', '2024-10-04 10:30:00', true),
+       (2, 2, 'storage/upload/property-photos/photo2.jpg', '2024-10-04 10:35:00', false),
+       (3, 3, 'storage/upload/property-photos/photo3.jpg', '2024-10-03 11:00:00', true),
+       (4, 4, 'storage/upload/property-photos/photo4.jpg', '2024-10-01 12:45:00', true),
+       (5, 5, 'storage/upload/property-photos/photo5.jpg', '2024-09-30 09:00:00', false),
+       (6, 6, 'storage/upload/property-photos/photo6.jpg', '2024-09-30 09:00:00', false),
+       (7, 7, 'storage/upload/property-photos/photo7.jpg', '2024-09-30 09:00:00', false);
 
 INSERT INTO cities (name, is_favorite, photo_url)
 VALUES ('Berlin', TRUE, 'storage/upload/icons/city/berlin.jpg'),

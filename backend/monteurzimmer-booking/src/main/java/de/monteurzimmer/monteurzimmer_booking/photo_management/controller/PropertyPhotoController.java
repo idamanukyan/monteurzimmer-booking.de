@@ -34,7 +34,7 @@ public class PropertyPhotoController {
      * @param isPrimary  Flag to indicate if the uploaded photo is the primary photo for the property.
      * @return ResponseEntity containing the uploaded PropertyPhotoDTO.
      */
-    @PostMapping("/{propertyId}")
+    @PostMapping(value = "/upload/{propertyId}", consumes = "multipart/form-data")
     public ResponseEntity<PropertyPhotoDTO> uploadPhoto(@PathVariable Long propertyId,
                                                         @RequestParam("photoFile") MultipartFile photoFile,
                                                         @RequestParam("isPrimary") boolean isPrimary) {
