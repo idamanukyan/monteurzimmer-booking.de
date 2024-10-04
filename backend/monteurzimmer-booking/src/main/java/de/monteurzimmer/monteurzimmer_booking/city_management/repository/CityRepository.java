@@ -1,5 +1,6 @@
-package de.monteurzimmer.monteurzimmer_booking.admin_management.city_management;
+package de.monteurzimmer.monteurzimmer_booking.city_management.repository;
 
+import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,6 @@ public interface CityRepository extends JpaRepository<City, Long> {
 
     City findByName(String name);
 
-    List<City> findByIsFavoriteTrue();
-
+    List<City> findTop10ByIsFavoriteTrueOrderByIdDesc();
 
 }

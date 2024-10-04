@@ -1,6 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.admin_management.service;
 
-import de.monteurzimmer.monteurzimmer_booking.admin_management.city_management.CityRepository;
+import de.monteurzimmer.monteurzimmer_booking.city_management.repository.CityRepository;
 import de.monteurzimmer.monteurzimmer_booking.property_management.repository.PropertyRepository;
 import de.monteurzimmer.monteurzimmer_booking.user_management.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

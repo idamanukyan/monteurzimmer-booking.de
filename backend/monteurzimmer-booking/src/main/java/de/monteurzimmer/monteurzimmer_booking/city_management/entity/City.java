@@ -1,4 +1,4 @@
-package de.monteurzimmer.monteurzimmer_booking.admin_management.city_management;
+package de.monteurzimmer.monteurzimmer_booking.city_management.entity;
 
 import jakarta.persistence.*;
 

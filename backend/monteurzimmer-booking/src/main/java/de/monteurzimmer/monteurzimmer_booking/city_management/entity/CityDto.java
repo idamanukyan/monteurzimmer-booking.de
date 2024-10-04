@@ -1,0 +1,13 @@
+package de.monteurzimmer.monteurzimmer_booking.city_management.entity;
+
+import lombok.Data;
+
+@Data
+public class CityDto {
+
+    private String name;
+
+    private Boolean isFavorite;
+
+    private String photo;
+}
