@@ -1,0 +1,56 @@
+/* FavCities.css */
+
+.citiesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
+    gap: 25px; /* Space between grid items */
+    padding: 20px; /* Padding around the grid */
+}
+
+.cityCard {
+    border-radius: 20px;
+    position: relative; /* For absolute positioning of overlay */
+    background-size: cover; /* Cover the entire card */
+    background-position: center; /* Center the background image */
+    height: 200px; /* Fixed height for city cards */
+    overflow: hidden; /* Ensure content stays within bounds */
+    transition: transform 0.3s ease; /* Smooth transition for scaling */
+}
+
+.cityCard:hover {
+    transform: scale(1.1); /* Enlarge card on hover */
+}
+
+.overlay {
+    position: absolute; /* Position overlay over the image */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Black overlay with transparency */
+    display: flex; /* Center content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    transition: background-color 0.3s ease; /* Smooth transition for overlay */
+}
+
+.cityName {
+    color: white; /* Text color */
+    font-weight: bold;
+    font-size: 1.5rem; /* Font size */
+    transform: translateY(0); /* Initial position (no translation) */
+    transition: transform 0.3s ease, color 0.3s ease; /* Smooth transition for position and color */
+}
+
+.cityCard:hover .overlay {
+    background-color: transparent; /* Remove overlay on hover */
+}
+
+.cityCard:hover .cityName {
+    background-color: #000000;
+    border-radius: 10px;
+    font-weight: bold;
+    padding: 5px 10px;
+    color: #ff5904; /* Change text color on hover */
+    transform: translateY(50px); /* Move text down by 10px on hover */
+}

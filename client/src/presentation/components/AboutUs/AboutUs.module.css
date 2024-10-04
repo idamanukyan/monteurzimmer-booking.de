@@ -1,0 +1,34 @@
+.aboutUsContainer {
+    display: flex; /* Use flexbox for horizontal alignment */
+    flex-direction: row; /* Arrange items in a row */
+    justify-content: center; /* Center items in the container */
+    gap: 20px; /* Space between items */
+}
+
+.aboutUsItem {
+    background-color: white;
+    border-style: solid;
+    border-color: #ea5e47;
+    border-width: 2px;
+    color: black; /* Text color */
+    padding: 15px 30px; /* Add some padding */
+    border-radius: 20px; /* Optional: round the corners */
+    transition: transform 0.3s, background-color 0.3s; /* Smooth transition */
+    text-align: center; /* Center text */
+    width: 350px; /* Fixed width for the items */
+}
+
+.aboutUsItem:hover {
+    background-color: rgba(252, 110, 49, 0.17); /* Change background color on hover */
+    border-style: none;
+    transform: scale(1.05); /* Scale the item up on hover */
+    box-shadow: 0 0 10px #ce9e8b;
+}
+
+.aboutUsItem > h3 {
+    font-size: 26px;
+}
+
+.aboutUsItem > p {
+    font-size: 17px;
+}

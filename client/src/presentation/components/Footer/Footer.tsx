@@ -1,0 +1,40 @@
+import React from 'react';
+import styles from './Footer.module.css';
+
+const Footer = () => {
+    return (
+        <footer className={styles.footer}>
+            <div className={styles.footerColumn}>
+                <h3>About Us</h3>
+                <p>
+                    We are dedicated to providing the best service in the industry. Our mission is to
+                    exceed your expectations and deliver exceptional value.
+                </p>
+            </div>
+            <div className={styles.footerColumn}>
+                <h3>Contact Information</h3>
+                <p>Address: 123 Main St, Your City, Your Country</p>
+                <p>Phone: (123) 456-7890</p>
+                <p>Email: info@yourcompany.com</p>
+            </div>
+            <div className={styles.footerColumn}>
+                <h3>Social Media Links</h3>
+                <ul className={styles.socialMedia}>
+                    <li><img src={"https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"} alt={''}/> <a href="#" className={styles.socialIcon}>Facebook</a></li>
+                    <li><img src={"https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?w=1060&t=st=1728017452~exp=1728018052~hmac=9b9d6ea2c97b0e950fd008f1f101552227445c592e37625338c9201229de16f7"} alt={''}/> <a href="#" className={styles.socialIcon}>Twitter</a></li>
+                    <li><img src={"https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"} alt={''}/> <a href="#" className={styles.socialIcon}>Instagram</a></li>
+                </ul>
+            </div>
+            <div className={styles.footerColumn}>
+                <h3>Legal Information</h3>
+                <ul className={styles.legalLinks}>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Legal Disclaimer</a></li>
+                </ul>
+            </div>
+        </footer>
+    );
+};
+
+export default Footer;

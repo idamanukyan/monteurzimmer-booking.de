@@ -1,0 +1,77 @@
+.heroSlide {
+    margin-top: 50px;
+    position: relative; /* Make the container relative to contain the ::before pseudo-element */
+    border-radius: 20px;
+    background-image: url('../../../assets/images/bgHeroSlide.jpg');
+    background-size: cover; /* Make the image cover the entire container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Avoid repeating the image */
+    padding: 100px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 70%;
+    height: 200px; /* Set desired height */
+}
+
+.heroSlide::before {
+    content: ''; /* Required for pseudo-element to display */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Black color with 20% opacity */
+    border-radius: inherit; /* Match the border-radius of the parent */
+    z-index: 1; /* Place it behind the content but above the background */
+}
+
+.heroSlide * {
+    position: relative;
+    z-index: 2; /* Ensure content stays above the overlay */
+}
+
+.motto {
+    margin-bottom: 40px;
+}
+
+.motto > span {
+    color: #ffffff;
+    font-size: 44px;
+    font-weight: bold;
+}
+
+.heroSlide img {
+    height: 50px;
+}
+
+.heroSlide h1 a {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 24px;
+    color: white;
+}
+
+.heroSlide nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+}
+
+.heroSlide nav a {
+    background-color: transparent;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.heroSlide nav a:hover {
+    background-color: #08b8fa;
+    color: white;
+}
+
+.contactUs {
+}

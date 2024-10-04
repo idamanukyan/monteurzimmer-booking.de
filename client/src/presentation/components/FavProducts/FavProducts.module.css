@@ -1,0 +1,89 @@
+.slideshowContainer {
+    border-radius: 20px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    height: 500px;
+}
+
+.slideshowImage {
+    position: absolute;
+    width: 100%;
+    transform: translateX(8%);
+    object-fit: cover; /* Cover the container without stretching */
+    height: 100%;
+    transition: opacity 1s ease-in-out; /* Smooth transition */
+}
+
+.slideshowImage > img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.slideshowText {
+    position: absolute;
+    width: 30%;
+    height: -webkit-fill-available;
+    /*transform: translateX(-100%);*/
+    color: #000000;
+    background: rgb(255, 255, 255);/* Semi-transparent background */
+    padding: 25px 60px 25px 120px;
+    border-radius: 20px;
+    z-index: 2; /* Ensure text is above the overlay */
+    flex-direction: column;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.slideshowText > h2 {
+    font-size: 36px;
+    color: #f34429;
+    text-align: start;
+}
+
+.slideshowText > p {
+    font-size: 28px;
+    text-align: start;
+}
+
+.slideshowContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(14, 29, 51, 0.2), rgba(0, 0, 0, 0.8));
+    z-index: 1; /* Ensure overlay is below the text but above the image */
+    transition: opacity 1s ease-in-out; /* Smooth transition for overlay */
+}
+
+/* Navigation buttons */
+.navigation {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Space between buttons */
+    transform: translateY(-50%);
+    z-index: 3; /* Ensure buttons are above everything else */
+}
+
+.navButton {
+    background: rgba(0, 0, 0, 0); /* Semi-transparent background */
+    border: none;
+    font-weight: bold;
+    color: #ff4d31;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-size: 2.5rem; /* Size of the arrow */
+    margin: 20px 20px;
+}
+
+.navButton:hover {
+    background: rgba(255, 255, 255, 0.5); /* Change background on hover */
+}
