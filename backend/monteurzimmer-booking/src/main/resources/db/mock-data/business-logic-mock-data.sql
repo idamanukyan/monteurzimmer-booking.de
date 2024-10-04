@@ -81,22 +81,22 @@ VALUES ('Cosy Apartment', 'Wohnung', 'A quiet apartment in the city center.', 'M
 
 
 INSERT INTO property_photos (id, property_id, photo_url, uploaded_at, is_primary)
-VALUES (1, 1, 'storage/upload/property-photos/photo1.jpg', '2024-10-04 10:30:00', true),
-       (2, 2, 'storage/upload/property-photos/photo2.jpg', '2024-10-04 10:35:00', false),
-       (3, 3, 'storage/upload/property-photos/photo3.jpg', '2024-10-03 11:00:00', true),
-       (4, 4, 'storage/upload/property-photos/photo4.jpg', '2024-10-01 12:45:00', true),
-       (5, 5, 'storage/upload/property-photos/photo5.jpg', '2024-09-30 09:00:00', false),
-       (6, 6, 'storage/upload/property-photos/photo6.jpg', '2024-09-30 09:00:00', false),
-       (7, 7, 'storage/upload/property-photos/photo7.jpg', '2024-09-30 09:00:00', false);
+VALUES (1, 1, 'client/storage/upload/property-photos/photo1.jpg', '2024-10-04 10:30:00', true),
+       (2, 2, 'client/storage/upload/property-photos/photo2.jpg', '2024-10-04 10:35:00', false),
+       (3, 3, 'client/storage/upload/property-photos/photo3.jpg', '2024-10-03 11:00:00', true),
+       (4, 4, 'client/storage/upload/property-photos/photo4.jpg', '2024-10-01 12:45:00', true),
+       (5, 5, 'client/storage/upload/property-photos/photo5.jpg', '2024-09-30 09:00:00', false),
+       (6, 6, 'client/storage/upload/property-photos/photo6.jpg', '2024-09-30 09:00:00', false),
+       (7, 7, 'client/storage/upload/property-photos/photo7.jpg', '2024-09-30 09:00:00', false);
 
 INSERT INTO cities (name, is_favorite, photo_url)
-VALUES ('Berlin', TRUE, 'storage/upload/icons/city/berlin.jpg'),
-       ('Hamburg', TRUE, 'storage/upload/icons/city/hamburg.jpg'),
-       ('Munich', TRUE, 'storage/upload/icons/city/munich.jpg'),
-       ('Cologne', TRUE, 'storage/upload/icons/city/cologne.jpg'),
-       ('Stuttgart', TRUE, 'storage/upload/icons/city/stuttgart.jpg'),
-       ('Dortmund', TRUE, 'storage/upload/icons/city/dortmund.jpg'),
-       ('Lepizig', TRUE, 'storage/upload/icons/city/leipzig.jpg'),
-       ('Essen', TRUE, 'storage/upload/icons/city/essen.jpg'),
-       ('Hannover', TRUE, 'storage/upload/icons/city/hannover.jpg'),
-       ('Nuremberg', FALSE, 'storage/upload/icons/city/nuremberg.jpg');
+VALUES ('Berlin', TRUE, 'client/storage/upload/icons/city/berlin.jpg'),
+       ('Hamburg', TRUE, 'client/storage/upload/icons/city/hamburg.jpg'),
+       ('Munich', TRUE, 'client/storage/upload/icons/city/munich.jpg'),
+       ('Cologne', TRUE, 'client/storage/upload/icons/city/cologne.jpg'),
+       ('Stuttgart', TRUE, 'client/storage/upload/icons/city/stuttgart.jpg'),
+       ('Dortmund', TRUE, 'client/storage/upload/icons/city/dortmund.jpg'),
+       ('Lepizig', TRUE, 'client/storage/upload/icons/city/leipzig.jpg'),
+       ('Essen', TRUE, 'client/storage/upload/icons/city/essen.jpg'),
+       ('Hannover', TRUE, 'client/storage/upload/icons/city/hannover.jpg'),
+       ('Nuremberg', FALSE, 'client/storage/upload/icons/city/nuremberg.jpg');

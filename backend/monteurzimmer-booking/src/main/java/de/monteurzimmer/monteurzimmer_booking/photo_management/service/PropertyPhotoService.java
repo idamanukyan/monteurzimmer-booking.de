@@ -24,7 +24,7 @@ public class PropertyPhotoService {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertyPhotoService.class);
 
-    private static final String UPLOAD_DIR = "storage/upload/property-photos";
+    private static final String UPLOAD_DIR = "client/storage/upload/property-photos";
 
     @Autowired
     private PropertyPhotoRepository propertyPhotoRepository;
