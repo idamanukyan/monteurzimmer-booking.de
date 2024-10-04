@@ -24,7 +24,7 @@ public class PropertyPhotoService {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertyPhotoService.class);
 
-    private static final String UPLOAD_DIR = "frontend/project/src/assets/storage/upload/property-photos";
+    private static final String UPLOAD_DIR = "storage/upload/property-photos";
 
     @Autowired
     private PropertyPhotoRepository propertyPhotoRepository;
@@ -51,6 +51,10 @@ public class PropertyPhotoService {
         photo.setPhotoUrl(photoUrl);
         photo.setUploadedAt(LocalDateTime.now());
         photo.setIsPrimary(isPrimary);
+
+        List<PropertyPhoto> propertyPhotos = property.getPhotos();
+
+        propertyPhotos.add(photo);
 
         logger.info("Adding photo to property with ID: {}", propertyId);
         return propertyPhotoRepository.save(photo);
@@ -128,7 +132,10 @@ public class PropertyPhotoService {
      */
     private boolean isValidImageFile(MultipartFile photoFile) {
         String contentType = photoFile.getContentType();
-        return contentType != null &&
-                (contentType.equals("image/jpeg") || contentType.equals("image/png") || contentType.equals("image/gif"));
+        return contentType != null;
+                //&&
+                //(contentType.equals("image/jpeg") || contentType.equals("image/jpg") ||
+                  //      contentType.equals("image/svg") ||
+                    //    contentType.equals("image/png") || contentType.equals("image/gif"));
     }
 }
