@@ -18,12 +18,14 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .anyRequest().permitAll()
+                        .requestMatchers("/client/storage/upload/icons/city/**").permitAll() // Allow access to your image directory
+                        .anyRequest().permitAll() // Keep allowing all other requests
                 );
         return http.build();
     }
 
-    @Bean
+
+/*    @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user = User.withDefaultPasswordEncoder() // For simplicity, encode the password
                 .username("frontend-user")
@@ -32,5 +34,5 @@ public class SecurityConfig {
                 .build();
 
         return new InMemoryUserDetailsManager(user);
-    }
+    }*/
 }
