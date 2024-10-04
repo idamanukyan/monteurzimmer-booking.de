@@ -19,24 +19,22 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PropertyService {
 
-    final Logger log = LoggerFactory.getLogger(PropertyService.class);
+    private static final Logger log = LoggerFactory.getLogger(PropertyService.class);
 
     private final PropertyRepository propertyRepository;
     private final ModelMapper modelMapper;
 
     public List<PropertyDTO> getAllProperties() {
-        log.info("User has tried to get all information about properties");
+        log.info("Fetching all properties.");
         List<Property> properties = propertyRepository.findAll();
 
         return properties.stream()
-                .map(property -> {
-                    PropertyDTO propertyDTO = modelMapper.map(property, PropertyDTO.class);
-                    return propertyDTO;
-                })
+                .map(property -> modelMapper.map(property, PropertyDTO.class))
                 .collect(Collectors.toList());
     }
 
     public List<PropertyDTO> getFilteredProperties(FilterSearchPropertyDTO propertyDTO) {
+        log.info("Filtering properties with criteria: {}", propertyDTO);
         Specification<Property> spec = Specification.where(null);
 
         if (propertyDTO.getCity() != null) {
@@ -61,99 +59,103 @@ public class PropertyService {
             spec = spec.and(PropertySpecification.withRoomCount(propertyDTO.getRoomCount()));
         }
 
-        // Check if each boolean value is true, if so add it to the specification.
-        if (propertyDTO.isWlan()) {
-            spec = spec.and(PropertySpecification.withWlan(propertyDTO.isWlan()));
-        }
-        if (propertyDTO.isTv()) {
-            spec = spec.and(PropertySpecification.withTv(propertyDTO.isTv()));
-        }
-        if (propertyDTO.isGetrennteBetten()) {
-            spec = spec.and(PropertySpecification.withGetrennteBetten(propertyDTO.isGetrennteBetten()));
-        }
-        if (propertyDTO.isPrivatesBad()) {
-            spec = spec.and(PropertySpecification.withPrivatesBad(propertyDTO.isPrivatesBad()));
-        }
-        if (propertyDTO.isKochmoglichkeit()) {
-            spec = spec.and(PropertySpecification.withKochmoglichkeit(propertyDTO.isKochmoglichkeit()));
-        }
-        if (propertyDTO.isRadio()) {
-            spec = spec.and(PropertySpecification.withRadio(propertyDTO.isRadio()));
-        }
-        if (propertyDTO.isHandtucherInkl()) {
-            spec = spec.and(PropertySpecification.withHandtucherInkl(propertyDTO.isHandtucherInkl()));
-        }
-        if (propertyDTO.isZustellbettMoglich()) {
-            spec = spec.and(PropertySpecification.withZustellbettMoglich(propertyDTO.isZustellbettMoglich()));
-        }
-        if (propertyDTO.isBettwascheInkl()) {
-            spec = spec.and(PropertySpecification.withBettwascheInkl(propertyDTO.isBettwascheInkl()));
-        }
-        if (propertyDTO.isKuhlschrank()) {
-            spec = spec.and(PropertySpecification.withKuehlschrank(propertyDTO.isKuhlschrank()));
-        }
-        if (propertyDTO.isKaffeemaschine()) {
-            spec = spec.and(PropertySpecification.withKaffeemaschine(propertyDTO.isKaffeemaschine()));
-        }
-        if (propertyDTO.isMikrowelle()) {
-            spec = spec.and(PropertySpecification.withMikrowelle(propertyDTO.isMikrowelle()));
-        }
-        if (propertyDTO.isSpulmaschine()) {
-            spec = spec.and(PropertySpecification.withSpuelmaschine(propertyDTO.isSpulmaschine()));
-        }
-        if (propertyDTO.isWc()) {
-            spec = spec.and(PropertySpecification.withWc(propertyDTO.isWc()));
-        }
-        if (propertyDTO.isTerrasse()) {
-            spec = spec.and(PropertySpecification.withTerrasse(propertyDTO.isTerrasse()));
-        }
-        if (propertyDTO.isWasserkocher()) {
-            spec = spec.and(PropertySpecification.withWasserkocher(propertyDTO.isWasserkocher()));
-        }
-        if (propertyDTO.isBadewanne()) {
-            spec = spec.and(PropertySpecification.withBadewanne(propertyDTO.isBadewanne()));
-        }
-        if (propertyDTO.isGarten()) {
-            spec = spec.and(PropertySpecification.withGarten(propertyDTO.isGarten()));
-        }
-        if (propertyDTO.isKochutensilien()) {
-            spec = spec.and(PropertySpecification.withKochutensilien(propertyDTO.isKochutensilien()));
-        }
-        if (propertyDTO.isWaschmaschine()) {
-            spec = spec.and(PropertySpecification.withWaschmaschine(propertyDTO.isWaschmaschine()));
-        }
-        if (propertyDTO.isEigenstandigerCheckIn()) {
-            spec = spec.and(PropertySpecification.withEigenstandigerCheckIn(propertyDTO.isEigenstandigerCheckIn()));
-        }
-        if (propertyDTO.isRaucher()) {
-            spec = spec.and(PropertySpecification.withRaucher(propertyDTO.isRaucher()));
-        }
-        if (propertyDTO.isRuhigeLage()) {
-            spec = spec.and(PropertySpecification.withRuhigeLage(propertyDTO.isRuhigeLage()));
-        }
-        if (propertyDTO.isGuteVerkehrsanbindung()) {
-            spec = spec.and(PropertySpecification.withGuteVerkehrsanbindung(propertyDTO.isGuteVerkehrsanbindung()));
-        }
-        if (propertyDTO.isGeschaefteInDerNahe()) {
-            spec = spec.and(PropertySpecification.withGeschaefteInDerNahe(propertyDTO.isGeschaefteInDerNahe()));
-        }
+        // Check if each boolean value is true, if so, add it to the specification.
+        addBooleanSpecifications(spec, propertyDTO);
 
         List<Property> filteredProperties = propertyRepository.findAll(spec);
+        log.info("Retrieved {} filtered properties.", filteredProperties.size());
         return filteredProperties.stream()
                 .map(property -> modelMapper.map(property, PropertyDTO.class))
                 .collect(Collectors.toList());
     }
 
+    private void addBooleanSpecifications(Specification<Property> spec, FilterSearchPropertyDTO propertyDTO) {
+        if (propertyDTO.getWifi()) {
+            spec = spec.and(PropertySpecification.withWifi(true));
+        }
+        if (propertyDTO.getTv()) {
+            spec = spec.and(PropertySpecification.withTv(true));
+        }
+        if (propertyDTO.getSeparateBeds()) {
+            spec = spec.and(PropertySpecification.withSeparateBeds(true));
+        }
+        if (propertyDTO.getPrivateBath()) {
+            spec = spec.and(PropertySpecification.withPrivateBath(true));
+        }
+        if (propertyDTO.getCookingFacilities()) {
+            spec = spec.and(PropertySpecification.withCookingFacilities(true));
+        }
+        if (propertyDTO.getRadio()) {
+            spec = spec.and(PropertySpecification.withRadio(true));
+        }
+        if (propertyDTO.getTowels()) {
+            spec = spec.and(PropertySpecification.withTowels(true));
+        }
+        if (propertyDTO.getExtraBedPossible()) {
+            spec = spec.and(PropertySpecification.withExtraBedPossible(true));
+        }
+        if (propertyDTO.getBedLinen()) {
+            spec = spec.and(PropertySpecification.withBedLinen(true));
+        }
+        if (propertyDTO.getFridge()) {
+            spec = spec.and(PropertySpecification.withFridge(true));
+        }
+        if (propertyDTO.getCoffeeMachine()) {
+            spec = spec.and(PropertySpecification.withCoffeeMachine(true));
+        }
+        if (propertyDTO.getMicrowave()) {
+            spec = spec.and(PropertySpecification.withMicrowave(true));
+        }
+        if (propertyDTO.getDishwasher()) {
+            spec = spec.and(PropertySpecification.withDishwasher(true));
+        }
+        if (propertyDTO.getWc()) {
+            spec = spec.and(PropertySpecification.withWc(true));
+        }
+        if (propertyDTO.getTerrace()) {
+            spec = spec.and(PropertySpecification.withTerrace(true));
+        }
+        if (propertyDTO.getKettle()) {
+            spec = spec.and(PropertySpecification.withKettle(true));
+        }
+        if (propertyDTO.getBathtub()) {
+            spec = spec.and(PropertySpecification.withBathtub(true));
+        }
+        if (propertyDTO.getGarden()) {
+            spec = spec.and(PropertySpecification.withGarden(true));
+        }
+        if (propertyDTO.getCookingUtensils()) {
+            spec = spec.and(PropertySpecification.withCookingUtensils(true));
+        }
+        if (propertyDTO.getWashingMachine()) {
+            spec = spec.and(PropertySpecification.withWashingMachine(true));
+        }
+        if (propertyDTO.getSelfCheckIn()) {
+            spec = spec.and(PropertySpecification.withSelfCheckIn(true));
+        }
+        if (propertyDTO.getSmoking()) {
+            spec = spec.and(PropertySpecification.withSmoking(true));
+        }
+        if (propertyDTO.getQuietLocation()) {
+            spec = spec.and(PropertySpecification.withQuietLocation(true));
+        }
+        if (propertyDTO.getGoodTransportation()) {
+            spec = spec.and(PropertySpecification.withGoodTransportation(true));
+        }
+        if (propertyDTO.getShopsNearby()) {
+            spec = spec.and(PropertySpecification.withShopsNearby(true));
+        }
+    }
 
     public PropertyDTO getPropertyById(Long id) {
-        log.info("User has tried to get information about a user");
+        log.info("Fetching property with ID: {}", id);
         Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
         return modelMapper.map(property, PropertyDTO.class);
     }
 
     public List<PropertyDTO> getPropertyByCity(String city) {
-        log.info("User has tried to get information about a user");
+        log.info("Fetching properties in city: {}", city);
         List<Property> propertyList = propertyRepository.findByCity(city);
         return propertyList.stream()
                 .map(property -> modelMapper.map(property, PropertyDTO.class))
@@ -161,7 +163,7 @@ public class PropertyService {
     }
 
     public List<PropertyDTO> get20Chepeastproperties() {
-        log.info("User has tried to get information about a user");
+        log.info("Fetching 20 cheapest properties.");
         List<Property> propertyList = propertyRepository.find20Chepeast();
         return propertyList.stream()
                 .map(property -> modelMapper.map(property, PropertyDTO.class))
@@ -169,39 +171,40 @@ public class PropertyService {
     }
 
     public PropertyDTO createProperty(PropertyDTO propertyDTO) {
-        // Map DTO to entity and save the property
+        log.info("Creating new property: {}", propertyDTO);
         Property property = modelMapper.map(propertyDTO, Property.class);
         Property savedProperty = propertyRepository.save(property);
-
-        // Return the saved property as a DTO
+        log.info("Successfully created property with ID: {}", savedProperty.getId());
         return modelMapper.map(savedProperty, PropertyDTO.class);
     }
 
     public PropertyDTO addFavoriteProperty(FavoritePropertyDto propertyDto) {
+        log.info("Updating favorite status for property ID: {}", propertyDto.getPropertyId());
         Property property = propertyRepository.findById(propertyDto.getPropertyId())
                 .orElseThrow(() -> new RuntimeException("Property not found"));
 
-        // Set the isFavorite status based on the incoming value
         property.setIsFavorite(propertyDto.getIsFavorite());
-
         Property updatedProperty = propertyRepository.save(property);
+        log.info("Successfully updated favorite status for property ID: {}", propertyDto.getPropertyId());
         return modelMapper.map(updatedProperty, PropertyDTO.class);
     }
 
-
     public PropertyDTO updateProperty(Long id, PropertyDTO propertyDTO) {
+        log.info("Updating property with ID: {}", id);
         Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
 
         modelMapper.map(propertyDTO, property);
         Property updatedProperty = propertyRepository.save(property);
+        log.info("Successfully updated property with ID: {}", id);
         return modelMapper.map(updatedProperty, PropertyDTO.class);
     }
 
     public void deleteProperty(Long id) {
+        log.info("Deleting property with ID: {}", id);
         Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
         propertyRepository.delete(property);
+        log.info("Successfully deleted property with ID: {}", id);
     }
-
 }

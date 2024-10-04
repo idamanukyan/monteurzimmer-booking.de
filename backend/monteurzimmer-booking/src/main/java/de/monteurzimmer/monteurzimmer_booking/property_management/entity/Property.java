@@ -16,79 +16,63 @@ public class Property {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long propertyId;
-
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "admin_id")
     private User admin;
-
-    @Column()
     private String propertyName;
-
     private String propertyType;
-
     @Lob
     private String description;
-
-    private String location;
-
+    private String address;
     @Column(name = "price_per_night")
-    private BigDecimal price;
-
+    private BigDecimal pricePerNight;
+    @Column(name = "full_price")
+    private BigDecimal fullPrice;
+    @Column(name = "price_per_bed")
+    private BigDecimal pricePerBed;
     private BigDecimal rating;
-    private Boolean isAvailable = true;
+    private Boolean isAvailable;
     private String country;
     private String city;
-    private String socialMediaLink;
     private Integer roomCount;
     private Integer bedCount;
-
     private Integer numberOfGuests;
-
-
-    private Boolean wlan;
+    private String socialMediaLink;
+    private Boolean wifi;
     private Boolean tv;
-    private Boolean getrennteBetten;
-    private Boolean privatesBad;
-    private Boolean kochmoglichkeit;
+    private Boolean separateBeds;
+    private Boolean privateBath;
+    private Boolean cookingFacilities;
     private Boolean radio;
-    private Boolean handtucherInkl;
-    private Boolean zustellbettMoglich;
-    private Boolean bettwascheInkl;
-    private Boolean kuehlschrank;
-    private Boolean kaffeemaschine;
-    private Boolean mikrowelle;
-    private Boolean spuelmaschine;
+    private Boolean towels;
+    private Boolean extraBedPossible;
+    private Boolean bedLinen;
+    private Boolean fridge;
+    private Boolean coffeeMachine;
+    private Boolean microwave;
+    private Boolean dishwasher;
     private Boolean wc;
-    private Boolean terrasse;
-    private Boolean wasserkocher;
-    private Boolean badewanne;
-    private Boolean garten;
-    private Boolean kochutensilien;
-    private Boolean waschmaschine;
-
-    @Column(name = "eigenstandiger_check_in")
-    private Boolean eigenstandigerCheckIn;
-
-    private Boolean raucher;
-    private Boolean ruhigeLage;
-    private Boolean guteVerkehrsanbindung;
-    private Boolean geschaefteInDerNahe;
-
+    private Boolean terrace;
+    private Boolean kettle;
+    private Boolean bathtub;
+    private Boolean garden;
+    private Boolean cookingUtensils;
+    private Boolean washingMachine;
+    private Boolean selfCheckIn;
+    private Boolean smoking;
+    private Boolean quietLocation;
+    private Boolean goodTransportation;
+    private Boolean shopsNearby;
     private String neighborhood;
-    private BigDecimal reviewScore;
     private Integer bathrooms;
     private BigDecimal latitude;
     private BigDecimal longitude;
-
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
-
-    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
-    private List<PropertyPhoto> photos;
-
     @Column(name = "is_favorite")
     private Boolean isFavorite;
-
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
+    private List<PropertyPhoto> photos;
 }
 

@@ -1,6 +1,5 @@
 package de.monteurzimmer.monteurzimmer_booking.photo_management.controller;
 
-import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PhotoUploadRequest;
 import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhoto;
 import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhotoDTO;
 import de.monteurzimmer.monteurzimmer_booking.photo_management.service.PropertyPhotoService;
@@ -20,8 +19,8 @@ public class PropertyPhotoController {
 
     @PostMapping
     public ResponseEntity<PropertyPhotoDTO> uploadPhoto(@PathVariable Long propertyId,
-                                                     @RequestParam("photoFile") MultipartFile photoFile,
-                                                     @RequestParam("isPrimary") boolean isPrimary) {
+                                                        @RequestParam("photoFile") MultipartFile photoFile,
+                                                        @RequestParam("isPrimary") boolean isPrimary) {
 
         String photoUrl = propertyPhotoService.storePhoto(photoFile);
 
@@ -31,7 +30,7 @@ public class PropertyPhotoController {
         // Map to DTO
         PropertyPhotoDTO photoDTO = new PropertyPhotoDTO();
         photoDTO.setId(photo.getId());
-        photoDTO.setPropertyId(photo.getProperty().getPropertyId());
+        photoDTO.setPropertyId(photo.getProperty().getId());
         photoDTO.setPhotoUrl(photo.getPhotoUrl());
         photoDTO.setPrimary(photo.getPrimary());
 

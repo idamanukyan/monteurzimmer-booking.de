@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface PropertyPhotoRepository extends JpaRepository<PropertyPhoto, Long> {
-    List<PropertyPhoto> findByPropertyPropertyId(Long propertyId);
+    List<PropertyPhoto> findByPropertyId(Long propertyId);
 }
 

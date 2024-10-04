@@ -3,7 +3,7 @@ CREATE TABLE users
 (
     id                    BIGINT AUTO_INCREMENT PRIMARY KEY,
     name                  VARCHAR(255) NOT NULL,
-    surname               VARCHAR(255) NOT NULL,
+    surname               VARCHAR(255),
     email                 VARCHAR(255) NOT NULL UNIQUE,
     password              VARCHAR(255) NOT NULL,
     phone_number          VARCHAR(15),
@@ -59,7 +59,8 @@ CREATE TABLE roles_users
 CREATE TABLE user_sessions
 (
     id               BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id          BIGINT    NOT NULL,
+    user_id          BIGINT,
+    session_id       VARCHAR(255),
     expiry_timestamp TIMESTAMP NOT NULL,
     is_active        BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
@@ -86,6 +87,3 @@ CREATE TABLE password_resets
     is_reset         BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
-
-alter table user_sessions
-add column session_id varchar(255);

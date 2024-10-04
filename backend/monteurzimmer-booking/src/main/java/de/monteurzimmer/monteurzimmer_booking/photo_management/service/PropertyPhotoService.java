@@ -40,7 +40,7 @@ public class PropertyPhotoService {
     }
 
     public List<String> getPhotosByPropertyId(Long propertyId) {
-        List<PropertyPhoto> photos = propertyPhotoRepository.findByPropertyPropertyId(propertyId);
+        List<PropertyPhoto> photos = propertyPhotoRepository.findByPropertyId(propertyId);
 
         return photos.stream()
                 .map(PropertyPhoto::getPhotoUrl) // Extract the photoUrl from each entity

@@ -1,47 +1,61 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto;
 
+import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhoto;
 import lombok.Data;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 public class FilterSearchPropertyDTO {
-
-    private String city;
-    private Integer numberOfGuests;
-    private String distance; //suche in stadt, suche in der nahe, suche im umkreis, suche im ereweiteren umkreis
-
-    //secondary popup filters
+    private String propertyName;
     private String propertyType;
-    private String neighborhood;
-    private Long minPrice;
-    private Long maxPrice;
-    private int roomCount; //Alle, Einzelzimmer, DoppelZimmer, Mehrbettzimmer, Ganze Unterkunft
-
-    // Facilities flags
-    private boolean wlan;
-    private boolean tv;
-    private boolean getrennteBetten;
-    private boolean privatesBad;
-    private boolean kochmoglichkeit;
-    private boolean radio;
-    private boolean handtucherInkl;
-    private boolean zustellbettMoglich;
-    private boolean bettwascheInkl;
-    private boolean kuhlschrank;
-    private boolean kaffeemaschine;
-    private boolean mikrowelle;
-    private boolean spulmaschine;
-    private boolean wc;
-    private boolean terrasse;
-    private boolean wasserkocher;
-    private boolean badewanne;
-    private boolean garten;
-    private boolean kochutensilien;
-    private boolean waschmaschine;
-    private boolean eigenstandigerCheckIn;
-    private boolean raucher;
-    private boolean ruhigeLage;
-    private boolean guteVerkehrsanbindung;
-    private boolean geschaefteInDerNahe;
-
+    private String description;
+    private String address;
+    private BigDecimal pricePerNight;
+    private BigDecimal fullPrice;
+    private BigDecimal pricePerBed;
+    private BigDecimal rating;
+    private Boolean isAvailable;
+    private String country;
+    private String city;
+    private Integer roomCount; //Alle, Einzelzimmer, DoppelZimmer, Mehrbettzimmer, Ganze Unterkunft
+    private Integer bedCount;
+    private Integer numberOfGuests;
     private String socialMediaLink;
+    private Boolean wifi;
+    private Boolean tv;
+    private Boolean separateBeds;
+    private Boolean privateBath;
+    private Boolean cookingFacilities;
+    private Boolean radio;
+    private Boolean towels;
+    private Boolean extraBedPossible;
+    private Boolean bedLinen;
+    private Boolean fridge;
+    private Boolean coffeeMachine;
+    private Boolean microwave;
+    private Boolean dishwasher;
+    private Boolean wc;
+    private Boolean terrace;
+    private Boolean kettle;
+    private Boolean bathtub;
+    private Boolean garden;
+    private Boolean cookingUtensils;
+    private Boolean washingMachine;
+    private Boolean selfCheckIn;
+    private Boolean smoking;
+    private Boolean quietLocation;
+    private Boolean goodTransportation;
+    private Boolean shopsNearby;
+    private String neighborhood;
+    private Integer bathrooms;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
+    private Boolean isFavorite;
+    private List<PropertyPhoto> photos;
+
+    //for price range search
+    private Long maxPrice;
+    private Long minPrice;
 }

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 public class SearchHistoryDTO {
     private Long searchId;
-    private Long userId; //can be null, if null ip
+    private Long userId;
     private LocalDateTime searchTimestamp;
     private String city;
     private String propertyType;

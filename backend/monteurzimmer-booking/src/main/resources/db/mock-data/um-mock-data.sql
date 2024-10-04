@@ -43,7 +43,3 @@ VALUES (1, 'verificationcode1', '2024-12-31 23:59:59', TRUE),
 
 INSERT INTO password_resets (user_id, reset_code, expiry_timestamp, is_reset)
 VALUES (3, 'resetcode1', '2024-12-31 23:59:59', FALSE);
-
-
-
-

@@ -21,7 +21,7 @@ public class PropertySpecification {
             if (numberOfGuests == null) {
                 return criteriaBuilder.conjunction();
             }
-            return criteriaBuilder.equal(root.get("numberOfGuests"), numberOfGuests);
+            return criteriaBuilder.equal(root.get("number_of_guests"), numberOfGuests);
         };
     }
 
@@ -30,7 +30,7 @@ public class PropertySpecification {
             if (propertyType == null || propertyType.isEmpty()) {
                 return criteriaBuilder.conjunction();
             }
-            return criteriaBuilder.equal(root.get("propertyType"), propertyType);
+            return criteriaBuilder.equal(root.get("property_type"), propertyType);
         };
     }
 
@@ -64,109 +64,109 @@ public class PropertySpecification {
     public static Specification<Property> withRoomCount(Integer roomCount) {
         return (root, query, criteriaBuilder) -> {
             if (roomCount == 0) {
-                return criteriaBuilder.conjunction(); // Assuming 0 means "All"
+                return criteriaBuilder.conjunction();
             }
-            return criteriaBuilder.equal(root.get("roomCount"), roomCount);
+            return criteriaBuilder.equal(root.get("room_count"), roomCount);
         };
     }
 
-    public static Specification<Property> withWlan(boolean wlan) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("wlan"), wlan);
+    public static Specification<Property> withWifi(boolean wlan) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("wifi"), wlan);
     }
 
     public static Specification<Property> withTv(boolean tv) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("tv"), tv);
     }
 
-    public static Specification<Property> withGetrennteBetten(boolean getrennteBetten) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("getrennteBetten"), getrennteBetten);
+    public static Specification<Property> withSeparateBeds(boolean getrennteBetten) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("separate_beds"), getrennteBetten);
     }
 
-    public static Specification<Property> withPrivatesBad(boolean privatesBad) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("privatesBad"), privatesBad);
+    public static Specification<Property> withPrivateBath(boolean privatesBad) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("private_bath"), privatesBad);
     }
 
-    public static Specification<Property> withKochmoglichkeit(boolean kochmoglichkeit) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("kochmoglichkeit"), kochmoglichkeit);
+    public static Specification<Property> withCookingFacilities(boolean kochmoglichkeit) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("cooking_facilities"), kochmoglichkeit);
     }
 
     public static Specification<Property> withRadio(boolean radio) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("radio"), radio);
     }
 
-    public static Specification<Property> withHandtucherInkl(boolean handtucherInkl) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("handtucherInkl"), handtucherInkl);
+    public static Specification<Property> withTowels(boolean towels) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("towels"), towels);
     }
 
-    public static Specification<Property> withZustellbettMoglich(boolean zustellbettMoglich) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("zustellbettMoglich"), zustellbettMoglich);
+    public static Specification<Property> withExtraBedPossible(boolean extraBedPossible) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("extra_bed_possible"), extraBedPossible);
     }
 
-    public static Specification<Property> withBettwascheInkl(boolean bettwascheInkl) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("bettwascheInkl"), bettwascheInkl);
+    public static Specification<Property> withBedLinen(boolean bedLinen) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("bed_linen"), bedLinen);
     }
 
-    public static Specification<Property> withKuehlschrank(boolean kuehlschrank) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("kuehlschrank"), kuehlschrank);
+    public static Specification<Property> withFridge(boolean fridge) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("fridge"), fridge);
     }
 
-    public static Specification<Property> withKaffeemaschine(boolean kaffeemaschine) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("kaffeemaschine"), kaffeemaschine);
+    public static Specification<Property> withCoffeeMachine(boolean coffeeMachine) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("coffee_machine"), coffeeMachine);
     }
 
-    public static Specification<Property> withMikrowelle(boolean mikrowelle) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("mikrowelle"), mikrowelle);
+    public static Specification<Property> withMicrowave(boolean microwave) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("microwave"), microwave);
     }
 
-    public static Specification<Property> withSpuelmaschine(boolean spuelmaschine) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("spuelmaschine"), spuelmaschine);
+    public static Specification<Property> withDishwasher(boolean dishwasher) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("dishwasher"), dishwasher);
     }
 
     public static Specification<Property> withWc(boolean wc) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("wc"), wc);
     }
 
-    public static Specification<Property> withTerrasse(boolean terrasse) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("terrasse"), terrasse);
+    public static Specification<Property> withTerrace(boolean terrace) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("terrace"), terrace);
     }
 
-    public static Specification<Property> withWasserkocher(boolean wasserkocher) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("wasserkocher"), wasserkocher);
+    public static Specification<Property> withKettle(boolean kettle) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("kettle"), kettle);
     }
 
-    public static Specification<Property> withBadewanne(boolean badewanne) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("badewanne"), badewanne);
+    public static Specification<Property> withBathtub(boolean bathtub) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("bathtub"), bathtub);
     }
 
-    public static Specification<Property> withGarten(boolean garten) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("garten"), garten);
+    public static Specification<Property> withGarden(boolean garden) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("garden"), garden);
     }
 
-    public static Specification<Property> withKochutensilien(boolean kochutensilien) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("kochutensilien"), kochutensilien);
+    public static Specification<Property> withCookingUtensils(boolean cookingUtensils) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("cooking_utensils"), cookingUtensils);
     }
 
-    public static Specification<Property> withWaschmaschine(boolean waschmaschine) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("waschmaschine"), waschmaschine);
+    public static Specification<Property> withWashingMachine(boolean washingMachine) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("washing_machine"), washingMachine);
     }
 
-    public static Specification<Property> withEigenstandigerCheckIn(boolean eigenstandigerCheckIn) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("eigenstandigerCheckIn"), eigenstandigerCheckIn);
+    public static Specification<Property> withSelfCheckIn(boolean selfCheckIn) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("self_check_in"), selfCheckIn);
     }
 
-    public static Specification<Property> withRaucher(boolean raucher) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("raucher"), raucher);
+    public static Specification<Property> withSmoking(boolean smoking) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("smoking"), smoking);
     }
 
-    public static Specification<Property> withRuhigeLage(boolean ruhigeLage) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("ruhigeLage"), ruhigeLage);
+    public static Specification<Property> withQuietLocation(boolean quietLocation) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("quiet_location"), quietLocation);
     }
 
-    public static Specification<Property> withGuteVerkehrsanbindung(boolean guteVerkehrsanbindung) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("guteVerkehrsanbindung"), guteVerkehrsanbindung);
+    public static Specification<Property> withGoodTransportation(boolean goodTransportation) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("good_transportation"), goodTransportation);
     }
 
-    public static Specification<Property> withGeschaefteInDerNahe(boolean geschaefteInDerNahe) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("geschaefteInDerNahe"), geschaefteInDerNahe);
+    public static Specification<Property> withShopsNearby(boolean shopsNearby) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("shops_nearby"), shopsNearby);
     }
 }
