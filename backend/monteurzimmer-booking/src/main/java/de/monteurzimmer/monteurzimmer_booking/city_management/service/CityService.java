@@ -102,7 +102,7 @@ public class CityService {
             throw new IllegalArgumentException("No file provided for upload.");
         }
 
-        String uploadDir = "client/storage/upload/property-photos";
+        String uploadDir = "client/storage/upload/icons/city";
         String fileName = System.currentTimeMillis() + "_" + photoFile.getOriginalFilename();
 
         try {
