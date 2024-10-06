@@ -21,6 +21,9 @@ public class City {
     @Column(name = "photo_url")
     private String photo;
 
+    private Double longitude;
+    private Double latitude;
+
     public City() {
     }
 

@@ -1,10 +1,13 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.controller;
 
+import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
+import de.monteurzimmer.monteurzimmer_booking.city_management.repository.CityRepository;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FavoritePropertyDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyByLinkDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.service.PropertyService;
+import de.monteurzimmer.monteurzimmer_booking.property_management.util.DistanceUtils;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Controller for managing properties in the application.
@@ -38,6 +42,7 @@ public class PropertyController {
     private static final Logger logger = LoggerFactory.getLogger(PropertyController.class);
 
     private final PropertyService propertyService;
+    private final CityRepository cityRepository;
 
     @GetMapping
     public ResponseEntity<List<PropertyDTO>> getAllProperties() {
@@ -58,7 +63,7 @@ public class PropertyController {
     @GetMapping("/city/{city}")
     public ResponseEntity<List<PropertyDTO>> getPropertyByCity(@PathVariable String city) {
         logger.debug("Fetching properties for city: {}", city);
-        List<PropertyDTO> properties = propertyService.getPropertyByCity(city);
+        List<PropertyDTO> properties = propertyService.getPropertyByCityName(city);
         logger.info("Retrieved {} properties for city: {}", properties.size(), city);
         return ResponseEntity.ok(properties);
     }
@@ -83,6 +88,33 @@ public class PropertyController {
     public ResponseEntity<List<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO) {
         logger.debug("Filtering properties with criteria: {}", filterSearchPropertyDTO);
         List<PropertyDTO> properties = propertyService.getFilteredProperties(filterSearchPropertyDTO);
+        if (filterSearchPropertyDTO.getDistance() != null && filterSearchPropertyDTO.getCity() != null) {
+            City city = cityRepository.findByName(filterSearchPropertyDTO.getCity().getName());
+
+            if (city != null) {
+                double cityLat = city.getLatitude();
+                double cityLon = city.getLongitude();
+
+                // Step 3: Apply distance filtering to the already filtered properties
+                List<PropertyDTO> propertiesWithinDistance = properties.stream()
+                        .filter(property -> {
+                            City propertyCity = property.getCity();
+                            if (propertyCity != null) {
+                                double propertyLat = propertyCity.getLatitude();
+                                double propertyLon = propertyCity.getLongitude();
+                                double distanceToProperty = DistanceUtils.calculateDistance(cityLat, cityLon, propertyLat, propertyLon);
+                                return distanceToProperty <= filterSearchPropertyDTO.getDistance();
+                            }
+                            return false;
+                        })
+                        .collect(Collectors.toList());
+
+                // Step 4: Replace the original property list with the distance-filtered list
+                properties = propertiesWithinDistance;
+            }
+        }
+
+        // Step 5: Log and return the filtered properties
         logger.info("Retrieved {} filtered properties.", properties.size());
         return ResponseEntity.ok(properties);
     }

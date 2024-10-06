@@ -89,14 +89,15 @@ VALUES (1, 1, 'client/storage/upload/icons/city/photo1.jpg', '2024-10-04 10:30:0
        (6, 6, 'client/storage/upload/icons/city/photo6.jpg', '2024-09-30 09:00:00', false),
        (7, 7, 'client/storage/upload/icons/city/photo7.jpg', '2024-09-30 09:00:00', false);
 
-INSERT INTO cities (name, is_favorite, photo_url)
-VALUES ('Berlin', TRUE, 'client/storage/upload/icons/city/berlin.jpg'),
-       ('Hamburg', TRUE, 'client/storage/upload/icons/city/hamburg.jpg'),
-       ('Munich', TRUE, 'client/storage/upload/icons/city/munich.jpg'),
-       ('Cologne', TRUE, 'client/storage/upload/icons/city/cologne.jpg'),
-       ('Stuttgart', TRUE, 'client/storage/upload/icons/city/stuttgart.jpg'),
-       ('Dortmund', TRUE, 'client/storage/upload/icons/city/dortmund.jpg'),
-       ('Lepizig', TRUE, 'client/storage/upload/icons/city/leipzig.jpg'),
-       ('Essen', TRUE, 'client/storage/upload/icons/city/essen.jpg'),
-       ('Hannover', TRUE, 'client/storage/upload/icons/city/hannover.jpg'),
-       ('Nuremberg', FALSE, 'client/storage/upload/icons/city/nuremberg.jpg');
+INSERT INTO cities (name, is_favorite, photo_url, latitude, longitude)
+VALUES
+    ('Berlin', TRUE, 'client/storage/upload/icons/city/berlin.jpg', 52.5200, 13.4050),
+    ('Hamburg', TRUE, 'client/storage/upload/icons/city/hamburg.jpg', 53.5511, 9.9937),
+    ('Munich', TRUE, 'client/storage/upload/icons/city/munich.jpg', 48.1351, 11.5820),
+    ('Cologne', TRUE, 'client/storage/upload/icons/city/cologne.jpg', 50.9375, 6.9603),
+    ('Stuttgart', TRUE, 'client/storage/upload/icons/city/stuttgart.jpg', 48.7758, 9.1829),
+    ('Dortmund', TRUE, 'client/storage/upload/icons/city/dortmund.jpg', 51.5136, 7.4653),
+    ('Leipzig', TRUE, 'client/storage/upload/icons/city/leipzig.jpg', 51.3397, 12.3731),
+    ('Essen', TRUE, 'client/storage/upload/icons/city/essen.jpg', 51.4556, 7.0118),
+    ('Hannover', TRUE, 'client/storage/upload/icons/city/hannover.jpg', 52.3759, 9.7320),
+    ('Nuremberg', FALSE, 'client/storage/upload/icons/city/nuremberg.jpg', 49.4521, 11.0767);

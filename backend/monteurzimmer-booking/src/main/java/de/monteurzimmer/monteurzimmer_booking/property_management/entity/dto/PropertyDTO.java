@@ -1,5 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto;
 
+import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhoto;
 import lombok.Data;
 
@@ -19,7 +20,7 @@ public class PropertyDTO {
     private BigDecimal rating;
     private boolean isAvailable;
     private String country;
-    private String city;
+    private City city;
     private int roomCount;
     private int bedCount;
     private Integer numberOfGuests;

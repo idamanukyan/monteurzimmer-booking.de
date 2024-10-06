@@ -1,18 +1,32 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.service;
 
+import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
+import de.monteurzimmer.monteurzimmer_booking.city_management.repository.CityRepository;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.Property;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
+@Service
 public class PropertySpecification {
 
-    public static Specification<Property> withCity(String city) {
+
+    public static CityRepository cityRepository;
+
+    public PropertySpecification(CityRepository cityRepository) {
+        this.cityRepository = cityRepository;
+    }
+
+    public static Specification<Property> withCity(City city) {
         return (root, query, criteriaBuilder) -> {
-            if (city == null || city.isEmpty()) {
+            if (city == null || city.getId() == null) {
                 return criteriaBuilder.conjunction();
             }
-            return criteriaBuilder.equal(root.get("city"), city);
+            // Ensure the city is not transient; fetch from the database if needed
+            City persistedCity = city.getId() != null ? city : cityRepository.findById(city.getId()).orElse(null);
+            return criteriaBuilder.equal(root.get("city"), persistedCity);
         };
     }
 

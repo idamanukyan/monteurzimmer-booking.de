@@ -10,4 +10,8 @@ public class CityDto {
     private Boolean isFavorite;
 
     private String photo;
+
+    private Double longitude;
+
+    private Double latitude;
 }
