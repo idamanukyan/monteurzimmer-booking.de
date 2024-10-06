@@ -18,7 +18,7 @@ import java.util.List;
  * to perform CRUD operations on property photos and maps the data to DTOs.
  */
 @RestController
-@RequestMapping("/properties/photos")
+@RequestMapping("/api/properties/photos")
 public class PropertyPhotoController {
 
     private static final Logger logger = LoggerFactory.getLogger(PropertyPhotoController.class);
@@ -81,6 +81,22 @@ public class PropertyPhotoController {
             return ResponseEntity.ok(photos);
         } catch (Exception e) {
             logger.error("Error occurred while retrieving photos for propertyId: {}", propertyId, e);
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
+    @GetMapping("/primary/{propertyId}")
+    public ResponseEntity<String> getPrimaryPhoto(@PathVariable Long propertyId) {
+        logger.info("Received request to get primary photo for propertyId: {}", propertyId);
+
+        try {
+            // Get the list of photo URLs for the given property ID
+            String photo = propertyPhotoService.getPrimaryPhoto(propertyId);
+            logger.info("Successfully retrieved {} primary photo for propertyId: {}", photo, propertyId);
+
+            return ResponseEntity.ok(photo);
+        } catch (Exception e) {
+            logger.error("Error occurred while retrieving primary photo for propertyId: {}", propertyId, e);
             return ResponseEntity.status(500).body(null);
         }
     }

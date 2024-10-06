@@ -34,6 +34,7 @@ public class PropertyDTO {
     private boolean tv;
     private boolean getrennteBetten;
     private boolean privatesBad;
+    private String address;
     private boolean kochmoglichkeit;
     private boolean radio;
     private boolean handtucherInkl;

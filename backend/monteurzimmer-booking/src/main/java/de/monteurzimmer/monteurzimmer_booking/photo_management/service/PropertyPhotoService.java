@@ -82,6 +82,13 @@ public class PropertyPhotoService {
                 .collect(Collectors.toList());
     }
 
+    public String getPrimaryPhoto(Long propertyId) {
+        logger.info("Fetching primary photo for property with ID: {}", propertyId);
+        PropertyPhoto photo = propertyPhotoRepository.findByPropertyIdAndIsPrimary(propertyId);
+
+        return photo.getPhotoUrl();
+    }
+
     /**
      * Stores an uploaded photo file in the file system and returns its file path.
      *
@@ -133,9 +140,9 @@ public class PropertyPhotoService {
     private boolean isValidImageFile(MultipartFile photoFile) {
         String contentType = photoFile.getContentType();
         return contentType != null;
-                //&&
-                //(contentType.equals("image/jpeg") || contentType.equals("image/jpg") ||
-                  //      contentType.equals("image/svg") ||
-                    //    contentType.equals("image/png") || contentType.equals("image/gif"));
+        //&&
+        //(contentType.equals("image/jpeg") || contentType.equals("image/jpg") ||
+        //      contentType.equals("image/svg") ||
+        //    contentType.equals("image/png") || contentType.equals("image/gif"));
     }
 }
