@@ -2,14 +2,14 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {FavCitiesService} from "../../../data/service/FavCitiesService";
 
-interface LandingState {
+interface PropertiesState {
     readonly city: string
 }
 
-export default function LandingScreenModel(
+export default function PropertiesScreenModel(
     favCitiesService: FavCitiesService,
 ) {
-    const [ state, setState] = useState<LandingState>({
+    const [ state, setState] = useState<PropertiesState>({
         city: ""
     })
     const navigate = useNavigate();

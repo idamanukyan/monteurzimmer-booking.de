@@ -1,20 +1,20 @@
 import Header from "../../components/Header";
-import LandingScreenModel from "./LandingScreenModel"
+import PropertiesScreenModel from "./PropertiesScreenModel"
 import HeroSlide from "../../components/HeroSlide";
-import styles from './LandingScreen.module.css';
+import styles from './PropertiesScreen.module.css';
 import FavProducts from "../../components/FavProducts/FavProducts";
 import AboutUs from "../../components/AboutUs/AboutUs";
 import Footer from "../../components/Footer";
 import FavCities from "../../components/FavCities/FavCities";
 import {FavCitiesService} from "../../../data/service/FavCitiesService";
 
-export default function LandingScreen() {
+export default function PropertiesScreen() {
     const {
         state,
         onSearchTextChange,
         onSearchClick,
         onKeyPress
-    } = LandingScreenModel(new FavCitiesService());
+    } = PropertiesScreenModel(new FavCitiesService());
 
     return (
         <div>
