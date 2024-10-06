@@ -12,7 +12,7 @@ public class PropertySpecification {
             if (city == null || city.isEmpty()) {
                 return criteriaBuilder.conjunction();
             }
-            return criteriaBuilder.equal(root.get("city"), city);
+            return criteriaBuilder.equal(root.get("city").get("name"), city);
         };
     }
 

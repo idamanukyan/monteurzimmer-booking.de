@@ -1,5 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.repository;
 
+import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -11,7 +12,7 @@ import java.util.List;
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSpecificationExecutor<Property> {
 
-    List<Property> findByCity(String city);
+    List<Property> findByCity_Name(String city);
 
     @Query(value = "SELECT * FROM properties p ORDER BY p.price_per_night ASC LIMIT 20", nativeQuery = true)
     List<Property> find20Chepeast();
@@ -21,5 +22,8 @@ public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSp
 
     @Query(value = "SELECT * FROM properties p ORDER BY p.created_at DESC LIMIT 20", nativeQuery = true)
     List<Property> find20Latest();
+
+    List<Property> findByCityIn(List<City> cities);
+
 
 }

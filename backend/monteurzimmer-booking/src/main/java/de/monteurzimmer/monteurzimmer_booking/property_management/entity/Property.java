@@ -1,5 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.entity;
 
+import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhoto;
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.User;
 import jakarta.persistence.*;
@@ -34,7 +35,9 @@ public class Property {
     private BigDecimal rating;
     private Boolean isAvailable;
     private String country;
-    private String city;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "city_id")
+    private City city;
     private Integer roomCount;
     private Integer bedCount;
     private Integer numberOfGuests;

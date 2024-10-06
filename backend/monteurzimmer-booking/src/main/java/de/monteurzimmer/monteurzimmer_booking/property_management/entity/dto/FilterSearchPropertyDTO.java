@@ -1,5 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto;
 
+import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhoto;
 import lombok.Data;
 
@@ -18,7 +19,7 @@ public class FilterSearchPropertyDTO {
     private BigDecimal rating;
     private Boolean isAvailable;
     private String country;
-    private String city;
+    private City city;
     private Integer roomCount; //Alle, Einzelzimmer, DoppelZimmer, Mehrbettzimmer, Ganze Unterkunft
     private Integer bedCount;
     private Integer numberOfGuests;
@@ -54,6 +55,8 @@ public class FilterSearchPropertyDTO {
     private BigDecimal longitude;
     private Boolean isFavorite;
     private List<PropertyPhoto> photos;
+
+    private Integer distance;
 
     //for price range search
     private Long maxPrice;

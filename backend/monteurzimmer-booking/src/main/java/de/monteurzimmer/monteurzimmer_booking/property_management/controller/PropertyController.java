@@ -1,5 +1,7 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.controller;
 
+import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
+import de.monteurzimmer.monteurzimmer_booking.city_management.repository.CityRepository;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FavoritePropertyDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyByLinkDto;
@@ -38,6 +40,7 @@ public class PropertyController {
     private static final Logger logger = LoggerFactory.getLogger(PropertyController.class);
 
     private final PropertyService propertyService;
+    private final CityRepository cityRepository;
 
     @GetMapping
     public ResponseEntity<List<PropertyDTO>> getAllProperties() {
@@ -91,6 +94,13 @@ public class PropertyController {
     public ResponseEntity<List<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO) {
         logger.debug("Filtering properties with criteria: {}", filterSearchPropertyDTO);
         List<PropertyDTO> properties = propertyService.getFilteredProperties(filterSearchPropertyDTO);
+        if (filterSearchPropertyDTO.getDistance() != null && filterSearchPropertyDTO.getCity()!=null) {
+            City city = cityRepository.findByName(filterSearchPropertyDTO.getCity().getName());
+            double propertyLat = city.getLatitude();
+            double propertyLon = city.getLongitude();
+            propertyService.findPropertiesWithinDistance
+                    (propertyLat, propertyLon, filterSearchPropertyDTO.getDistance());
+        }
         logger.info("Retrieved {} filtered properties.", properties.size());
         return ResponseEntity.ok(properties);
     }

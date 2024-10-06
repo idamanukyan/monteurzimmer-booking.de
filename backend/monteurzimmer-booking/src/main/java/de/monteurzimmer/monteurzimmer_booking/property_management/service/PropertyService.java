@@ -1,10 +1,13 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.service;
 
+import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
+import de.monteurzimmer.monteurzimmer_booking.city_management.repository.CityRepository;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.Property;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FavoritePropertyDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.repository.PropertyRepository;
+import de.monteurzimmer.monteurzimmer_booking.property_management.util.DistanceUtils;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +26,7 @@ public class PropertyService {
     private static final Logger log = LoggerFactory.getLogger(PropertyService.class);
 
     private final PropertyRepository propertyRepository;
+    private final CityRepository cityRepository;
     private final ModelMapper modelMapper;
 
     public List<PropertyDTO> getAllProperties() {
@@ -38,7 +43,7 @@ public class PropertyService {
         Specification<Property> spec = Specification.where(null);
 
         if (propertyDTO.getCity() != null) {
-            spec = spec.and(PropertySpecification.withCity(propertyDTO.getCity()));
+            spec = spec.and(PropertySpecification.withCity(propertyDTO.getCity().getName()));
         }
         if (propertyDTO.getNumberOfGuests() != null) {
             spec = spec.and(PropertySpecification.withNumberOfGuests(propertyDTO.getNumberOfGuests()));
@@ -55,11 +60,11 @@ public class PropertyService {
         if (propertyDTO.getMaxPrice() != null) {
             spec = spec.and(PropertySpecification.withMaxPrice(propertyDTO.getMaxPrice()));
         }
-        if (propertyDTO.getRoomCount() > 0) {
-            spec = spec.and(PropertySpecification.withRoomCount(propertyDTO.getRoomCount()));
-        }
+        if (propertyDTO.getRoomCount() != null)
+            if (propertyDTO.getRoomCount() > 0) {
+                spec = spec.and(PropertySpecification.withRoomCount(propertyDTO.getRoomCount()));
+            }
 
-        // Check if each boolean value is true, if so, add it to the specification.
         addBooleanSpecifications(spec, propertyDTO);
 
         List<Property> filteredProperties = propertyRepository.findAll(spec);
@@ -70,80 +75,80 @@ public class PropertyService {
     }
 
     private void addBooleanSpecifications(Specification<Property> spec, FilterSearchPropertyDTO propertyDTO) {
-        if (propertyDTO.getWifi()) {
-            spec = spec.and(PropertySpecification.withWifi(true));
+        if (propertyDTO.getWifi()!=null) {
+            spec = spec.and(PropertySpecification.withWifi(propertyDTO.getWifi()));
         }
-        if (propertyDTO.getTv()) {
-            spec = spec.and(PropertySpecification.withTv(true));
+        if (propertyDTO.getTv()!=null) {
+            spec = spec.and(PropertySpecification.withTv(propertyDTO.getTv()));
         }
-        if (propertyDTO.getSeparateBeds()) {
-            spec = spec.and(PropertySpecification.withSeparateBeds(true));
+        if (propertyDTO.getSeparateBeds()!=null) {
+            spec = spec.and(PropertySpecification.withSeparateBeds(propertyDTO.getSeparateBeds()));
         }
-        if (propertyDTO.getPrivateBath()) {
-            spec = spec.and(PropertySpecification.withPrivateBath(true));
+        if (propertyDTO.getPrivateBath()!=null) {
+            spec = spec.and(PropertySpecification.withPrivateBath(propertyDTO.getPrivateBath()));
         }
-        if (propertyDTO.getCookingFacilities()) {
-            spec = spec.and(PropertySpecification.withCookingFacilities(true));
+        if (propertyDTO.getCookingFacilities()!=null) {
+            spec = spec.and(PropertySpecification.withCookingFacilities(propertyDTO.getCookingFacilities()));
         }
-        if (propertyDTO.getRadio()) {
-            spec = spec.and(PropertySpecification.withRadio(true));
+        if (propertyDTO.getRadio()!=null) {
+            spec = spec.and(PropertySpecification.withRadio(propertyDTO.getRadio()));
         }
-        if (propertyDTO.getTowels()) {
-            spec = spec.and(PropertySpecification.withTowels(true));
+        if (propertyDTO.getTowels()!=null) {
+            spec = spec.and(PropertySpecification.withTowels(propertyDTO.getTowels()));
         }
-        if (propertyDTO.getExtraBedPossible()) {
-            spec = spec.and(PropertySpecification.withExtraBedPossible(true));
+        if (propertyDTO.getExtraBedPossible()!=null) {
+            spec = spec.and(PropertySpecification.withExtraBedPossible(propertyDTO.getExtraBedPossible()));
         }
-        if (propertyDTO.getBedLinen()) {
-            spec = spec.and(PropertySpecification.withBedLinen(true));
+        if (propertyDTO.getBedLinen()!=null) {
+            spec = spec.and(PropertySpecification.withBedLinen(propertyDTO.getBedLinen()));
         }
-        if (propertyDTO.getFridge()) {
-            spec = spec.and(PropertySpecification.withFridge(true));
+        if (propertyDTO.getFridge()!=null) {
+            spec = spec.and(PropertySpecification.withFridge(propertyDTO.getFridge()));
         }
-        if (propertyDTO.getCoffeeMachine()) {
-            spec = spec.and(PropertySpecification.withCoffeeMachine(true));
+        if (propertyDTO.getCoffeeMachine()!=null) {
+            spec = spec.and(PropertySpecification.withCoffeeMachine(propertyDTO.getCoffeeMachine()));
         }
-        if (propertyDTO.getMicrowave()) {
-            spec = spec.and(PropertySpecification.withMicrowave(true));
+        if (propertyDTO.getMicrowave()!=null) {
+            spec = spec.and(PropertySpecification.withMicrowave(propertyDTO.getMicrowave()));
         }
-        if (propertyDTO.getDishwasher()) {
-            spec = spec.and(PropertySpecification.withDishwasher(true));
+        if (propertyDTO.getDishwasher()!=null) {
+            spec = spec.and(PropertySpecification.withDishwasher(propertyDTO.getDishwasher()));
         }
-        if (propertyDTO.getWc()) {
-            spec = spec.and(PropertySpecification.withWc(true));
+        if (propertyDTO.getWc()!=null) {
+            spec = spec.and(PropertySpecification.withWc(propertyDTO.getWc()));
         }
-        if (propertyDTO.getTerrace()) {
-            spec = spec.and(PropertySpecification.withTerrace(true));
+        if (propertyDTO.getTerrace()!=null) {
+            spec = spec.and(PropertySpecification.withTerrace(propertyDTO.getTerrace()));
         }
-        if (propertyDTO.getKettle()) {
-            spec = spec.and(PropertySpecification.withKettle(true));
+        if (propertyDTO.getKettle()!=null) {
+            spec = spec.and(PropertySpecification.withKettle(propertyDTO.getKettle()));
         }
-        if (propertyDTO.getBathtub()) {
-            spec = spec.and(PropertySpecification.withBathtub(true));
+        if (propertyDTO.getBathtub()!=null) {
+            spec = spec.and(PropertySpecification.withBathtub(propertyDTO.getBathtub()));
         }
-        if (propertyDTO.getGarden()) {
-            spec = spec.and(PropertySpecification.withGarden(true));
+        if (propertyDTO.getGarden()!=null) {
+            spec = spec.and(PropertySpecification.withGarden(propertyDTO.getGarden()));
         }
-        if (propertyDTO.getCookingUtensils()) {
-            spec = spec.and(PropertySpecification.withCookingUtensils(true));
+        if (propertyDTO.getCookingUtensils()!=null) {
+            spec = spec.and(PropertySpecification.withCookingUtensils(propertyDTO.getCookingUtensils()));
         }
-        if (propertyDTO.getWashingMachine()) {
-            spec = spec.and(PropertySpecification.withWashingMachine(true));
+        if (propertyDTO.getWashingMachine()!=null) {
+            spec = spec.and(PropertySpecification.withWashingMachine(propertyDTO.getWashingMachine()));
         }
-        if (propertyDTO.getSelfCheckIn()) {
-            spec = spec.and(PropertySpecification.withSelfCheckIn(true));
+        if (propertyDTO.getSelfCheckIn()!=null) {
+            spec = spec.and(PropertySpecification.withSelfCheckIn(propertyDTO.getSelfCheckIn()));
         }
-        if (propertyDTO.getSmoking()) {
-            spec = spec.and(PropertySpecification.withSmoking(true));
+        if (propertyDTO.getSmoking()!=null) {
+            spec = spec.and(PropertySpecification.withSmoking(propertyDTO.getSmoking()));
         }
-        if (propertyDTO.getQuietLocation()) {
-            spec = spec.and(PropertySpecification.withQuietLocation(true));
+        if (propertyDTO.getQuietLocation()!=null) {
+            spec = spec.and(PropertySpecification.withQuietLocation(propertyDTO.getQuietLocation()));
         }
-        if (propertyDTO.getGoodTransportation()) {
-            spec = spec.and(PropertySpecification.withGoodTransportation(true));
+        if (propertyDTO.getGoodTransportation()!=null) {
+            spec = spec.and(PropertySpecification.withGoodTransportation(propertyDTO.getGoodTransportation()));
         }
-        if (propertyDTO.getShopsNearby()) {
-            spec = spec.and(PropertySpecification.withShopsNearby(true));
+        if (propertyDTO.getShopsNearby()!=null) {
+            spec = spec.and(PropertySpecification.withShopsNearby(propertyDTO.getShopsNearby()));
         }
     }
 
@@ -156,7 +161,7 @@ public class PropertyService {
 
     public List<PropertyDTO> getPropertyByCity(String city) {
         log.info("Fetching properties in city: {}", city);
-        List<Property> propertyList = propertyRepository.findByCity(city);
+        List<Property> propertyList = propertyRepository.findByCity_Name(city);
         return propertyList.stream()
                 .map(property -> modelMapper.map(property, PropertyDTO.class))
                 .collect(Collectors.toList());
@@ -184,6 +189,26 @@ public class PropertyService {
         return propertyList.stream()
                 .map(property -> modelMapper.map(property, PropertyDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    public List<Property> findPropertiesWithinDistance(double cityLat, double cityLon, int distance) {
+        // Step 1: Fetch all cities and filter only those within the specified distance
+        List<City> nearbyCities = cityRepository.findAll().stream()
+                .filter(city -> {
+                    double otherCityLat = city.getLatitude();
+                    double otherCityLon = city.getLongitude();
+                    double distanceToCity = DistanceUtils.calculateDistance(cityLat, cityLon, otherCityLat, otherCityLon);
+                    return distanceToCity <= distance;
+                })
+                .collect(Collectors.toList());
+
+        // Step 2: If no nearby cities, return an empty list
+        if (nearbyCities.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // Step 3: Find all properties in the nearby cities
+        return propertyRepository.findByCityIn(nearbyCities);
     }
 
     public PropertyDTO createProperty(PropertyDTO propertyDTO) {
