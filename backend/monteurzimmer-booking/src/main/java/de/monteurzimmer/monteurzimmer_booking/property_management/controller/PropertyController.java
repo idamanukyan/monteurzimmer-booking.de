@@ -79,6 +79,14 @@ public class PropertyController {
         return ResponseEntity.ok(properties);
     }
 
+    @GetMapping("/latest")
+    public ResponseEntity<List<PropertyDTO>> getLast20Properties() {
+        logger.debug("Fetching 20 latest properties.");
+        List<PropertyDTO> properties = propertyService.get20LastProperties();
+        logger.info("Retrieved {} filtered properties.", properties.size());
+        return ResponseEntity.ok(properties);
+    }
+
     @GetMapping("/search-result")
     public ResponseEntity<List<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO) {
         logger.debug("Filtering properties with criteria: {}", filterSearchPropertyDTO);

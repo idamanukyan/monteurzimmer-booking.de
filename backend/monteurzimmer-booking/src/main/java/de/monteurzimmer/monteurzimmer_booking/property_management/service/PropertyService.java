@@ -178,6 +178,14 @@ public class PropertyService {
                 .collect(Collectors.toList());
     }
 
+    public List<PropertyDTO> get20LastProperties() {
+        log.info("Fetching 20 last properties.");
+        List<Property> propertyList = propertyRepository.find20Latest();
+        return propertyList.stream()
+                .map(property -> modelMapper.map(property, PropertyDTO.class))
+                .collect(Collectors.toList());
+    }
+
     public PropertyDTO createProperty(PropertyDTO propertyDTO) {
         log.info("Creating new property: {}", propertyDTO);
         Property property = modelMapper.map(propertyDTO, Property.class);
