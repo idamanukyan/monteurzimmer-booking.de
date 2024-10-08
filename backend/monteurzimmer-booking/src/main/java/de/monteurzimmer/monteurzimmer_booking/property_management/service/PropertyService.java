@@ -55,11 +55,18 @@ public class PropertyService {
             spec = spec.and(PropertySpecification.withNeighborhood(propertyDTO.getNeighborhood()));
         }
         if (propertyDTO.getMinPrice() != null) {
-            spec = spec.and(PropertySpecification.withMinPrice(propertyDTO.getMinPrice()));
+            if (propertyDTO.getMaxPrice() == null) {
+                spec = spec.and(PropertySpecification.withPriceRange(propertyDTO.getMinPrice(), null));
+            }
         }
         if (propertyDTO.getMaxPrice() != null) {
-            spec = spec.and(PropertySpecification.withMaxPrice(propertyDTO.getMaxPrice()));
+            if (propertyDTO.getMinPrice() == null) {
+                spec = spec.and(PropertySpecification.withPriceRange(null, propertyDTO.getMaxPrice()));
+            }
         }
+        if (propertyDTO.getMaxPrice() != null && propertyDTO.getMinPrice() != null) {
+                spec = spec.and(PropertySpecification.withPriceRange(propertyDTO.getMinPrice(), propertyDTO.getMaxPrice()));
+            }
         if (propertyDTO.getRoomCount() != null)
             if (propertyDTO.getRoomCount() > 0) {
                 spec = spec.and(PropertySpecification.withRoomCount(propertyDTO.getRoomCount()));
@@ -75,79 +82,79 @@ public class PropertyService {
     }
 
     private void addBooleanSpecifications(Specification<Property> spec, FilterSearchPropertyDTO propertyDTO) {
-        if (propertyDTO.getWifi()!=null) {
+        if (propertyDTO.getWifi() != null) {
             spec = spec.and(PropertySpecification.withWifi(propertyDTO.getWifi()));
         }
-        if (propertyDTO.getTv()!=null) {
+        if (propertyDTO.getTv() != null) {
             spec = spec.and(PropertySpecification.withTv(propertyDTO.getTv()));
         }
-        if (propertyDTO.getSeparateBeds()!=null) {
+        if (propertyDTO.getSeparateBeds() != null) {
             spec = spec.and(PropertySpecification.withSeparateBeds(propertyDTO.getSeparateBeds()));
         }
-        if (propertyDTO.getPrivateBath()!=null) {
+        if (propertyDTO.getPrivateBath() != null) {
             spec = spec.and(PropertySpecification.withPrivateBath(propertyDTO.getPrivateBath()));
         }
-        if (propertyDTO.getCookingFacilities()!=null) {
+        if (propertyDTO.getCookingFacilities() != null) {
             spec = spec.and(PropertySpecification.withCookingFacilities(propertyDTO.getCookingFacilities()));
         }
-        if (propertyDTO.getRadio()!=null) {
+        if (propertyDTO.getRadio() != null) {
             spec = spec.and(PropertySpecification.withRadio(propertyDTO.getRadio()));
         }
-        if (propertyDTO.getTowels()!=null) {
+        if (propertyDTO.getTowels() != null) {
             spec = spec.and(PropertySpecification.withTowels(propertyDTO.getTowels()));
         }
-        if (propertyDTO.getExtraBedPossible()!=null) {
+        if (propertyDTO.getExtraBedPossible() != null) {
             spec = spec.and(PropertySpecification.withExtraBedPossible(propertyDTO.getExtraBedPossible()));
         }
-        if (propertyDTO.getBedLinen()!=null) {
+        if (propertyDTO.getBedLinen() != null) {
             spec = spec.and(PropertySpecification.withBedLinen(propertyDTO.getBedLinen()));
         }
-        if (propertyDTO.getFridge()!=null) {
+        if (propertyDTO.getFridge() != null) {
             spec = spec.and(PropertySpecification.withFridge(propertyDTO.getFridge()));
         }
-        if (propertyDTO.getCoffeeMachine()!=null) {
+        if (propertyDTO.getCoffeeMachine() != null) {
             spec = spec.and(PropertySpecification.withCoffeeMachine(propertyDTO.getCoffeeMachine()));
         }
-        if (propertyDTO.getMicrowave()!=null) {
+        if (propertyDTO.getMicrowave() != null) {
             spec = spec.and(PropertySpecification.withMicrowave(propertyDTO.getMicrowave()));
         }
-        if (propertyDTO.getDishwasher()!=null) {
+        if (propertyDTO.getDishwasher() != null) {
             spec = spec.and(PropertySpecification.withDishwasher(propertyDTO.getDishwasher()));
         }
-        if (propertyDTO.getWc()!=null) {
+        if (propertyDTO.getWc() != null) {
             spec = spec.and(PropertySpecification.withWc(propertyDTO.getWc()));
         }
-        if (propertyDTO.getTerrace()!=null) {
+        if (propertyDTO.getTerrace() != null) {
             spec = spec.and(PropertySpecification.withTerrace(propertyDTO.getTerrace()));
         }
-        if (propertyDTO.getKettle()!=null) {
+        if (propertyDTO.getKettle() != null) {
             spec = spec.and(PropertySpecification.withKettle(propertyDTO.getKettle()));
         }
-        if (propertyDTO.getBathtub()!=null) {
+        if (propertyDTO.getBathtub() != null) {
             spec = spec.and(PropertySpecification.withBathtub(propertyDTO.getBathtub()));
         }
-        if (propertyDTO.getGarden()!=null) {
+        if (propertyDTO.getGarden() != null) {
             spec = spec.and(PropertySpecification.withGarden(propertyDTO.getGarden()));
         }
-        if (propertyDTO.getCookingUtensils()!=null) {
+        if (propertyDTO.getCookingUtensils() != null) {
             spec = spec.and(PropertySpecification.withCookingUtensils(propertyDTO.getCookingUtensils()));
         }
-        if (propertyDTO.getWashingMachine()!=null) {
+        if (propertyDTO.getWashingMachine() != null) {
             spec = spec.and(PropertySpecification.withWashingMachine(propertyDTO.getWashingMachine()));
         }
-        if (propertyDTO.getSelfCheckIn()!=null) {
+        if (propertyDTO.getSelfCheckIn() != null) {
             spec = spec.and(PropertySpecification.withSelfCheckIn(propertyDTO.getSelfCheckIn()));
         }
-        if (propertyDTO.getSmoking()!=null) {
+        if (propertyDTO.getSmoking() != null) {
             spec = spec.and(PropertySpecification.withSmoking(propertyDTO.getSmoking()));
         }
-        if (propertyDTO.getQuietLocation()!=null) {
+        if (propertyDTO.getQuietLocation() != null) {
             spec = spec.and(PropertySpecification.withQuietLocation(propertyDTO.getQuietLocation()));
         }
-        if (propertyDTO.getGoodTransportation()!=null) {
+        if (propertyDTO.getGoodTransportation() != null) {
             spec = spec.and(PropertySpecification.withGoodTransportation(propertyDTO.getGoodTransportation()));
         }
-        if (propertyDTO.getShopsNearby()!=null) {
+        if (propertyDTO.getShopsNearby() != null) {
             spec = spec.and(PropertySpecification.withShopsNearby(propertyDTO.getShopsNearby()));
         }
     }

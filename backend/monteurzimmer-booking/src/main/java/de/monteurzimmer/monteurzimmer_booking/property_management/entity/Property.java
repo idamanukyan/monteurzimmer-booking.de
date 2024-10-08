@@ -40,6 +40,7 @@ public class Property {
     private City city;
     private Integer roomCount;
     private Integer bedCount;
+    @Column(name = "number_of_guests")
     private Integer numberOfGuests;
     private String socialMediaLink;
     private Boolean wifi;

@@ -1,0 +1,45 @@
+/* PropertiesList.css */
+
+.properties-list-container {
+    padding: 20px;
+}
+
+.properties-list {
+    display: flex;
+    flex-wrap: wrap;  /* Allows wrapping of items if needed */
+    justify-content: space-between;  /* Distribute space between items */
+    margin-top: 20px;
+}
+
+.property-card {
+    margin: 10px;  /* Space around each card */
+    flex: 1 1 calc(33.333% - 20px);  /* Three cards per row, accounting for margin */
+    max-width: calc(33.333% - 20px);  /* Prevent cards from exceeding width */
+    box-sizing: border-box;  /* Include padding and margin in width calculation */
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.pagination-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination-info {
+    align-self: center;
+}

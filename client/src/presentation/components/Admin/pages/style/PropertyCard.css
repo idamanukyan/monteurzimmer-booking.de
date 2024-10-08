@@ -1,0 +1,63 @@
+/* src/presentation/components/Admin/pages/PropertyCard.css */
+
+.property-card {
+    background-size: cover;
+    background-position: center;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 15px;
+    color: white;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.property-card:hover {
+    transform: scale(1.05);
+}
+
+.property-card h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.property-card p {
+    margin: 5px 0;
+}
+
+.property-card-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.property-image {
+    width: 150px; /* Set image width */
+    height: 100px; /* Set image height */
+    object-fit: cover; /* Ensure the image covers the space */
+}
+
+.property-details {
+    padding: 15px;
+    flex-grow: 1; /* Allow details to take available space */
+}
+
+.see-more-button {
+    background-color: #28a745;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 70%;
+}
+
+.see-more-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}

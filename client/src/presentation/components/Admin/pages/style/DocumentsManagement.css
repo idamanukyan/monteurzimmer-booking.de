@@ -1,0 +1,18 @@
+/* DocumentsManagement.css */
+.documents-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.document-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+h3 {
+    margin-bottom: 10px;
+}

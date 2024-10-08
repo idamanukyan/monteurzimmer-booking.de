@@ -1,0 +1,86 @@
+/* ConfigureProperties.css */
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.modal h3 {
+    margin-top: 0;
+}
+
+.modal form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal form input,
+.modal form textarea {
+    margin-bottom: 10px;
+}
+
+.modal button {
+    margin-top: 10px;
+}
+
+/* Style for the container of the buttons */
+.button-container {
+    display: flex;
+    justify-content: space-around; /* Space out the buttons */
+    margin: 20px 0;
+}
+
+/* Style for each button box */
+.button-box {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f8f9fa; /* Light background for each button box */
+    width: 30%; /* Control the width of each button box */
+    text-align: center; /* Center the button in the box */
+}
+
+/* Style for the buttons */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* Style for the modals */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Style for modal overlay (optional) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}

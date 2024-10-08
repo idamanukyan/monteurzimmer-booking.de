@@ -1,0 +1,86 @@
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    width: 40%; /* 40% of the screen width */
+    height: 50%; /* 30% of the screen height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1010;
+}
+
+form {
+    margin-bottom: 20px; /* Adds space below Room Count input */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Icon Grid Container */
+.icon-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 icons per row */
+    grid-gap: 10px;
+    margin-bottom: 20px; /* spacing between grid and other elements */
+}
+
+/* Icon Styles */
+.icon-wrapper {
+    width: 40px;
+    padding-bottom: 60px; /* Makes the icons square by creating equal width and height */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.icon-wrapper.active {
+    border-color: green; /* Changes the border to green when active */
+}
+
+/* Modal Buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 50px; /* Adds space between buttons */
+    margin-top: -10px; /* Adds space between icons and the buttons */
+}
+
+.modal-buttons button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.modal-buttons button:active {
+    background-color: #00448a;
+}
