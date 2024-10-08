@@ -1,0 +1,38 @@
+.all-properties {
+    padding: 20px;
+}
+
+.properties-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center the cards */
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination-button {
+    padding: 5px 10px;
+}
+
+.configure-properties-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    border: none; /* No border for the link */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.configure-properties-button:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+}
+

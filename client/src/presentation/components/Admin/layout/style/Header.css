@@ -1,0 +1,60 @@
+.header {
+    background-color: #f1f1f1; /* Header background color */
+    display: flex; /* Flexbox for layout */
+    align-items: center; /* Center items vertically */
+    border-bottom: 2px solid #ccc; /* Border at the bottom */
+    margin-bottom: 20px; /* Space below the header */
+    justify-content: space-between; /* Space between logo and title/button */
+    padding: 10px 20px; /* Padding around header */
+    border-radius: 10px; /* Soften the edges */
+}
+
+.admin-icon {
+    height: 50px; /* Set the height of the logo */
+    margin-right: 20px; /* Space between logo and title */
+    position: absolute; /* Position the logo absolutely to remove it from the flex context */
+    left: 40px; /* Place logo to the left */
+}
+
+.dashboard-title {
+    flex-grow: 1; /* Allow the title to take available space */
+    text-align: center; /* Center text */
+    color: inherit; /* Keep the text color the same as the rest */
+}
+
+.dashboard-title{
+    text-decoration: none; /* Remove underline from links */
+    color: black; /* Set text color to black */
+    font-size: 1.2rem; /* Set a consistent font size */
+    font-family: 'Arial', sans-serif; /* Set a consistent font family */
+}
+
+.header h1 {
+    font-size: 24px; /* Font size for the title */
+    color: #333; /* Dark color for the text */
+}
+
+/* Logout button styles */
+.logout-button {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Pushes the button to the right */
+    padding: 10px 15px;
+    background-color: #f1f1f1; /* Header background color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    color: black; /* Text color */
+    text-decoration: none; /* No underline */
+    font-size: 1rem; /* Font size */
+    cursor: pointer; /* Pointer on hover */
+}
+
+.logout-button:hover {
+    background-color: #e9ecef; /* Slightly darker on hover */
+}
+
+.logout-icon {
+    width: 20px; /* Set icon size */
+    height: 20px; /* Set icon size */
+    margin-right: 5px; /* Space between icon and text */
+}

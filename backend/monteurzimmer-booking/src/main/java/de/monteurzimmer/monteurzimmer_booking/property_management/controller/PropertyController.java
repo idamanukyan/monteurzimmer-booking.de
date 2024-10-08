@@ -90,7 +90,7 @@ public class PropertyController {
         return ResponseEntity.ok(properties);
     }
 
-    @GetMapping("/search-result")
+    @PostMapping("/search-result")
     public ResponseEntity<List<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO) {
         logger.debug("Filtering properties with criteria: {}", filterSearchPropertyDTO);
         List<PropertyDTO> properties = propertyService.getFilteredProperties(filterSearchPropertyDTO);

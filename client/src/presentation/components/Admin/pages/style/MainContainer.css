@@ -1,0 +1,119 @@
+.dashboard-container {
+    background-color: #f9f9f9; /* Light background for better contrast */
+    padding: 20px; /* Add some padding around the dashboard */
+    display: flex;
+    flex-direction: column; /* Column layout for main dashboard */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.dashboard-layout {
+    display: flex;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+}
+
+.content-container {
+    display: flex; /* Flexbox for the right menu and main content */
+}
+
+.main-content {
+    flex: 1; /* Take up remaining space next to the right menu */
+    padding: 20px;
+    background-color: #f4f4f4; /* Light background for main content */
+    overflow-y: auto; /* If content overflows, allow scrolling */
+}
+
+/* Search Section Styles */
+.search-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Search Input Styles */
+
+.search-section {
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space below the search section */
+}
+
+/* Search Button Styles */
+.search-button {
+    position: absolute; /* Position the button inside the container */
+    right: 5px; /* Align it to the right */
+    top: 50%; /* Center it vertically */
+    transform: translateY(-50%); /* Adjust vertical alignment */
+    background: none; /* Remove default background */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor on hover */
+    padding: 0; /* Remove padding */
+}
+
+.search-icon {
+    width: 24px; /* Adjust size of the icon */
+    height: 24px; /* Adjust size of the icon */
+}
+
+.search-input-container {
+    position: relative; /* Allow positioning of child elements */
+    max-width: 200px; /* Adjust width as needed */
+    flex-grow: 1; /* Allow the container to take available space */
+}
+
+.search-input {
+    width: 100%; /* Make input take full width of the container */
+    padding: 10px 40px 10px 10px; /* Add padding to the input */
+    border: 1px solid #ccc; /* Border around the input */
+    border-radius: 4px; /* Rounded corners */
+    margin-right: 10px;
+}
+
+/* Date Box Container */
+.date-box {
+    display: flex;
+    align-items: center; /* Align the calendar icon and date text */
+    padding: 10px;
+    background-color: #f9f9f9; /* Light background */
+    border: 1px solid #ccc; /* Border around the date box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-left: 10px; /* Space between search section and date box */
+}
+
+.properties-list-container {
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Calendar Icon */
+.calendar-icon {
+    width: 20px; /* Adjust size as needed */
+    height: 20px;
+    margin-right: 10px; /* Space between the icon and the date */
+}
+
+/* Date Display Text */
+.date-display {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.traffic-section {
+    width: 250px; /* Set a fixed width for the traffic section */
+    height: 200px; /* Set a fixed height for the traffic chart */
+    position: absolute; /* Use absolute positioning */
+    top: 600px; /* Adjust this value to place it under the right menu */
+    left: 50px; /* Position it towards the left */
+    background-color: white; /* Optional: add a background for better visibility */
+    border: 1px solid #ddd; /* Optional: add a border */
+    border-radius: 8px; /* Optional: round the corners */
+    padding: 10px; /* Optional: add some padding inside the div */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: add a shadow for depth */
+}

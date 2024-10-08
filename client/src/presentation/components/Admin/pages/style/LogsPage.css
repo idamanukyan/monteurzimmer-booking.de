@@ -1,0 +1,77 @@
+.logs-page {
+    padding: 20px;
+    background-color: #f9f9f9; /* Light background for better contrast */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logs-page h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333; /* Darker text color */
+}
+
+.logs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between log items */
+}
+
+.log-item {
+    padding: 10px;
+    border: 1px solid #ddd; /* Light border */
+    border-radius: 5px;
+    background-color: #fff; /* White background for log items */
+    display: flex;
+    justify-content: space-between; /* Align items to the edges */
+    border-bottom: 1px solid #ccc;
+}
+
+.log-item p {
+    margin: 5px 0; /* Space between paragraphs */
+}
+
+
+.log-level {
+    flex: 1; /* Takes up 1 part of the space */
+    font-weight: bold;
+}
+
+.log-message {
+    flex: 2; /* Takes up 2 parts of the space */
+}
+
+.log-timestamp {
+    flex: 1; /* Takes up 1 part of the space */
+    text-align: right; /* Align timestamp to the right */
+}
+
+.pagination-controls {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between; /* Space between buttons */
+    align-items: center;
+}
+
+.pagination-controls button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Primary button color */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination-controls button:disabled {
+    background-color: #ccc; /* Disabled button color */
+    cursor: not-allowed;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.pagination-controls span {
+    font-size: 16px;
+}
