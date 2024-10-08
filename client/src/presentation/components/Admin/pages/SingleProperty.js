@@ -39,7 +39,7 @@ const SingleProperty = () => {
 
                 // Fetch link preview data for the property link
                 if (response.data.socialMediaLink) {
-                    fetchLinkPreview(response.data.socialMediaLink);
+                    await fetchLinkPreview(response.data.socialMediaLink);
                 }
             } catch (error) {
                 console.error('Error fetching property:', error);
@@ -148,7 +148,7 @@ const SingleProperty = () => {
                     <td>{property.description}</td>
                 </tr>
                 <tr>
-                    <td>Price per Night</td>
+                    <td>Price</td>
                     <td>{property.price} €</td>
                 </tr>
                 <tr>

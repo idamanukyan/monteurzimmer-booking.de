@@ -11,7 +11,7 @@ const UpdatePropertyModal = ({ isOpen, onClose, formData, handleInputChange, han
                     type="text"
                     name="propertyName"
                     placeholder="Property Name"
-                    value={formData.propertyName}
+                    value={formData.title}
                     onChange={handleInputChange}
                     required
                 />
@@ -23,21 +23,7 @@ const UpdatePropertyModal = ({ isOpen, onClose, formData, handleInputChange, han
                     onChange={handleInputChange}
                     required
                 />
-                <input
-                    type="number"
-                    name="pricePerNight"
-                    placeholder="Price Per Night"
-                    value={formData.pricePerNight}
-                    onChange={handleInputChange}
-                    required
-                />
-                <textarea
-                    name="description"
-                    placeholder="Description"
-                    value={formData.description}
-                    onChange={handleInputChange}
-                    required
-                />
+
                 <button type="submit">Update Property</button>
                 <button type="button" onClick={onClose}>Close</button>
             </form>

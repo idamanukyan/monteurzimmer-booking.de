@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -220,11 +221,25 @@ public class PropertyService {
 
     public PropertyDTO createProperty(PropertyDTO propertyDTO) {
         log.info("Creating new property: {}", propertyDTO);
+
         Property property = modelMapper.map(propertyDTO, Property.class);
+
+        // Fetch or create the city
+        City city = cityRepository.findByName(propertyDTO.getCity().getName());
+        property.setCity(city);
+        property.setFullPrice(propertyDTO.getPrice());
+        property.setCreatedAt(LocalDateTime.now());
         Property savedProperty = propertyRepository.save(property);
+
         log.info("Successfully created property with ID: {}", savedProperty.getId());
-        return modelMapper.map(savedProperty, PropertyDTO.class);
+
+        // Ensure PropertyDTO contains the correct property ID
+        PropertyDTO responseDTO = modelMapper.map(savedProperty, PropertyDTO.class);
+        responseDTO.setId(savedProperty.getId()); // Explicitly set the property ID if needed
+
+        return responseDTO;
     }
+
 
     public PropertyDTO addFavoriteProperty(FavoritePropertyDto propertyDto) {
         log.info("Updating favorite status for property ID: {}", propertyDto.getPropertyId());

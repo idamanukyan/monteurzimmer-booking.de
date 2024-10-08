@@ -47,7 +47,7 @@ const PropertiesList = () => {
         <div className="properties-list-container">
             <div className="properties-list">
                 {currentProperties.map((property) => (
-                    <PropertyCard key={property.propertyId} property={property} />
+                    <PropertyCard key={property.id} property={property} />
                 ))}
             </div>
 
