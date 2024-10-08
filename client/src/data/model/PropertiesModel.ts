@@ -1,0 +1,51 @@
+export type PropertiesModel = Property[]
+
+export interface Property {
+    propertyId: number
+    adminId: any
+    propertyName: string
+    propertyType: string
+    description: string
+    location: string
+    price: number
+    rating: number
+    country: string
+    city: string
+    roomCount: number
+    bedCount: number
+    numberOfGuests: number
+    neighborhood: string
+    reviewScore: any
+    bathrooms: number
+    latitude: number
+    longitude: number
+    createdAt: string
+    wlan: boolean
+    tv: boolean
+    getrennteBetten: boolean
+    privatesBad: boolean
+    kochmoglichkeit: boolean
+    radio: boolean
+    handtucherInkl: boolean
+    zustellbettMoglich: boolean
+    bettwascheInkl: boolean
+    kuhlschrank: boolean
+    kaffeemaschine: boolean
+    mikrowelle: boolean
+    spulmaschine: boolean
+    wc: boolean
+    terrasse: boolean
+    wasserkocher: boolean
+    badewanne: boolean
+    garten: boolean
+    kochutensilien: boolean
+    waschmaschine: boolean
+    eigenstandigerCheckIn: boolean
+    raucher: boolean
+    ruhigeLage: boolean
+    guteVerkehrsanbindung: boolean
+    geschaefteInDerNahe: boolean
+    photos: any
+    socialMediaLink: string
+    available: boolean
+}

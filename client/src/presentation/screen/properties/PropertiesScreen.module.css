@@ -1,6 +1,6 @@
 .headerContainer {
     padding: 25px 30px;
-    margin-bottom: 25px;
+    margin-bottom: 100px;
 }
 
 .heroSlideContainer {
@@ -60,4 +60,158 @@
     font-weight: bold;
     color: black;
     font-size: 34px;
+}
+
+.propertyContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.propertyCellContainer {
+    padding: 25px;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    background-color: #fff0ed;
+    border-radius: 20px;
+    margin: 10px 0;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.propertyCellContainer:hover {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #ff4b00;
+    transform: scale(1.03);
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(173, 53, 0, 0.63); /* orange shadow */
+}
+
+.propertyCellContainer > img {
+    border-radius: 20px;
+    height: 100%;
+    object-fit: cover;
+}
+
+.propertyCellDetails {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px 25px;
+}
+
+.propertyCellDetails > p {
+    margin: 0;
+}
+
+.propertyCellRating {
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.propertyCellRating > p {
+    font-style: italic;
+}
+
+.propertyCellRating > div > button {
+    font-size: 11px;
+}
+
+.propertyCellDetails > h4 {
+    margin: 10px 0;
+}
+
+.propertyCellDetails > h1 {
+    margin: 0;
+}
+
+.propertyCellDetails > h5 {
+    margin: 0;
+    font-style: italic;
+    font-weight: normal;
+    color: #333333;
+}
+
+.propertyBodyContainer {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: center;
+}
+
+.propertyFilterContainer > h2 {
+    margin: 0;
+
+}
+
+.propertyListContainer {
+    width: 70%;
+    align-items: flex-start;
+    margin-left: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.propertyFilterContainer {
+    background-color: #f9f9f9;
+    padding: 25px;
+    border-radius: 20px;
+    width: 20%;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.filterCategory {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.filterItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    input[type="number"] {
+        width: 60px;
+        margin-left: 8px;
+    }
+}
+
+.filterItem input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+.filterItem label {
+    font-size: 14px;
+    color: #333;
+}
+
+h3 {
+    color: #444;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.filterCategory > h4 {
+    color: #ff6c37;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.propertyScreenContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

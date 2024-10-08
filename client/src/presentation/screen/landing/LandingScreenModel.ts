@@ -18,6 +18,10 @@ export default function LandingScreenModel(
         favCitiesService.getFavCities();
     }, []);
 
+    useEffect(() => {
+        console.log(state.city)
+    }, [state.city])
+
     function onSearchTextChange(changeEvent: React.ChangeEvent<HTMLInputElement>) {
         setState((prevState) => ({
             ...prevState,
@@ -26,7 +30,7 @@ export default function LandingScreenModel(
     }
 
     function onSearchClick() {
-        navigate('/search', { state: { searchInput: state.city } })
+        navigate('/properties', { state: { searchInput: state.city } })
     }
 
     const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) =>{

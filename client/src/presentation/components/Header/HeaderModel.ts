@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {FavCitiesService} from "../../../data/service/FavCitiesService";
-import {PropService} from "../../../data/service/PropService";
+import {PropertyService} from "../../../data/service/PropertyService";
 
 interface HeaderState {
     readonly city: string
@@ -8,7 +8,7 @@ interface HeaderState {
 }
 
 export default function HeaderModel (
-    propService: PropService
+    propertyService: PropertyService
 ) {
     const [ state, setState] = useState<HeaderState>({
         city: "",

@@ -28,7 +28,7 @@
     height: -webkit-fill-available;
     /*transform: translateX(-100%);*/
     color: #000000;
-    background: rgb(255, 255, 255);/* Semi-transparent background */
+    background: rgb(245, 245, 245);/* Semi-transparent background */
     padding: 25px 60px 25px 120px;
     border-radius: 20px;
     z-index: 2; /* Ensure text is above the overlay */

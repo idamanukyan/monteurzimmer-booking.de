@@ -1,44 +1,49 @@
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {FavCitiesService} from "../../../data/service/FavCitiesService";
+import {PropertyService} from "../../../data/service/PropertyService";
+import {Property} from "../../../data/model/PropertiesModel";
 
 interface PropertiesState {
-    readonly city: string
+    city: string;
+    properties: Property[] | null;
 }
 
-export default function PropertiesScreenModel(
-    favCitiesService: FavCitiesService,
-) {
-    const [ state, setState] = useState<PropertiesState>({
-        city: ""
-    })
+export default function PropertiesScreenModel(propertyService: PropertyService) {
+    const location = useLocation();
+    const [state, setState] = useState<PropertiesState>({
+        city: location.state?.searchInput || "",
+        properties: [] || null
+    });
+
     const navigate = useNavigate();
+    // console.log(state.city)
 
-    useEffect(() => {
-        favCitiesService.getFavCities();
-    }, []);
+    const getProperties = async () => {
+        if (state.city) {
+            try {
+                const properties = await propertyService.getProperties(state.city);
+                // console.log('Properties List: '+properties)
+                // console.log(state.city)
 
-    function onSearchTextChange(changeEvent: React.ChangeEvent<HTMLInputElement>) {
-        setState((prevState) => ({
-            ...prevState,
-            city: changeEvent.target.value
-        }))
-    }
-
-    function onSearchClick() {
-        navigate('/search', { state: { searchInput: state.city } })
-    }
-
-    const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) =>{
-        if( e.key === 'Enter' ){
-            onSearchClick();
+                setState((prevState) => ({
+                    ...prevState,
+                    properties
+                }));
+            } catch (error) {
+                console.error('Error fetching properties:', error);
+                setState((prevState) => ({
+                    ...prevState,
+                    properties: []
+                }));
+            }
         }
     };
 
+    useEffect(() => {
+        getProperties()
+    }, [state.city]);
+
     return {
-        state,
-        onSearchClick,
-        onSearchTextChange,
-        onKeyPress
-    }
+        state, setState
+    };
 }
