@@ -3,7 +3,6 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import LandingScreen from "./presentation/screen/landing/LandingScreen";
 import './App.css';
 import Dashboard from "./presentation/components/Admin/layout/Dashboard";
-import PropertiesList from "./presentation/components/Admin/pages/PropertiesList";
 import SingleProperty from "./presentation/components/Admin/pages/SingleProperty";
 import LogsPage from "./presentation/components/Admin/pages/LogsPage";
 import MainContainer from "./presentation/components/Admin/pages/MainContainer";
@@ -13,6 +12,7 @@ import CitiesManagement from "./presentation/components/Admin/pages/CitiesManage
 import NewsletterManagement from "./presentation/components/Admin/pages/NewsletterManagement";
 import TrafficChart from "./presentation/components/Admin/pages/TrafficChart";
 import DocumentsManagement from "./presentation/components/Admin/pages/DocumentsManagement";
+import PropertiesScreen from "./presentation/screen/properties/PropertiesScreen";
 
 function App() {
     return (
@@ -20,6 +20,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path={'/'} element={<LandingScreen/>}/>
+                    <Route path={'/properties'} element={<PropertiesScreen/>}/>
                     {/* Dashboard layout for admin */}
                     <Route path="/admin" element={<Dashboard />}>
                         {/* Nested routes for the dashboard */}

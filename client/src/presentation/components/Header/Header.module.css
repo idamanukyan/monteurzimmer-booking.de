@@ -1,7 +1,7 @@
 .header {
     position: fixed; /* Fixes the header to the top */
     padding: 25px 30px;
-    background-color: #fff;
+    background-color: #ececec;
     /*box-shadow: 0 0 4px #ffb5a8; !* orange shadow *!*/
     border-radius: 20px;
     /*border-width: 1px;*/
@@ -32,6 +32,10 @@
     list-style: none;
     display: flex;
     gap: 1rem;
+}
+
+.header nav ul li Button {
+    border-radius: 15px;
 }
 
 .header nav a {

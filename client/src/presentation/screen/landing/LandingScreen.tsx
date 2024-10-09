@@ -6,6 +6,7 @@ import FavProducts from "../../components/FavProducts/FavProducts";
 import AboutUs from "../../components/AboutUs/AboutUs";
 import Footer from "../../components/Footer";
 import FavCities from "../../components/FavCities/FavCities";
+import {FavCitiesService} from "../../../data/service/FavCitiesService";
 
 export default function LandingScreen() {
     const {
@@ -13,7 +14,7 @@ export default function LandingScreen() {
         onSearchTextChange,
         onSearchClick,
         onKeyPress
-    } = LandingScreenModel();
+    } = LandingScreenModel(new FavCitiesService());
 
     return (
         <div>
