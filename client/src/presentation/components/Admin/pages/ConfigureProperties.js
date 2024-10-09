@@ -75,7 +75,7 @@ const ConfigureProperties = () => {
         }
     };
 
-/*    const openUpdateModal = (property) => {
+    const openUpdateModal = (property) => {
         setSelectedPropertyId(property.id);
         setFormData({
             propertyName: property.propertyName,
@@ -85,7 +85,7 @@ const ConfigureProperties = () => {
             facilities: property.facilities || [], // Include facilities if necessary
         });
         setUpdateModalOpen(true);
-    };*/
+    };
 
     const resetForm = () => {
         setFormData({
@@ -149,10 +149,10 @@ const ConfigureProperties = () => {
                 </div>
 
                 <h3>Existing Properties</h3>
-             {/*   <PropertiesList
+                <PropertiesList
                     properties={properties}
                     openUpdateModal={openUpdateModal}
-                />*/}
+                />
             </div>
 
             <AddPropertyModal

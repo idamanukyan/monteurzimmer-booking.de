@@ -140,7 +140,7 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleA
                     <div className="input-row">
                         <select
                             name="city"
-                            value={formData.city.name}
+                            value={formData.city}
                             onChange={handleInputChange}
                             required
                             disabled={loadingCities} // Disable if still loading
