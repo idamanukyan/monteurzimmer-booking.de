@@ -24,7 +24,7 @@ import goodTransportation from '../pages/style/public/searchIcons/quietLocation.
 import shopsNearby from '../pages/style/public/searchIcons/shopsNearby.svg';
 
 
-const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
+const FilterModal = ({ isOpen, onClose, filters = {}, setFilters }) => {
 
     const initialFilterState = {
         wifi: null,

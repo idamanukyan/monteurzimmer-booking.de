@@ -155,4 +155,13 @@ public class PropertyController {
         logger.info("Successfully deleted property ID {}.", id);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/remove/by/link")
+    public ResponseEntity<Void> deleteProperty(@RequestParam String url) {
+        logger.debug("Deleting property with URL {}.", url);
+        propertyService.deletePropertyByLink(url);
+        logger.info("Successfully deleted property with URL {}.", url);
+        return ResponseEntity.noContent().build();
+    }
+
 }
