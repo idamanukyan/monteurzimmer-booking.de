@@ -24,11 +24,9 @@ import goodTransportation from '../pages/style/public/searchIcons/quietLocation.
 import shopsNearby from '../pages/style/public/searchIcons/shopsNearby.svg';
 
 
-const FilterModal = ({isOpen, onClose, onApply}) => {
-
+const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
 
     const initialFilterState = {
-        roomCount: '',
         wifi: null,
         tv: null,
         privateBath: null,
@@ -53,34 +51,18 @@ const FilterModal = ({isOpen, onClose, onApply}) => {
         shopsNearby: null,
     };
 
-    const [filters, setFilters] = useState(initialFilterState);
-    const [temporaryFilters, setTemporaryFilters] = useState(initialFilterState);
-
-
     const handleIconToggle = (name) => {
-        setTemporaryFilters((prevState) => ({
+        setFilters((prevState) => ({
             ...prevState,
             [name]: !prevState[name],
         }));
     };
 
-
-    const handleChange = (e) => {
-        const {name, value} = e.target;
-        setTemporaryFilters({
-            ...temporaryFilters,
-            [name]: value,
-        });
-    };
-
     const handleApply = () => {
-        setFilters(temporaryFilters);  // Save the temporary state to the actual filters
-        onApply(temporaryFilters);
         onClose();
     };
 
     const handleCancel = () => {
-        setTemporaryFilters(filters);  // Revert changes made in the modal
         onClose();
     };
 
@@ -97,148 +79,138 @@ const FilterModal = ({isOpen, onClose, onApply}) => {
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <h2>Filtereigenschaften</h2>
                 <form>
-                    <label>
-                        Anzahl der Zimmer:
-                        <input
-                            type="number"
-                            name="roomCount"
-                            value={temporaryFilters.roomCount}
-                            onChange={handleChange}
-                        />
-                    </label>
                     {/* Wi-Fi Icon Toggle */}
                     <div className="icon-grid">
-
                         <div
-                            className={`icon-wrapper ${temporaryFilters.wifi ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.wifi ? 'active' : ''}`}
                             onClick={() => handleIconToggle('wifi')}
                             style={{backgroundImage: `url(${wifiIcon})`}} // Use the icon as background
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.tv ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.tv ? 'active' : ''}`}
                             onClick={() => handleIconToggle('tv')}
                             style={{backgroundImage: `url(${tvIcon})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.privateBath ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.privateBath ? 'active' : ''}`}
                             onClick={() => handleIconToggle('privateBath')}
                             style={{backgroundImage: `url(${privateBath})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.cookingFacilities ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.cookingFacilities ? 'active' : ''}`}
                             onClick={() => handleIconToggle('cookingFacilities')}
                             style={{backgroundImage: `url(${cookingFacilities})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.separateBeds ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.separateBeds ? 'active' : ''}`}
                             onClick={() => handleIconToggle('separateBeds')}
                             style={{backgroundImage: `url(${separateBeds})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.radio ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.radio ? 'active' : ''}`}
                             onClick={() => handleIconToggle('radio')}
                             style={{backgroundImage: `url(${radio})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.towels ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.towels ? 'active' : ''}`}
                             onClick={() => handleIconToggle('towels')}
                             style={{backgroundImage: `url(${towels})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.fridge ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.fridge ? 'active' : ''}`}
                             onClick={() => handleIconToggle('fridge')}
                             style={{backgroundImage: `url(${fridge})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.coffeeMachine ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.coffeeMachine ? 'active' : ''}`}
                             onClick={() => handleIconToggle('coffeeMachine')}
                             style={{backgroundImage: `url(${coffeeMachine})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.microwave ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.microwave ? 'active' : ''}`}
                             onClick={() => handleIconToggle('microwave')}
                             style={{backgroundImage: `url(${microwave})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.dishwasher ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.dishwasher ? 'active' : ''}`}
                             onClick={() => handleIconToggle('dishwasher')}
                             style={{backgroundImage: `url(${dishwasher})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.wc ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.wc ? 'active' : ''}`}
                             onClick={() => handleIconToggle('wc')}
                             style={{backgroundImage: `url(${wc})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.terrace ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.terrace ? 'active' : ''}`}
                             onClick={() => handleIconToggle('terrace')}
                             style={{backgroundImage: `url(${terrace})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.kettle ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.kettle ? 'active' : ''}`}
                             onClick={() => handleIconToggle('kettle')}
                             style={{backgroundImage: `url(${kettle})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.bathtub ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.bathtub ? 'active' : ''}`}
                             onClick={() => handleIconToggle('bathtub')}
                             style={{backgroundImage: `url(${bathtub})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.garden ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.garden ? 'active' : ''}`}
                             onClick={() => handleIconToggle('garden')}
                             style={{backgroundImage: `url(${garden})`}}
                         >
                         </div>
 
                         <div
-                            className={`icon-wrapper ${temporaryFilters.cookingUtensils ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.cookingUtensils ? 'active' : ''}`}
                             onClick={() => handleIconToggle('cookingUtensils')}
                             style={{backgroundImage: `url(${cookingUtensils})`}}
                         >
                         </div>
 
                         <div
-                            className={`icon-wrapper ${temporaryFilters.washingMachine ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.washingMachine ? 'active' : ''}`}
                             onClick={() => handleIconToggle('washingMachine')}
                             style={{backgroundImage: `url(${washingMachine})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.smoking ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.smoking ? 'active' : ''}`}
                             onClick={() => handleIconToggle('smoking')}
                             style={{backgroundImage: `url(${smoking})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.quietLocation ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.quietLocation ? 'active' : ''}`}
                             onClick={() => handleIconToggle('quietLocation')}
                             style={{backgroundImage: `url(${quietLocation})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.goodTransportation ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.goodTransportation ? 'active' : ''}`}
                             onClick={() => handleIconToggle('goodTransportation')}
                             style={{backgroundImage: `url(${goodTransportation})`}}
                         >
                         </div>
                         <div
-                            className={`icon-wrapper ${temporaryFilters.shopsNearby ? 'active' : ''}`}
+                            className={`icon-wrapper ${filters.shopsNearby ? 'active' : ''}`}
                             onClick={() => handleIconToggle('shopsNearby')}
                             style={{backgroundImage: `url(${shopsNearby})`}}
                         >

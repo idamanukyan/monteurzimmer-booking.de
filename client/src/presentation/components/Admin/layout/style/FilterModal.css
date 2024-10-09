@@ -15,17 +15,15 @@
 .modal-content {
     background-color: #fff;
     border-radius: 20px;
-    padding: 40px;
-    width: 40%; /* 40% of the screen width */
-    height: 50%; /* 30% of the screen height */
+    padding: 40px; /* Keep padding for a comfortable layout */
+    width: 50%; /* Increase width to 50% of the screen */
+    height: auto; /* Allow height to be auto for dynamic content */
+    max-height: 80%; /* Limit maximum height to avoid overflow */
+    overflow-y: auto; /* Enable scrolling if content overflows */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     z-index: 1010;
-}
-
-form {
-    margin-bottom: 20px; /* Adds space below Room Count input */
 }
 
 h2 {
@@ -33,18 +31,33 @@ h2 {
     margin-bottom: 20px;
 }
 
+form {
+    margin-bottom: 10px; /* Space below the form */
+}
+
+/* Input styles */
+input {
+    width: 100%;
+    padding: 10px; /* Add some padding for better aesthetics */
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
 /* Icon Grid Container */
 .icon-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 6 icons per row */
+    grid-template-columns: repeat(5, 1fr); /* 5 icons per row */
     grid-gap: 10px;
-    margin-bottom: 20px; /* spacing between grid and other elements */
+    margin-bottom: 15px; /* Space below the icon grid */
 }
 
 /* Icon Styles */
 .icon-wrapper {
     width: 40px;
-    padding-bottom: 60px; /* Makes the icons square by creating equal width and height */
+    padding-bottom: 60px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -55,20 +68,19 @@ h2 {
 }
 
 .icon-wrapper.active {
-    border-color: green; /* Changes the border to green when active */
+    border-color: green; /* Highlight active icon */
 }
 
 /* Modal Buttons */
 .modal-buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 50px; /* Adds space between buttons */
-    margin-top: -10px; /* Adds space between icons and the buttons */
+    gap: 20px; /* Space between buttons */
+    margin-top: 20px; /* Space above buttons */
 }
 
 .modal-buttons button {
-    margin-left: 10px;
-    padding: 10px 20px;
+    padding: 10px 15px; /* Adjust button padding */
     border: none;
     border-radius: 5px;
     background-color: #007bff;

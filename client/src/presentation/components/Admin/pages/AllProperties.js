@@ -9,7 +9,7 @@ const AllProperties = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProperties, setTotalProperties] = useState(0);
     const [filters, setFilters] = useState({
-        city: '',
+        city:{},
         numberOfGuests: '',
         minPrice: '',
         maxPrice: '',
@@ -85,7 +85,7 @@ const AllProperties = () => {
             {properties.length > 0 ? (
                 <div className="properties-list">
                     {currentProperties.map((property) => (
-                        <PropertyCard key={property.propertyId} property={property} />
+                        <PropertyCard key={property.id} property={property} />
                     ))}
                 </div>
             ) : (

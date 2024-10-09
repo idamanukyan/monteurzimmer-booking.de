@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 public class PropertyDTO {
-    private Long propertyId;
+    private Long id;
     private Long adminId;
     private String propertyName;
     private String propertyType;
@@ -31,35 +31,30 @@ public class PropertyDTO {
     private BigDecimal longitude;
     private LocalDateTime createdAt;
     // Facilities flags
-    private boolean wlan;
+    private boolean wifi;
     private boolean tv;
-    private boolean getrennteBetten;
-    private boolean privatesBad;
+    private boolean separateBeds;
+    private Boolean privateBath;
     private String address;
-    private boolean kochmoglichkeit;
+    private boolean cookingFacilities;
     private boolean radio;
-    private boolean handtucherInkl;
-    private boolean zustellbettMoglich;
-    private boolean bettwascheInkl;
-    private boolean kuhlschrank;
-    private boolean kaffeemaschine;
-    private boolean mikrowelle;
-    private boolean spulmaschine;
+    private boolean towels;
+    private Boolean fridge;
+    private Boolean coffeeMachine;
+    private Boolean microwave;
+    private Boolean dishwasher;
     private boolean wc;
-    private boolean terrasse;
-    private boolean wasserkocher;
-    private boolean badewanne;
-    private boolean garten;
-    private boolean kochutensilien;
-    private boolean waschmaschine;
-    private boolean eigenstandigerCheckIn;
-    private boolean raucher;
-    private boolean ruhigeLage;
-    private boolean guteVerkehrsanbindung;
-    private boolean geschaefteInDerNahe;
-
+    private Boolean terrace;
+    private Boolean kettle;
+    private Boolean bathtub;
+    private Boolean garden;
+    private boolean cookingUtensils;
+    private Boolean washingMachine;
+    private Boolean smoking;
+    private Boolean quietLocation;
+    private Boolean goodTransportation;
+    private Boolean shopsNearby;
     private List<PropertyPhoto> photos;
-
     private String socialMediaLink;
 
 }
