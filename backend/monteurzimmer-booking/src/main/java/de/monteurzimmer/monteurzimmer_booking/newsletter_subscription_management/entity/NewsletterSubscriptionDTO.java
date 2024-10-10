@@ -6,10 +6,11 @@ import java.time.LocalDate;
 
 @Data
 public class NewsletterSubscriptionDTO {
+    private Long id;
     private String email;
     private String name;
     private String surname;
     private LocalDate birthDate;
-
+    private Boolean isActive = true;
 }
 

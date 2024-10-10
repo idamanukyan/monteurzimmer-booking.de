@@ -1,5 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.controller;
 
+import de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.entity.NewsletterSubscription;
 import de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.entity.NewsletterSubscriptionDTO;
 import de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.service.NewsletterSubscriptionService;
 import org.slf4j.Logger;
@@ -64,6 +65,15 @@ public class NewsletterSubscriptionController {
         logger.debug("Fetching all subscribed user emails.");
 
         List<String> subscriptions = subscriptionService.getAllSubscribedUserEmails();
+        logger.info("Fetched {} active subscriptions.", subscriptions.size());
+        return ResponseEntity.ok(subscriptions);
+    }
+
+    @GetMapping("/all-subscriptions")
+    public ResponseEntity<List<NewsletterSubscription>> getAllSubscribedUser() {
+        logger.debug("Fetching all subscribed user emails.");
+
+        List<NewsletterSubscription> subscriptions = subscriptionService.getAllSubscribedUser();
         logger.info("Fetched {} active subscriptions.", subscriptions.size());
         return ResponseEntity.ok(subscriptions);
     }

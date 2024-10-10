@@ -11,7 +11,7 @@ const NewsletterManagement = () => {
         surname: '',
         birthDate: '',
         subscribedAt: '',
-        isActive: true,
+        isActive: null,
     });
     const [isAddModalOpen, setAddModalOpen] = useState(false);
     const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
@@ -22,7 +22,7 @@ const NewsletterManagement = () => {
 
     const fetchSubscribers = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/newsletter/active-subscriptions');
+            const response = await axios.get('http://localhost:8080/api/newsletter/all-subscriptions');
             setSubscribers(response.data);
         } catch (error) {
             console.error('Error fetching subscribers:', error);
@@ -127,7 +127,7 @@ const NewsletterManagement = () => {
                         />
                         <label>
                             <input
-                                type="checkbox"
+                                type="text"
                                 name="isActive"
                                 checked={formData.isActive}
                                 onChange={handleInputChange}
@@ -198,14 +198,7 @@ const NewsletterManagement = () => {
                         <h4>{subscriber.name} {subscriber.surname}</h4>
                         <p>Email: {subscriber.email}</p>
                         <p>Birth Date: {subscriber.birthDate}</p>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={subscriber.isActive}
-                                readOnly
-                            />
-                            Active
-                        </label>
+                        <p>Status: {subscriber.isActive}</p>
                         <button onClick={() => openUpdateModal(subscriber)}>Update</button>
                         <button onClick={() => handleRemoveSubscriber(subscriber.id)}>Remove</button>
                     </div>

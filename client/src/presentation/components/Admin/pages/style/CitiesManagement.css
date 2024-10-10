@@ -1,5 +1,5 @@
+/* Global Styles */
 body {
-    font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
@@ -7,39 +7,57 @@ body {
 
 h2 {
     color: #343a40;
+    font-size: 2em;
     text-align: center;
     margin-bottom: 20px;
+    font-weight: bold;
 }
 
+/* Button Styles */
 button {
-    background-color: #007bff;
+    background-color: #28a745;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #218838;
+    transform: translateY(-3px);
 }
 
+button:active {
+    background-color: #1e7e34;
+    transform: translateY(0);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.4);
+}
+
+/* Modal Styles */
 .modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
+    background-color: #fff;
+    padding: 30px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    width: 300px;
+    width: 350px;
 }
 
 .modal h3 {
     margin-top: 0;
+    font-size: 1.5em;
+    color: #343a40;
 }
 
 .modal input[type="text"],
@@ -54,11 +72,8 @@ button:hover {
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 4px;
-}
-
-.modal label {
-    display: flex;
-    align-items: center;
+    font-size: 1em;
+    margin-bottom: 15px;
 }
 
 .modal button {
@@ -74,6 +89,7 @@ button:hover {
     background-color: #c82333;
 }
 
+/* City Cards List */
 .cities-list {
     display: flex;
     flex-wrap: wrap;
@@ -81,34 +97,115 @@ button:hover {
     margin-top: 20px;
 }
 
+/* City Card Styles */
 .city-card {
-    background-color: #ffffff;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    padding: 15px;
-    margin: 10px;
-    width: 220px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden; /* Ensure content doesn't overflow the card */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-size: cover; /* Image covers the whole card */
+    background-position: center; /* Center the image in the card */
+    color: white;
+    padding: 20px;
+    margin: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Adds better text visibility over image */
 }
 
 .city-card:hover {
-    transform: scale(1.02);
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .city-card h4 {
-    margin-top: 0;
-    color: #007bff;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .city-card p {
-    color: #6c757d;
+    margin: 5px 0;
+    color: #ddd; /* Lighter text color for description */
+    z-index: 1;
+    font-size: 0.9em;
+}
+
+/* Overlay for background image */
+.city-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3); /* Dark overlay for better text visibility */
+    z-index: 0;
 }
 
 .city-card button {
-    margin-right: 5px;
+    margin-top: 10px;
+    width: 48%;
+    z-index: 1;
+    background-color: rgba(40, 167, 69, 0.85); /* Slight transparency for buttons */
+    transition: background-color 0.3s;
 }
 
-.city-card button:last-child {
-    margin-right: 0;
+.city-card button:hover {
+    background-color: rgba(40, 167, 69, 1); /* Fully opaque on hover */
 }
+
+
+.city-card .city-details {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+
+}
+
+.city-card .city-details label {
+    color: white;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.city-card .city-details label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    appearance: none; /* Hide default checkbox style */
+    border-radius: 50%; /* Make it circular */
+    border: 2px solid white; /* Add a white border */
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+}
+
+.city-card .city-details label input[type="checkbox"]:checked {
+    background-color: #28a745; /* Green color when checked */
+    border-color: #28a745;
+}
+
+.city-card .city-details label input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+

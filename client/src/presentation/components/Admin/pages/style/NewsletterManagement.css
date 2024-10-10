@@ -1,24 +1,92 @@
-/* NewsletterManagement.css */
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Header styles */
+h2 {
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+/* Button styles */
+button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Modal styles */
 .modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     z-index: 1000;
+    width: 300px;
 }
 
-.subscribers-list {
+/* Form styles */
+form {
     display: flex;
     flex-direction: column;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="date"] {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+/* Subscribers list styles */
+.subscribers-list {
     margin-top: 20px;
 }
 
 .subscriber-card {
-    border: 1px solid #ccc;
-    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subscriber-card h4 {
+    margin: 0 0 10px 0;
+    color: #343a40;
+}
+
+.subscriber-card p {
     margin: 5px 0;
-    border-radius: 4px;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .modal {
+        width: 90%;
+    }
 }

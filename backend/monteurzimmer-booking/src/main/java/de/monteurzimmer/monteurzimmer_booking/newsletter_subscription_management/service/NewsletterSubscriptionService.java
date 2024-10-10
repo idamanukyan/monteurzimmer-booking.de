@@ -88,4 +88,13 @@ public class NewsletterSubscriptionService {
         logger.info("Fetched {} active subscriptions.", emails.size());
         return emails;
     }
+
+    public List<NewsletterSubscription> getAllSubscribedUser() {
+        logger.debug("Fetching all active subscriptions.");
+        List<NewsletterSubscription> users = repository.findAll();
+        logger.info("Fetched {} active subscriptions.", users.size());
+        return users;
+    }
+
+
 }

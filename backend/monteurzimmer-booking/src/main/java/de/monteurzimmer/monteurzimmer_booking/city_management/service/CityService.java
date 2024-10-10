@@ -41,6 +41,7 @@ public class CityService {
         }
 
         City newCity = modelMapper.map(cityDto, City.class);
+        newCity.setPhoto(cityDto.getPhoto());
         City savedCity = cityRepository.save(newCity);
         return modelMapper.map(savedCity, CityDto.class);
     }
@@ -92,8 +93,8 @@ public class CityService {
             throw new IllegalArgumentException("No file provided for upload.");
         }
 
-        String uploadDir = "client/storage/upload/icons/city";
-        String fileName = System.currentTimeMillis() + "_" + photoFile.getOriginalFilename();
+        String uploadDir = "client/public/city";
+        String fileName = photoFile.getOriginalFilename();
 
         try {
             Path uploadPath = Paths.get(uploadDir);
@@ -103,7 +104,7 @@ public class CityService {
 
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(photoFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            return filePath.toString();
+            return fileName;
         } catch (IOException e) {
             logEntryService.log("error", "\"Could not store photo: {}" + fileName + e);
             throw new RuntimeException("Could not store photo: " + fileName, e);

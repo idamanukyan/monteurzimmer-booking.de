@@ -33,7 +33,11 @@ public class CityController {
     }
 
     @PostMapping(value = "/add", consumes = "multipart/form-data")
-    public ResponseEntity<CityDto> addCity(@RequestParam("name") String name, @RequestParam("isFavorite") Boolean isFavorite, @RequestParam("photoFile") MultipartFile photoFile) {
+    public ResponseEntity<CityDto> addCity(@RequestParam("name") String name,
+                                           @RequestParam(value = "isFavorite", required = false) Boolean isFavorite,
+                                           @RequestParam("photoFile") MultipartFile photoFile,
+                                           @RequestParam("latitude") double latitude,
+                                           @RequestParam("longitude") double longitude) {
 
         if (name == null || name.trim().isEmpty()) {
             logEntryService.log("error", "City name must not be null or empty.");
