@@ -49,3 +49,9 @@ export interface Property {
     socialMediaLink: string
     available: boolean
 }
+
+export interface PropertyMainFields {
+    title: string
+    description: string
+    image: string
+}

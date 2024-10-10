@@ -85,10 +85,10 @@
 .propertyCellContainer:hover {
     border-style: solid;
     border-width: 1px;
-    border-color: #ff4b00;
+    border-color: #ffc0a4;
     transform: scale(1.03);
     background-color: white;
-    box-shadow: 0 4px 15px rgba(173, 53, 0, 0.63); /* orange shadow */
+    box-shadow: 0 1px 13px rgba(203, 88, 32, 0.63); /* orange shadow */
 }
 
 .propertyCellContainer > img {
@@ -127,10 +127,14 @@
 
 .propertyCellDetails > h4 {
     margin: 10px 0;
+    text-align: start;
+    font-weight: normal;
 }
 
 .propertyCellDetails > h1 {
-    margin: 0;
+    margin: 7px 0 0;
+    font-size: 22px;
+    text-align: start;
 }
 
 .propertyCellDetails > h5 {
@@ -138,6 +142,7 @@
     font-style: italic;
     font-weight: normal;
     color: #333333;
+    text-align: start;
 }
 
 .propertyBodyContainer {
