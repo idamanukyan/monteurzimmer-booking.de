@@ -9,6 +9,7 @@ import { TextFieldProps } from '@mui/material/TextField';
 import { Input } from '@mui/material';
 import Button from '@mui/material/Button';
 import { unstable_useNumberInput as NumberInput } from '@mui/base/unstable_useNumberInput';
+import {Dropdown} from "@mui/base";
 
 interface HeroSlideProps {
     onSearchClick: () => void;
@@ -20,6 +21,11 @@ interface HeroSlideProps {
 const HeroSlide: React.FC<HeroSlideProps> = ({ onSearchClick, onSearchTextChange, onKeyPress, inputValue }) => {
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
+    const [selectedType, setSelectedType] = useState('');
+
+    const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedType(event.target.value);
+    };
 
     return (
         <div className={styles.heroSlide}>
@@ -27,21 +33,6 @@ const HeroSlide: React.FC<HeroSlideProps> = ({ onSearchClick, onSearchTextChange
                 <span>Dein Partner für den besten Preis</span>
             </div>
             <div className={styles.inputFields}>
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <div style={{ display: 'flex', gap: '1rem' }}>
-                        <DatePicker
-                            label="Start Date"
-                            value={startDate}
-                            onChange={(newValue) => setStartDate(newValue)}
-                        />
-                        <DatePicker
-                            label="End Date"
-                            value={endDate}
-                            onChange={(newValue) => setEndDate(newValue)}
-                            minDate={startDate || undefined}
-                        />
-                    </div>
-                </LocalizationProvider>
                 <Input
                     placeholder={'City Name'}
                     color={"primary"}
@@ -51,6 +42,41 @@ const HeroSlide: React.FC<HeroSlideProps> = ({ onSearchClick, onSearchTextChange
                     type={"number"}
                     placeholder={'Guests'}
                 />
+                <div>
+                    <select
+                        id="propertyType"
+                        value={selectedType}
+                        onChange={handleTypeChange}
+                        className={styles.dropdown}
+                    >
+                        <option value="">Wählen Sie einen Typ</option>
+                        <option value="Gästezimmer">Gästezimmer</option>
+                        <option value="Haus">Haus</option>
+                        <option value="Wohnung">Wohnung</option>
+                        <option value="Pension">Pension</option>
+                        <option value="Herberge">Herberge</option>
+                        <option value="Hotel">Hotel</option>
+                        <option value="Andere">Andere</option>
+                    </select>
+                    <div style={{marginTop: '10px'}}>
+                        {selectedType && <p>Ausgewählter Typ: {selectedType}</p>}
+                    </div>
+                </div>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <div className={styles.datePicker}>
+                        <DatePicker
+                            label="Start"
+                            value={startDate}
+                            onChange={(newValue) => setStartDate(newValue)}
+                        />
+                        <DatePicker
+                            label="End"
+                            value={endDate}
+                            onChange={(newValue) => setEndDate(newValue)}
+                            minDate={startDate || undefined}
+                        />
+                    </div>
+                </LocalizationProvider>
                 <Button
                     variant="contained"
                     onClick={onSearchClick}
