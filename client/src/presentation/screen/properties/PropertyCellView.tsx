@@ -9,11 +9,12 @@ interface PropertyCellProps {
     description: string
     image: string
     price: number
+    rating: number
     link: string
     propertyType: string
 }
 
-const PropertyCell: React.FC<PropertyCellProps> = ({title, description, image, price, link, propertyType
+const PropertyCellView: React.FC<PropertyCellProps> = ({title, description, image, price, rating, link, propertyType
 }) => {
     const navigate = useNavigate()
 
@@ -27,15 +28,16 @@ const PropertyCell: React.FC<PropertyCellProps> = ({title, description, image, p
             </div>
             <div className={styles.propertyCellRating}>
                 <div>
+                    <p>Rating: {rating}</p>
                     <Button
                         variant="contained"
                         onClick={() => window.open(link, '_blank')}
                     >Visit Page</Button>
                 </div>
-                <h1>${price}</h1>
+                <h1>€{price}</h1>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default PropertyCell;
+export default PropertyCellView;

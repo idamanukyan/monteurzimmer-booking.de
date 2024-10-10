@@ -186,11 +186,11 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+}
 
-    input[type="number"] {
-        width: 60px;
-        margin-left: 8px;
-    }
+.filterItem > input {
+    width: 20px;
+    margin-left: 8px;
 }
 
 .filterItem input[type="checkbox"] {

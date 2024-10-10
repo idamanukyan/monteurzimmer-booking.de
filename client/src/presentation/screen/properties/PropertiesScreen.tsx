@@ -2,18 +2,43 @@ import Header from "../../components/Header";
 import PropertiesScreenModel from "./PropertiesScreenModel"
 import styles from './PropertiesScreen.module.css';
 import Footer from "../../components/Footer";
-import FavCities from "../../components/FavCities/FavCities";
 import {PropertyService} from "../../../data/service/PropertyService";
-import PropertyCell from "./PropertyCellView";
+import PropertyCellView from "./PropertyCellView";
+import SortBy from "../../components/SortBy/SortBy";
 
 export default function PropertiesScreen() {
     const {
-        state
+        state,
+        setState,
+        onCheckboxChange
     } = PropertiesScreenModel(new PropertyService());
-    // console.log(state.properties)
 
-    // @ts-ignore
-    // @ts-ignore
+    const sortProperties = (option: string) => {
+        let sortedProperties = [...(state.filteredProperties || [])];
+
+        switch (option) {
+            case "Price: Low to High":
+                sortedProperties.sort((a, b) => a.price - b.price);
+                break;
+            case "Price: High to Low":
+                sortedProperties.sort((a, b) => b.price - a.price);
+                break;
+            case "Rating: Low to High":
+                sortedProperties.sort((a, b) => a.rating - b.rating);
+                break;
+            case "Rating: High to Low":
+                sortedProperties.sort((a, b) => b.rating - a.rating);
+                break;
+            default:
+                break;
+        }
+
+        setState((prevState) => ({
+            ...prevState,
+            filteredProperties: sortedProperties
+        }));
+    };
+
     return (
         <div>
             <div className={styles.headerContainer}>
@@ -25,145 +50,110 @@ export default function PropertiesScreen() {
                         <h2>Filtern nach:</h2>
                         {/* Popular Filters */}
                         <div className={styles.filterCategory}>
-                            <h4>Beliebte Filter</h4>
+                            <h4>Popular Filters</h4>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="available" name="available"/>
-                                <label htmlFor="available">Available</label>
+                                <input type="checkbox" id="quietLocation" name="quietLocation" onChange={onCheckboxChange} checked={state.quietLocation || false}/>
+                                <label htmlFor="quietLocation">Quiet Location</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="ruhigeLage" name="ruhigeLage"/>
-                                <label htmlFor="ruhigeLage">Ruhige Lage</label>
-                            </div>
-                            <div className={styles.filterItem}>
-                                <input type="checkbox" id="guteVerkehrsanbindung" name="guteVerkehrsanbindung"/>
-                                <label htmlFor="guteVerkehrsanbindung">Gute Verkehrsanbindung</label>
+                                <input type="checkbox" id="goodTransportation" name="goodTransportation" onChange={onCheckboxChange} checked={state.goodTransportation || false}/>
+                                <label htmlFor="goodTransportation">Good Transportation</label>
                             </div>
                         </div>
 
                         {/* Room Facilities */}
                         <div className={styles.filterCategory}>
-                            <h4>Zimmerausstattung</h4>
+                            <h4>Room Facilities</h4>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="wlan" name="wlan"/>
-                                <label htmlFor="wlan">Wlan</label>
+                                <input type="checkbox" id="wifi" name="wifi" onChange={onCheckboxChange} checked={state.wifi || false}/>
+                                <label htmlFor="wifi">Wifi</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="tv" name="tv"/>
+                                <input type="checkbox" id="tv" name="tv" onChange={onCheckboxChange} checked={state.tv || false}/>
                                 <label htmlFor="tv">TV</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="kochmoglichkeit" name="kochmoglichkeit"/>
-                                <label htmlFor="kochmoglichkeit">Kochmöglichkeit</label>
+                                <input type="checkbox" id="cookingFacilities" name="cookingFacilities" onChange={onCheckboxChange} checked={state.cookingFacilities || false}/>
+                                <label htmlFor="cookingFacilities">Cooking Facilities</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="kaffeemaschine" name="kaffeemaschine"/>
-                                <label htmlFor="kaffeemaschine">Kaffeemaschine</label>
+                                <input type="checkbox" id="coffeeMachine" name="coffeeMachine" onChange={onCheckboxChange} checked={state.coffeeMachine || false}/>
+                                <label htmlFor="coffeeMachine">Coffee Machine</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="mikrowelle" name="mikrowelle"/>
-                                <label htmlFor="mikrowelle">Mikrowelle</label>
+                                <input type="checkbox" id="microwave" name="microwave" onChange={onCheckboxChange} checked={state.microwave || false}/>
+                                <label htmlFor="microwave">Microwave</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="kuhlschrank" name="kuhlschrank"/>
-                                <label htmlFor="kuhlschrank">Kühlschrank</label>
+                                <input type="checkbox" id="fridge" name="fridge" onChange={onCheckboxChange} checked={state.fridge || false}/>
+                                <label htmlFor="fridge">Fridge</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="spulmaschine" name="spulmaschine"/>
-                                <label htmlFor="spulmaschine">Spülmaschine</label>
+                                <input type="checkbox" id="dishwasher" name="dishwasher" onChange={onCheckboxChange} checked={state.dishwasher || false}/>
+                                <label htmlFor="dishwasher">Dishwasher</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="badewanne" name="badewanne"/>
-                                <label htmlFor="badewanne">Badewanne</label>
+                                <input type="checkbox" id="bathtub" name="bathtub" onChange={onCheckboxChange} checked={state.bathtub || false}/>
+                                <label htmlFor="bathtub">Bathtub</label>
                             </div>
                         </div>
 
                         {/* Accessibility */}
                         <div className={styles.filterCategory}>
-                            <h4>Zugänglichkeit</h4>
+                            <h4>Accessibility</h4>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="raucher" name="raucher"/>
-                                <label htmlFor="raucher">Raucher</label>
+                                <input type="checkbox" id="smoking" name="smoking" onChange={onCheckboxChange} checked={state.smoking || false}/>
+                                <label htmlFor="smoking">Smoking</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="eigenstandigerCheckIn" name="eigenstandigerCheckIn"/>
-                                <label htmlFor="eigenstandigerCheckIn">Eigenständiger Check-In</label>
+                                <input type="checkbox" id="selfCheckIn" name="selfCheckIn" onChange={onCheckboxChange} checked={state.selfCheckIn || false}/>
+                                <label htmlFor="selfCheckIn">Self Check-In</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="getrennteBetten" name="getrennteBetten"/>
-                                <label htmlFor="getrennteBetten">Getrennte Betten</label>
+                                <input type="checkbox" id="separateBeds" name="separateBeds" onChange={onCheckboxChange} checked={state.separateBeds || false}/>
+                                <label htmlFor="separateBeds">Separate Beds</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="privatesBad" name="privatesBad"/>
-                                <label htmlFor="privatesBad">Privates Bad</label>
+                                <input type="checkbox" id="privateBath" name="privateBath" onChange={onCheckboxChange} checked={state.privateBath || false}/>
+                                <label htmlFor="privateBath">Private Bath</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="zustellbettMoglich" name="zustellbettMoglich"/>
-                                <label htmlFor="zustellbettMoglich">Zustellbett Möglich</label>
+                                <input type="checkbox" id="extraBedPossible" name="extraBedPossible" onChange={onCheckboxChange} checked={state.extraBedPossible || false}/>
+                                <label htmlFor="extraBedPossible">Extra Bed Possible</label>
                             </div>
                         </div>
 
                         {/* General */}
                         <div className={styles.filterCategory}>
-                            <h4>Allgemein</h4>
+                            <h4>General</h4>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="radio" name="radio"/>
+                                <input type="checkbox" id="radio" name="radio" onChange={onCheckboxChange} checked={state.radio || false}/>
                                 <label htmlFor="radio">Radio</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="handtucherInkl" name="handtucherInkl"/>
-                                <label htmlFor="handtucherInkl">Handtücher Inkl.</label>
+                                <input type="checkbox" id="towels" name="towels" onChange={onCheckboxChange} checked={state.towels || false}/>
+                                <label htmlFor="towels">Towels</label>
                             </div>
                             <div className={styles.filterItem}>
-                                <input type="checkbox" id="bettwascheInkl" name="bettwascheInkl"/>
-                                <label htmlFor="bettwascheInkl">Bettwäsche Inkl.</label>
-                            </div>
-                            <div className={styles.filterItem}>
-                                <input type="checkbox" id="wasserkocher" name="wasserkocher"/>
-                                <label htmlFor="wasserkocher">Wasserkocher</label>
-                            </div>
-                            <div className={styles.filterItem}>
-                                <input type="checkbox" id="garten" name="garten"/>
-                                <label htmlFor="garten">Garten</label>
-                            </div>
-                            <div className={styles.filterItem}>
-                                <input type="checkbox" id="terrasse" name="terrasse"/>
-                                <label htmlFor="terrasse">Terrasse</label>
-                            </div>
-                        </div>
-
-                        {/* Room Details */}
-                        <div className={styles.filterCategory}>
-                            <h4>Zimmerdetails</h4>
-                            <div className={styles.filterItem}>
-                                <label htmlFor="roomCount">Room Count:</label>
-                                <input type="number" id="roomCount" name="roomCount"/>
-                            </div>
-                            <div className={styles.filterItem}>
-                                <label htmlFor="bedCount">Bed Count:</label>
-                                <input type="number" id="bedCount" name="bedCount"/>
-                            </div>
-                            <div className={styles.filterItem}>
-                                <label htmlFor="bathrooms">Bathrooms:</label>
-                                <input type="number" id="bathrooms" name="bathrooms"/>
-                            </div>
-                            <div className={styles.filterItem}>
-                                <label htmlFor="numberOfGuests">Number of Guests:</label>
-                                <input type="number" id="numberOfGuests" name="numberOfGuests"/>
+                                <input type="checkbox" id="bedLinen" name="bedLinen" onChange={onCheckboxChange} checked={state.bedLinen || false}/>
+                                <label htmlFor="bedLinen">Bed Linen</label>
                             </div>
                         </div>
                     </div>
 
                     <div className={styles.propertyListContainer}>
                         <h2>Search result for {state.city}</h2>
+                        <SortBy onSort={sortProperties} />
                         <div className={styles.propertyContainer}>
-                            {(state.properties && state.propertiesMainFields) && state.properties.map((property, index) => (
+                            {(state.filteredProperties && state.propertiesMainFields) && state.filteredProperties.map((property, index) => (
                                 state.propertiesMainFields[index] && (
-                                    <PropertyCell
+                                    <PropertyCellView
                                         key={index}
                                         title={state.propertiesMainFields[index].title}
                                         description={state.propertiesMainFields[index].description}
                                         image={state.propertiesMainFields[index].image}
                                         price={property.price}
+                                        rating={property.rating}
                                         link={property.socialMediaLink}
                                         propertyType={property.propertyType}
                                     />

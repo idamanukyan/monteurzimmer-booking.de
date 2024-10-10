@@ -1,53 +1,63 @@
 export type PropertiesModel = Property[]
 
 export interface Property {
-    propertyId: number
-    adminId: any
     propertyName: string
     propertyType: string
     description: string
-    location: string
-    price: number
+    address: string
+    pricePerNight: number
+    fullPrice: number
+    pricePerBed: number
     rating: number
-    country: string
-    city: string
+    city: City
     roomCount: number
     bedCount: number
     numberOfGuests: number
+    socialMediaLink: string
+    wifi: boolean
+    tv: boolean
+    separateBeds: boolean
+    privateBath: boolean
+    cookingFacilities: boolean
+    radio: boolean
+    towels: boolean
+    extraBedPossible: boolean
+    bedLinen: boolean
+    fridge: boolean
+    coffeeMachine: boolean
+    microwave: boolean
+    dishwasher: boolean
+    wc: boolean
+    terrace: boolean
+    kettle: boolean
+    bathtub: boolean
+    garden: boolean
+    cookingUtensils: boolean
+    washingMachine: boolean
+    selfCheckIn: boolean
+    smoking: boolean
+    quietLocation: boolean
+    goodTransportation: boolean
+    shopsNearby: boolean
     neighborhood: string
-    reviewScore: any
     bathrooms: number
     latitude: number
     longitude: number
-    createdAt: string
-    wlan: boolean
-    tv: boolean
-    getrennteBetten: boolean
-    privatesBad: boolean
-    kochmoglichkeit: boolean
-    radio: boolean
-    handtucherInkl: boolean
-    zustellbettMoglich: boolean
-    bettwascheInkl: boolean
-    kuhlschrank: boolean
-    kaffeemaschine: boolean
-    mikrowelle: boolean
-    spulmaschine: boolean
-    wc: boolean
-    terrasse: boolean
-    wasserkocher: boolean
-    badewanne: boolean
-    garten: boolean
-    kochutensilien: boolean
-    waschmaschine: boolean
-    eigenstandigerCheckIn: boolean
-    raucher: boolean
-    ruhigeLage: boolean
-    guteVerkehrsanbindung: boolean
-    geschaefteInDerNahe: boolean
-    photos: any
-    socialMediaLink: string
-    available: boolean
+    isFavorite: boolean
+    photos: string
+    distance: number
+    maxPrice: number
+    minPrice: number
+    price: number
+}
+
+export interface City {
+    id: number
+    name: string
+    isFavorite: boolean
+    photo: string
+    longitude: number
+    latitude: number
 }
 
 export interface PropertyMainFields {
