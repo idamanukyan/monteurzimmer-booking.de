@@ -12,6 +12,8 @@ export default function PropertiesScreen() {
     } = PropertiesScreenModel(new PropertyService());
     // console.log(state.properties)
 
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div>
             <div className={styles.headerContainer}>
@@ -154,24 +156,18 @@ export default function PropertiesScreen() {
                     <div className={styles.propertyListContainer}>
                         <h2>Search result for {state.city}</h2>
                         <div className={styles.propertyContainer}>
-                            {state.properties && state.properties.map((property) => (
-                                <PropertyCell key={property.propertyId}
-                                              propertyId={property.propertyId}
-                                              propertyName={property.propertyName}
-                                              propertyType={property.propertyType}
-                                              description={property.description}
-                                              location={property.location}
-                                              price={property.price}
-                                              rating={property.rating}
-                                              country={property.country}
-                                              city={property.city}
-                                              roomCount={property.roomCount}
-                                              bedCount={property.bedCount}
-                                              numberOfGuests={property.numberOfGuests}
-                                              neighborhood={property.neighborhood}
-                                              bathrooms={property.bathrooms}
-                                              socialMediaLink={property.socialMediaLink}
-                                />
+                            {(state.properties && state.propertiesMainFields) && state.properties.map((property, index) => (
+                                state.propertiesMainFields[index] && (
+                                    <PropertyCell
+                                        key={index}
+                                        title={state.propertiesMainFields[index].title}
+                                        description={state.propertiesMainFields[index].description}
+                                        image={state.propertiesMainFields[index].image}
+                                        price={property.price}
+                                        link={property.socialMediaLink}
+                                        propertyType={property.propertyType}
+                                    />
+                                )
                             ))}
                         </div>
                     </div>
