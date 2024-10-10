@@ -270,4 +270,16 @@ public class PropertyService {
         propertyRepository.delete(property);
         log.info("Successfully deleted property with ID: {}", id);
     }
+
+    public void deletePropertyByLink(String url) {
+        log.info("Deleting property with URL: {}", url);
+
+        Property property = propertyRepository.findBySocialMediaLink(url)
+                .orElseThrow(() -> new RuntimeException("Property not found"));
+
+        propertyRepository.delete(property);
+
+        log.info("Successfully deleted property with URL: {}", url);
+    }
+
 }

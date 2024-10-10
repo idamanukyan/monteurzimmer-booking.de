@@ -175,6 +175,8 @@ const SearchBox = ({filters, setFilters, fetchFilteredProperties}) => {
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 onApply={handleApplyFilters}
+                filters={filters}
+                setFilters={setFilters}
             />
         </div>
     );

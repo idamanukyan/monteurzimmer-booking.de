@@ -8,7 +8,7 @@ const PropertyCard = ({ property }) => {
     const navigate = useNavigate();
     const [primaryPhotoUrl, setPrimaryPhotoUrl] = useState('');
 
-    useEffect(() => {
+/*    useEffect(() => {
         const fetchPrimaryPhoto = async () => {
             try {
                 const response = await axios.get(`http://localhost:8080/api/properties/photos/primary/${property.propertyId}`);
@@ -19,7 +19,7 @@ const PropertyCard = ({ property }) => {
         };
 
         fetchPrimaryPhoto();
-    }, [property]);
+    }, [property]);*/
 
     const handleSeeMoreClick = () => {
         if (property && property.id) { // Ensure property exists before accessing its ID

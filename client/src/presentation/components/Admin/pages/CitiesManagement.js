@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import './style/CitiesManagement.css'; // Add your styles
 
@@ -8,7 +8,7 @@ const CitiesManagement = () => {
         id: '',
         name: '',
         isFavorite: false,
-        iconPath: '',
+        photoFile: null, // Change this to handle the file
         latitude: '',
         longitude: '',
     });
@@ -29,14 +29,28 @@ const CitiesManagement = () => {
     };
 
     const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
+        const {name, value, type, checked, files} = e.target;
+        setFormData({
+            ...formData,
+            [name]: type === 'checkbox' ? checked : type === 'file' ? files[0] : value
+        });
     };
 
     const handleAddCity = async (e) => {
         e.preventDefault();
+        const formDataToSend = new FormData();
+        formDataToSend.append('name', formData.name);
+        formDataToSend.append('isFavorite', formData.isFavorite);
+        formDataToSend.append('photoFile', formData.photoFile); // Ensure this matches the input name
+        formDataToSend.append('latitude', formData.latitude);
+        formDataToSend.append('longitude', formData.longitude);
+
         try {
-            await axios.post('http://localhost:8080/api/cities', formData);
+            await axios.post('http://localhost:8080/api/cities/add', formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             fetchCities(); // Refresh the cities list
             setAddModalOpen(false); // Close the modal
             resetForm();
@@ -47,8 +61,19 @@ const CitiesManagement = () => {
 
     const handleUpdateCity = async (e) => {
         e.preventDefault();
+        const formDataToSend = new FormData();
+        formDataToSend.append('name', formData.name);
+        formDataToSend.append('isFavorite', formData.isFavorite);
+        formDataToSend.append('photoFile', formData.photoFile); // Ensure this matches the input name
+        formDataToSend.append('latitude', formData.latitude);
+        formDataToSend.append('longitude', formData.longitude);
+
         try {
-            await axios.put(`http://localhost:8080/api/cities/${formData.id}`, formData);
+            await axios.put(`http://localhost:8080/api/cities/${formData.id}`, formDataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             fetchCities(); // Refresh the cities list
             setUpdateModalOpen(false); // Close the modal
             resetForm();
@@ -76,7 +101,7 @@ const CitiesManagement = () => {
             id: '',
             name: '',
             isFavorite: false,
-            iconPath: '',
+            photoFile: null, // Reset photo file
             latitude: '',
             longitude: '',
         });
@@ -102,14 +127,6 @@ const CitiesManagement = () => {
                             required
                         />
                         <input
-                            type="text"
-                            name="iconPath"
-                            placeholder="Icon Path"
-                            value={formData.iconPath}
-                            onChange={handleInputChange}
-                            required
-                        />
-                        <input
                             type="number"
                             name="latitude"
                             placeholder="Latitude"
@@ -125,15 +142,13 @@ const CitiesManagement = () => {
                             onChange={handleInputChange}
                             required
                         />
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="isFavorite"
-                                checked={formData.isFavorite}
-                                onChange={handleInputChange}
-                            />
-                            Favorite
-                        </label>
+                        <input
+                            type="file"
+                            name="photoFile"
+                            accept="image/*" // Accept image files only
+                            onChange={handleInputChange}
+                            required
+                        />
                         <button type="submit">Add City</button>
                         <button type="button" onClick={() => setAddModalOpen(false)}>Close</button>
                     </form>
@@ -176,6 +191,12 @@ const CitiesManagement = () => {
                             value={formData.longitude}
                             onChange={handleInputChange}
                             required
+                        />
+                        <input
+                            type="file"
+                            name="photoFile"
+                            accept="image/*" // Accept image files only
+                            onChange={handleInputChange}
                         />
                         <label>
                             <input

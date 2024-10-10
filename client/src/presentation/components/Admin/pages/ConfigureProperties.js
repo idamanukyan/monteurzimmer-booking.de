@@ -3,36 +3,34 @@ import axios from 'axios';
 import './style/ConfigureProperties.css';
 import PropertiesList from './PropertiesList';
 import AddPropertyModal from '../layout/AddPropertyModal';
-import UpdatePropertyModal from '../layout/UpdatePropertyModal';
 import RemovePropertyModal from '../layout/RemovePropertyModal';
 
 const ConfigureProperties = () => {
     const [isAddModalOpen, setAddModalOpen] = useState(false);
-    const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
     const [isRemoveModalOpen, setRemoveModalOpen] = useState(false);
-    const [selectedPropertyId, setSelectedPropertyId] = useState(null);
     const [properties, setProperties] = useState([]);
     const [formData, setFormData] = useState({
         propertyName: '',
         propertyType: '',
         price: '',
         description: '',
-        facilities: [], // Initialize from filters if needed
+        facilities: [],
     });
 
-    const [filterResults, setFilterResults] = useState([]); // New state for filter results
+    const [filterResults, setFilterResults] = useState([]);
 
     useEffect(() => {
-        const fetchProperties = async () => {
-            try {
-                const response = await axios.get('http://localhost:8080/api/properties');
-                setProperties(response.data || []); // Ensure it's always an array
-            } catch (error) {
-                console.error('Error fetching properties:', error);
-            }
-        };
-        fetchProperties();
+        fetchProperties(); // Fetch properties on component mount
     }, []);
+
+    const fetchProperties = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/properties');
+            setProperties(response.data || []);
+        } catch (error) {
+            console.error('Error fetching properties:', error);
+        }
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -48,43 +46,29 @@ const ConfigureProperties = () => {
             };
             await axios.post('http://localhost:8080/api/properties', dataToSend);
             resetForm();
+            setAddModalOpen(false); // Close modal after adding property
+            fetchProperties(); // Re-fetch the property list after adding
         } catch (error) {
             console.error('Error adding property:', error);
         }
     };
 
-    const handleUpdateProperty = async (e) => {
-        e.preventDefault();
+    const handleRemoveProperty = async (url) => {
         try {
-            await axios.put(`http://localhost:8080/api/properties/${selectedPropertyId}`, formData);
-            resetForm();
-            setUpdateModalOpen(false);
-            setSelectedPropertyId(null);
-        } catch (error) {
-            console.error('Error updating property:', error);
-        }
-    };
-
-    const handleRemoveProperty = async () => {
-        try {
-            await axios.delete(`http://localhost:8080/api/properties/${selectedPropertyId}`);
-            setRemoveModalOpen(false);
-            setSelectedPropertyId(null);
+            await axios.delete(`http://localhost:8080/api/properties/remove/by/link`, {
+                params: {
+                    url: url // Pass the property URL as a query parameter
+                }
+            });
+            setRemoveModalOpen(false); // Close modal after deletion
+            fetchProperties(); // Re-fetch the property list after removal
         } catch (error) {
             console.error('Error removing property:', error);
         }
     };
 
-    const openUpdateModal = (property) => {
-        setSelectedPropertyId(property.id);
-        setFormData({
-            propertyName: property.propertyName,
-            propertyType: property.propertyType,
-            price: property.price,
-            description: property.description,
-            facilities: property.facilities || [], // Include facilities if necessary
-        });
-        setUpdateModalOpen(true);
+    const handleFilterResults = (results) => {
+        setFilterResults(results); // Update filter results from FilterModal
     };
 
     const resetForm = () => {
@@ -97,12 +81,8 @@ const ConfigureProperties = () => {
         });
     };
 
-    const handleFilterResults = (results) => {
-        setFilterResults(results); // Update filter results from FilterModal
-    };
-
     // Determine if any modal is open
-    const isModalOpen = isAddModalOpen || isUpdateModalOpen || isRemoveModalOpen;
+    const isModalOpen = isAddModalOpen || isRemoveModalOpen;
 
     return (
         <div>
@@ -113,45 +93,13 @@ const ConfigureProperties = () => {
                 <div className="button-container">
                     <div className="button-box">
                         <button onClick={() => setAddModalOpen(true)}>Add Property</button>
-                    </div>
-                    <div className="button-box">
-                        <select
-                            onChange={(e) => setSelectedPropertyId(e.target.value)}
-                            value={selectedPropertyId || ""}
-                        >
-                            <option value="" disabled>Select a property to update</option>
-                            {properties.map((property) => (
-                                <option key={property.id} value={property.id}>
-                                    {property.propertyName}
-                                </option>
-                            ))}
-                        </select>
-                        <button onClick={() => setUpdateModalOpen(true)} disabled={!selectedPropertyId}>
-                            Update Property
-                        </button>
-                    </div>
-                    <div className="button-box">
-                        <select
-                            onChange={(e) => setSelectedPropertyId(e.target.value)}
-                            value={selectedPropertyId || ""}
-                        >
-                            <option value="" disabled>Select a property to remove</option>
-                            {properties.map((property) => (
-                                <option key={property.id} value={property.id}>
-                                    {property.propertyName}
-                                </option>
-                            ))}
-                        </select>
-                        <button onClick={() => setRemoveModalOpen(true)} disabled={!selectedPropertyId}>
-                            Remove Property
-                        </button>
+                        <button onClick={() => setRemoveModalOpen(true)}>Remove Property</button>
                     </div>
                 </div>
 
                 <h3>Existing Properties</h3>
                 <PropertiesList
                     properties={properties}
-                    openUpdateModal={openUpdateModal}
                 />
             </div>
 
@@ -163,18 +111,9 @@ const ConfigureProperties = () => {
                 handleAddProperty={handleAddProperty}
             />
 
-            <UpdatePropertyModal
-                isOpen={isUpdateModalOpen}
-                onClose={() => setUpdateModalOpen(false)}
-                formData={formData}
-                handleInputChange={handleInputChange}
-                handleUpdateProperty={handleUpdateProperty}
-            />
-
             <RemovePropertyModal
                 isOpen={isRemoveModalOpen}
                 onClose={() => setRemoveModalOpen(false)}
-                propertyName={properties.find(property => property.id === selectedPropertyId)?.propertyName || 'N/A'}
                 handleRemoveProperty={handleRemoveProperty}
             />
         </div>
