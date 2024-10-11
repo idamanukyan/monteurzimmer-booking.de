@@ -1,9 +1,9 @@
-
 .property-card {
     background-size: cover;
     background-position: center;
-    width: 300px;
-    height: 450px;
+    width: 100%; /* Full width */
+    max-width: 300px; /* Max width for larger screens */
+    height: 450px; /* Fixed height */
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -13,6 +13,7 @@
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
+    overflow: hidden; /* Prevent content from overflowing */
 }
 
 .property-card:hover {
@@ -21,52 +22,64 @@
 
 .property-card h3 {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.4em; /* Adjusted font size */
+    color: #FFD700; /* Bright color for better visibility (e.g., gold) */
 }
 
 .property-card p {
     margin: 5px 0;
+    font-size: 0.9em; /* Adjusted font size for better fit */
 }
 
 .property-card-content {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7); /* Darker background for better contrast */
     padding: 10px;
     border-radius: 8px;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-}
-
-.property-image {
-    width: 150px; /* Set image width */
-    height: 100px; /* Set image height */
-    object-fit: cover; /* Ensure the image covers the space */
-}
-
-.property-details {
-    padding: 15px;
-    flex-grow: 1; /* Allow details to take available space */
+    align-items: flex-start; /* Align items to the start */
 }
 
 .see-more-button {
     background-color: #28a745;
     border: none;
     color: white;
-    padding: 10px;
+    padding: 8px; /* Reduced padding for smaller screens */
     text-align: center;
     cursor: pointer;
     border-radius: 5px;
     margin-top: 10px;
-    width: 70%;
+    width: 100%; /* Full width */
 }
 
 .see-more-button:hover {
     background-color: #0056b3; /* Darker shade on hover */
 }
 
-.property-card-content> p{
-    margin:0;
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .property-card {
+        max-width: 95%; /* Allow more space on smaller screens */
+        height: auto; /* Let height adjust based on content */
+    }
+
+    .see-more-button {
+        width: 100%; /* Full width button on smaller screens */
+    }
 }
 
+@media (max-width: 480px) {
+    .property-card {
+        height: auto; /* Allow the card height to adjust */
+    }
+
+    .property-card-content {
+        padding: 8px; /* Adjust padding for mobile */
+    }
+
+    .see-more-button {
+        padding: 8px; /* Adjust padding for button on mobile */
+    }
+}
