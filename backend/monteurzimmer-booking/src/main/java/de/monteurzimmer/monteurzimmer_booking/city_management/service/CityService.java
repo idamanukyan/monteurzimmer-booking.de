@@ -33,6 +33,8 @@ public class CityService {
     }
 
     public CityDto addCity(CityDto cityDto) {
+        logEntryService.log("info", "Attempting to add city: " + cityDto.getName());
+
         Optional<City> existingCity = Optional.ofNullable(cityRepository.findByName(cityDto.getName()));
         if (existingCity.isPresent()) {
             String message = "City with the name '" + cityDto.getName() + "' already exists.";
@@ -43,24 +45,32 @@ public class CityService {
         City newCity = modelMapper.map(cityDto, City.class);
         newCity.setPhoto(cityDto.getPhoto());
         City savedCity = cityRepository.save(newCity);
+        logEntryService.log("info", "City added successfully: " + savedCity.getName());
         return modelMapper.map(savedCity, CityDto.class);
     }
 
     public List<CityDto> getAllCities() {
+        logEntryService.log("info", "Fetching all cities.");
         List<City> allCities = cityRepository.findAll();
-        return allCities.stream().map(city -> modelMapper.map(city, CityDto.class)).collect(Collectors.toList());
+        logEntryService.log("info", "Retrieved " + allCities.size() + " cities.");
+        return allCities.stream()
+                .map(city -> modelMapper.map(city, CityDto.class))
+                .collect(Collectors.toList());
     }
 
     public CityDto getCityById(Long id) {
+        logEntryService.log("info", "Fetching city with ID: " + id);
         City city = cityRepository.findById(id).orElseThrow(() -> {
             String message = "City not found with ID: " + id;
             logEntryService.log("error", message);
             return new RuntimeException(message);
         });
+        logEntryService.log("info", "City found: " + city.getName());
         return modelMapper.map(city, CityDto.class);
     }
 
     public City markAsFavorite(Long cityId) {
+        logEntryService.log("info", "Marking city with ID: " + cityId + " as favorite.");
         City city = cityRepository.findById(cityId).orElseThrow(() -> {
             String message = "City not found with ID: " + cityId;
             logEntryService.log("error", message);
@@ -68,10 +78,12 @@ public class CityService {
         });
         city.setIsFavorite(true);
         City updatedCity = cityRepository.save(city);
+        logEntryService.log("info", "City with ID: " + cityId + " marked as favorite.");
         return updatedCity;
     }
 
     public City unmarkAsFavorite(Long cityId) {
+        logEntryService.log("info", "Unmarking city with ID: " + cityId + " as favorite.");
         City city = cityRepository.findById(cityId).orElseThrow(() -> {
             String message = "City not found with ID: " + cityId;
             logEntryService.log("error", message);
@@ -79,15 +91,22 @@ public class CityService {
         });
         city.setIsFavorite(false);
         City updatedCity = cityRepository.save(city);
+        logEntryService.log("info", "City with ID: " + cityId + " unmarked as favorite.");
         return updatedCity;
     }
 
     public List<CityDto> getFavoriteCities() {
+        logEntryService.log("info", "Fetching favorite cities.");
         List<City> favoriteCities = cityRepository.findTop10ByIsFavoriteTrueOrderByIdDesc();
-        return favoriteCities.stream().map(city -> modelMapper.map(city, CityDto.class)).collect(Collectors.toList());
+        logEntryService.log("info", "Retrieved " + favoriteCities.size() + " favorite cities.");
+        return favoriteCities.stream()
+                .map(city -> modelMapper.map(city, CityDto.class))
+                .collect(Collectors.toList());
     }
 
     public String storePhoto(MultipartFile photoFile) {
+        logEntryService.log("info", "Storing photo.");
+
         if (photoFile == null || photoFile.isEmpty()) {
             logEntryService.log("error", "No file provided for upload.");
             throw new IllegalArgumentException("No file provided for upload.");
@@ -100,14 +119,17 @@ public class CityService {
             Path uploadPath = Paths.get(uploadDir);
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
+                logEntryService.log("info", "Created directories for photo upload.");
             }
 
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(photoFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+            logEntryService.log("info", "Photo stored successfully with filename: " + fileName);
             return fileName;
         } catch (IOException e) {
-            logEntryService.log("error", "\"Could not store photo: {}" + fileName + e);
+            logEntryService.log("error", "Could not store photo: " + fileName + ". Error: " + e.getMessage());
             throw new RuntimeException("Could not store photo: " + fileName, e);
         }
     }
 }
+

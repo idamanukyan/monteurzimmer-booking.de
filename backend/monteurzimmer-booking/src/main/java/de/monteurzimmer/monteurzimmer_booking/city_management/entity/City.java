@@ -3,7 +3,6 @@ package de.monteurzimmer.monteurzimmer_booking.city_management.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
 @Entity
 @Data
 @Table(name = "cities")
