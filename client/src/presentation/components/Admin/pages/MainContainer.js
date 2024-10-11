@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './style/MainContainer.css';
 import PropertiesList from './PropertiesList';
 import TrafficChart from './TrafficChart';
-import searchIcon from './style/public/search.svg';
 import calendarIcon from './style/public/calendar.svg';
 
 const MainContainer = () => {
@@ -14,36 +13,19 @@ const MainContainer = () => {
     };
 
     return (
-        <div className="main-container">
-            <div className="search-section">
-                <div className="search-input-container">
-                    <input
-                        type="text"
-                        className="search-input"
-                        placeholder="Suche..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                    <button onClick={handleSearch} className="search-button">
-                        <img src={searchIcon} alt="Search" className="search-icon"/>
-                    </button>
-                </div>
-                Zuletzt hinzugefügte Immobilien
+        <main className="main-container">
+            <header className="search-section">
+                <h3>Zuletzt hinzugefügte Immobilien</h3>
                 <div className="date-box">
-                    <img src={calendarIcon} alt="Calendar" className="calendar-icon"/>
+                    <img src={calendarIcon} alt="Calendar" className="calendar-icon" />
                     <span className="date-display">{today}</span>
                 </div>
-            </div>
+            </header>
 
-            <div className="properties-list-container">
+            <section className="properties-list-container">
                 <PropertiesList />
-            </div>
-
-            <div className="traffic-section">
-                <h2>Website-Verkehr</h2>
-                <TrafficChart />
-            </div>
-        </div>
+            </section>
+        </main>
     );
 };
 

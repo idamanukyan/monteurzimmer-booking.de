@@ -1,6 +1,4 @@
-/* General styles */
 body {
-    font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 20px;
@@ -33,7 +31,7 @@ button:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.9); /* Slight transparency */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
     border-radius: 8px;
@@ -64,15 +62,26 @@ input[type="checkbox"] {
 /* Subscribers list styles */
 .subscribers-list {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .subscriber-card {
-    background-color: #ffffff;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
+    background: url('public/mail.jpg');/* Background image */
     padding: 15px;
-    margin-bottom: 10px;
+    border-radius: 10px;
+    margin: 10px; /* Added margin for spacing between cards */
+    color: black;
+    width: 300px; /* Set a fixed width for uniformity */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effect */
+}
+
+/* Hover effect for subscriber cards */
+.subscriber-card:hover {
+    transform: translateY(-5px); /* Lift the card up */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
 }
 
 .subscriber-card h4 {
@@ -84,9 +93,51 @@ input[type="checkbox"] {
     margin: 5px 0;
 }
 
-/* Responsive styles */
 @media (max-width: 600px) {
     .modal {
         width: 90%;
     }
 }
+
+.active-subscriptions-list {
+    margin-top: 20px;
+}
+
+.active-subscription {
+    background-color: #e9ecef; /* Light gray background */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.form-container {
+    display: flex;
+    gap: 10px; /* Space between input fields */
+    margin-bottom: 20px; /* Add margin to separate from next section */
+}
+
+.search-input {
+    margin-bottom: 20px; /* Add margin below search input */
+    padding: 10px; /* Padding for better touch targets */
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.active-subscriptions-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Add margin above the table */
+}
+
+.active-subscriptions-list th,
+.active-subscriptions-list td {
+    border: 1px solid #dee2e6; /* Border for table cells */
+    padding: 10px; /* Padding for table cells */
+    text-align: left;
+}
+
+.active-subscriptions-list th {
+    background-color: #f8f9fa; /* Header background color */
+}
+
+

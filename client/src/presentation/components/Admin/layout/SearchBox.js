@@ -161,14 +161,16 @@ const SearchBox = ({filters, setFilters, fetchFilteredProperties}) => {
                     </button>
                 </div>
 
+                <div className="apply-button-container">
+                    <button className="apply-button" onClick={handleApplyFilters}>
+                        Filter Anwenden
+                    </button>
+                </div>
+
             </div>
 
             {/* Apply Filters Button */}
-            <div className="apply-button-container">
-                <button className="apply-button" onClick={handleApplyFilters}>
-                    Filter Anwenden
-                </button>
-            </div>
+
 
             {/* Filter Modal */}
             <FilterModal

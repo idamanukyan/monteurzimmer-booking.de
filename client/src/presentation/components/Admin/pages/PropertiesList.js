@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './style/PropertiesList.css';
 import PropertyCard from './PropertyCard';
@@ -7,24 +7,36 @@ const PropertiesList = () => {
     const [properties, setProperties] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 9; // Number of properties per page
+    const [searchTerm, setSearchTerm] = useState(''); // State for search input
+    const [filteredProperties, setFilteredProperties] = useState([]); // State for filtered properties
 
     useEffect(() => {
-        const fetchProperties = async () => {
-            try {
-                const response = await axios.get("http://localhost:8080/api/properties/latest");
-                setProperties(response.data);
-            } catch (error) {
-                console.error("Error fetching properties:", error);
-            }
-        };
-
         fetchProperties();
     }, []);
 
-    const totalPages = Math.ceil(properties.length / pageSize);
+    useEffect(() => {
+        // Filter properties whenever the search term changes
+        setFilteredProperties(
+            properties.filter(property =>
+                property.propertyName.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+    }, [searchTerm, properties]);
 
-    // Get the properties for the current page
-    const currentProperties = properties.slice(
+    const fetchProperties = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/api/properties/latest");
+            setProperties(response.data);
+            setFilteredProperties(response.data); // Initialize filtered properties
+        } catch (error) {
+            console.error("Error fetching properties:", error);
+        }
+    };
+
+    const totalPages = Math.ceil(filteredProperties.length / pageSize);
+
+    // Get the properties for the current page after filtering
+    const currentProperties = filteredProperties.slice(
         (currentPage - 1) * pageSize,
         currentPage * pageSize
     );
@@ -45,6 +57,15 @@ const PropertiesList = () => {
 
     return (
         <div className="properties-list-container">
+            {/* Search Input */}
+            <input
+                type="text"
+                placeholder="Search by property name"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+            />
+
             <div className="properties-list">
                 {currentProperties.map((property) => (
                     <PropertyCard key={property.id} property={property} />
@@ -71,6 +92,11 @@ const PropertiesList = () => {
                     Weiter
                 </button>
             </div>
+
+            {/* Message if no properties found */}
+            {filteredProperties.length === 0 && (
+                <p className="no-properties-message">Keine Immobilien gefunden.</p>
+            )}
         </div>
     );
 };
