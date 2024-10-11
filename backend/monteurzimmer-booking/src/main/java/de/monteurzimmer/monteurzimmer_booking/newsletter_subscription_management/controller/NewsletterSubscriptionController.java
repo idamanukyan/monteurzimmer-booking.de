@@ -47,12 +47,12 @@ public class NewsletterSubscriptionController {
     }
 
     @PostMapping("/unsubscribe")
-    public ResponseEntity<String> unsubscribe(@RequestParam String email) {
-        logger.debug("Unsubscribing user with email: {}", email);
+    public ResponseEntity<String> unsubscribe(@RequestParam Long id) {
+        logger.debug("Unsubscribing user with id: {}", id);
 
         try {
-            subscriptionService.unsubscribe(email);
-            logger.info("User unsubscribed successfully: {}", email);
+            subscriptionService.unsubscribe(id);
+            logger.info("User unsubscribed successfully: {}", id);
             return new ResponseEntity<>("Unsubscribed successfully!", HttpStatus.OK);
         } catch (Exception e) {
             logger.error("Error during unsubscription: {}", e.getMessage());

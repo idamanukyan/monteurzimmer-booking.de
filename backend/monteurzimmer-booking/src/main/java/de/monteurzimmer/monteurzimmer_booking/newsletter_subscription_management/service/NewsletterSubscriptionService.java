@@ -57,27 +57,27 @@ public class NewsletterSubscriptionService {
         logger.info("Successfully subscribed email: {}", dto.getEmail());
     }
 
-    public void unsubscribe(String email) throws Exception {
-        logger.debug("Attempting to unsubscribe email: {}", email);
+    public void unsubscribe(Long id) throws Exception {
+        logger.debug("Attempting to unsubscribe email: {}", id);
 
         // Validate input
-        if (email == null || email.isEmpty()) {
-            logger.error("Failed to unsubscribe: Email is null or empty.");
-            throw new IllegalArgumentException("Email must not be null or empty.");
+        if (id == null) {
+            logger.error("Failed to unsubscribe: ID is null or empty.");
+            throw new IllegalArgumentException("ID must not be null or empty.");
         }
 
-        Optional<NewsletterSubscription> subscription = repository.findByEmail(email);
+        Optional<NewsletterSubscription> subscription = repository.findById(id);
         if (subscription.isPresent()) {
             NewsletterSubscription subs = subscription.get();
             if (!subs.getActive()) {
-                logger.warn("Attempt to unsubscribe already inactive email: {}", email);
+                logger.warn("Attempt to unsubscribe already inactive email: {}", id);
                 throw new Exception("Email is not currently subscribed.");
             }
             subs.setActive(false);
             repository.save(subs);
-            logger.info("Successfully unsubscribed email: {}", email);
+            logger.info("Successfully unsubscribed email: {}", id);
         } else {
-            logger.error("Unsubscribe attempt failed: Subscription not found for email: {}", email);
+            logger.error("Unsubscribe attempt failed: Subscription not found for email: {}", id);
             throw new Exception("Subscription not found!");
         }
     }

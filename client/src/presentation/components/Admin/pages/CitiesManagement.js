@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './style/CitiesManagement.css';
 
@@ -25,36 +25,27 @@ const CitiesManagement = () => {
             const response = await axios.get(`${BASE_URL}/api/cities/all`);
             setCities(response.data);
         } catch (error) {
-            console.error('Error fetching cities:', error);
+            console.error('Fehler beim Abrufen der Städte:', error);
         }
     };
 
     const handleInputChange = (e) => {
-        const {name, value, type, checked, files} = e.target;
+        const { name, value, type, checked, files } = e.target;
         setFormData({
             ...formData,
             [name]: type === 'checkbox' ? checked : type === 'file' ? files[0] : value
         });
-        // Log the file input for debugging
-        if (type === 'file') {
-            console.log('Selected file:', files[0]);
-        }
     };
 
     const handleAddCity = async (e) => {
         e.preventDefault();
         const formDataToSend = new FormData();
         formDataToSend.append('name', formData.name);
-        if (formData.photoFile) { // Check if the photo file exists
-            formDataToSend.append('photoFile', formData.photoFile); // Use 'photoFile'
-        }
-        formDataToSend.append('isFavorite', formData.isFavorite); // Append isFavorite
+        formDataToSend.append('isFavorite', formData.isFavorite);
         formDataToSend.append('latitude', formData.latitude);
         formDataToSend.append('longitude', formData.longitude);
-
-        // Log FormData entries for debugging
-        for (let [key, value] of formDataToSend.entries()) {
-            console.log(`${key}: ${value}`);
+        if (formData.photoFile) {
+            formDataToSend.append('photoFile', formData.photoFile);
         }
 
         try {
@@ -63,11 +54,11 @@ const CitiesManagement = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            fetchCities(); // Refresh the cities list
-            setAddModalOpen(false); // Close the modal
+            fetchCities(); // Refresh city list
+            setAddModalOpen(false); // Close modal
             resetForm();
         } catch (error) {
-            console.error('Error adding city:', error.response ? error.response.data : error.message);
+            console.error('Fehler beim Hinzufügen der Stadt:', error.response ? error.response.data : error.message);
         }
     };
 
@@ -75,12 +66,12 @@ const CitiesManagement = () => {
         e.preventDefault();
         const formDataToSend = new FormData();
         formDataToSend.append('name', formData.name);
-        formDataToSend.append('isFavorite', formData.isFavorite); // Append isFavorite
-        if (formData.photoFile) { // Check if the photo file exists
-            formDataToSend.append('photoFile', formData.photoFile); // Use 'photoFile'
-        }
+        formDataToSend.append('isFavorite', formData.isFavorite);
         formDataToSend.append('latitude', formData.latitude);
         formDataToSend.append('longitude', formData.longitude);
+        if (formData.photoFile) {
+            formDataToSend.append('photoFile', formData.photoFile);
+        }
 
         try {
             await axios.put(`${BASE_URL}/api/cities/${formData.id}`, formDataToSend, {
@@ -88,27 +79,25 @@ const CitiesManagement = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            fetchCities();
-            setUpdateModalOpen(false);
+            fetchCities(); // Refresh city list
+            setUpdateModalOpen(false); // Close modal
             resetForm();
         } catch (error) {
-            console.error('Error updating city:', error);
+            console.error('Fehler beim Aktualisieren der Stadt:', error);
         }
     };
 
     const handleRemoveCity = async (id) => {
         try {
             await axios.delete(`${BASE_URL}/api/cities/${id}`);
-            fetchCities();
+            fetchCities(); // Refresh city list
         } catch (error) {
-            console.error('Error removing city:', error);
+            console.error('Fehler beim Entfernen der Stadt:', error);
         }
     };
 
     const handleFavoriteChange = async (event, cityId) => {
         const checked = event.target.checked;
-
-        // Update the local cities state
         setCities((prevCities) =>
             prevCities.map((city) =>
                 city.id === cityId ? { ...city, isFavorite: checked } : city
@@ -122,8 +111,7 @@ const CitiesManagement = () => {
 
             await axios.post(url);
         } catch (error) {
-            console.error("Error updating favorite status", error);
-            // Revert the UI state if the request fails
+            console.error("Fehler beim Aktualisieren des Favoritenstatus", error);
             setCities((prevCities) =>
                 prevCities.map((city) =>
                     city.id === cityId ? { ...city, isFavorite: !checked } : city
@@ -131,7 +119,6 @@ const CitiesManagement = () => {
             );
         }
     };
-
 
     const openUpdateModal = (city) => {
         setFormData(city);
@@ -143,7 +130,7 @@ const CitiesManagement = () => {
             id: '',
             name: '',
             isFavorite: false,
-            photoFile: null, // Reset photo file
+            photoFile: null,
             latitude: '',
             longitude: '',
         });
@@ -151,19 +138,19 @@ const CitiesManagement = () => {
 
     return (
         <div>
-            <h2>Cities Management</h2>
+            <h2>Städteverwaltung</h2>
 
-            <button onClick={() => setAddModalOpen(true)}>Add City</button>
+            <button onClick={() => setAddModalOpen(true)}>Stadt hinzufügen</button>
 
             {/* Add City Modal */}
             {isAddModalOpen && (
                 <div className="modal">
-                    <h3>Add City</h3>
+                    <h3>Stadt hinzufügen</h3>
                     <form onSubmit={handleAddCity}>
                         <input
                             type="text"
                             name="name"
-                            placeholder="Name"
+                            placeholder="Stadtname"
                             value={formData.name}
                             onChange={handleInputChange}
                             required
@@ -171,7 +158,7 @@ const CitiesManagement = () => {
                         <input
                             type="number"
                             name="latitude"
-                            placeholder="Latitude"
+                            placeholder="Breitengrad"
                             value={formData.latitude}
                             onChange={handleInputChange}
                             required
@@ -179,7 +166,7 @@ const CitiesManagement = () => {
                         <input
                             type="number"
                             name="longitude"
-                            placeholder="Longitude"
+                            placeholder="Längengrad"
                             value={formData.longitude}
                             onChange={handleInputChange}
                             required
@@ -187,12 +174,12 @@ const CitiesManagement = () => {
                         <input
                             type="file"
                             name="photoFile"
-                            accept="image/*" // Accept image files only
+                            accept="image/*"
                             onChange={handleInputChange}
                             required
                         />
-                        <button type="submit">Add City</button>
-                        <button type="button" onClick={() => setAddModalOpen(false)}>Close</button>
+                        <button type="submit">Anwenden</button>
+                        <button type="button" onClick={() => setAddModalOpen(false)}>Abbrechen</button>
                     </form>
                 </div>
             )}
@@ -200,64 +187,60 @@ const CitiesManagement = () => {
             {/* Update City Modal */}
             {isUpdateModalOpen && (
                 <div className="modal">
-                    <h3>Update City</h3>
+                    <h3>Stadt aktualisieren</h3>
                     <form onSubmit={handleUpdateCity}>
                         <input
                             type="text"
                             name="name"
-                            placeholder="Name"
+                            placeholder="Stadtname"
                             value={formData.name}
                             onChange={handleInputChange}
                         />
                         <input
                             type="number"
                             name="latitude"
-                            placeholder="Latitude"
+                            placeholder="Breitengrad"
                             value={formData.latitude}
                             onChange={handleInputChange}
                         />
                         <input
                             type="number"
                             name="longitude"
-                            placeholder="Longitude"
+                            placeholder="Längengrad"
                             value={formData.longitude}
                             onChange={handleInputChange}
                         />
                         <input
                             type="file"
-                            name="photo"
+                            name="photoFile"
                             accept="image/*"
                             onChange={handleInputChange}
                         />
-                        <button type="submit">Update City</button>
-                        <button type="button" onClick={() => setUpdateModalOpen(false)}>Close</button>
+                        <button type="submit">Anwenden</button>
+                        <button type="button" onClick={() => setUpdateModalOpen(false)}>Abbrechen</button>
                     </form>
                 </div>
             )}
 
             <div className="cities-list">
                 {cities.map((city) => (
-                    <div key={city.id} className="city-card"
-                         style={{backgroundImage: `url(/city/${city.photo})`}}
-                    >
+                    <div key={city.id} className="city-card" style={{ backgroundImage: `url(/city/${city.photo})` }}>
                         <h4>{city.name}</h4>
                         <div className="city-details">
                             <label>
                                 <input
                                     type="checkbox"
                                     checked={city.isFavorite}
-                                    onChange={(event) => handleFavoriteChange(event, city.id)} // Pass city.id correctly
+                                    onChange={(event) => handleFavoriteChange(event, city.id)}
                                 />
-                                Favorite
+                                Favorit
                             </label>
-                            <button onClick={() => openUpdateModal(city)}>Update</button>
-                            <button onClick={() => handleRemoveCity(city.id)}>Remove</button>
+                            <button onClick={() => openUpdateModal(city)}>Aktualisieren</button>
+                            <button onClick={() => handleRemoveCity(city.id)}>Entfernen</button>
                         </div>
                     </div>
                 ))}
-
             </div>
-
         </div>
     );
 };

@@ -9,6 +9,7 @@ const ConfigureProperties = () => {
     const [isAddModalOpen, setAddModalOpen] = useState(false);
     const [isRemoveModalOpen, setRemoveModalOpen] = useState(false);
     const [properties, setProperties] = useState([]);
+    const [filterResults, setFilterResults] = useState({});
     const [formData, setFormData] = useState({
         propertyName: '',
         propertyType: '',
@@ -16,8 +17,6 @@ const ConfigureProperties = () => {
         description: '',
         facilities: [],
     });
-
-    const [filterResults, setFilterResults] = useState([]);
 
     useEffect(() => {
         fetchProperties(); // Fetch properties on component mount
@@ -34,20 +33,24 @@ const ConfigureProperties = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
     };
 
     const handleAddProperty = async (e) => {
         e.preventDefault();
+        const dataToSend = {
+            ...formData,
+            facilities: Object.keys(filterResults).filter(key => filterResults[key]),
+        };
+
         try {
-            const dataToSend = {
-                ...formData,
-                facilities: filterResults // Include filter results in the request
-            };
             await axios.post('http://localhost:8080/api/properties', dataToSend);
             resetForm();
-            setAddModalOpen(false); // Close modal after adding property
-            fetchProperties(); // Re-fetch the property list after adding
+            setAddModalOpen(false);
+            fetchProperties();
         } catch (error) {
             console.error('Error adding property:', error);
         }
@@ -55,20 +58,12 @@ const ConfigureProperties = () => {
 
     const handleRemoveProperty = async (url) => {
         try {
-            await axios.delete(`http://localhost:8080/api/properties/remove/by/link`, {
-                params: {
-                    url: url // Pass the property URL as a query parameter
-                }
-            });
-            setRemoveModalOpen(false); // Close modal after deletion
-            fetchProperties(); // Re-fetch the property list after removal
+            await axios.delete(`http://localhost:8080/api/properties/remove/by/link`, { params: { url } });
+            setRemoveModalOpen(false);
+            fetchProperties();
         } catch (error) {
             console.error('Error removing property:', error);
         }
-    };
-
-    const handleFilterResults = (results) => {
-        setFilterResults(results); // Update filter results from FilterModal
     };
 
     const resetForm = () => {
@@ -79,6 +74,7 @@ const ConfigureProperties = () => {
             description: '',
             facilities: [],
         });
+        setFilterResults({});
     };
 
     // Determine if any modal is open
@@ -88,16 +84,15 @@ const ConfigureProperties = () => {
         <div>
             {/* Wrap the content you want to blur */}
             <div className={isModalOpen ? 'blur' : ''}>
-                <h2>Configure Properties</h2>
+                <h2>Konfigurieren von Eigenschaften</h2>
 
                 <div className="button-container">
                     <div className="button-box">
-                        <button onClick={() => setAddModalOpen(true)}>Add Property</button>
-                        <button onClick={() => setRemoveModalOpen(true)}>Remove Property</button>
+                        <button onClick={() => setAddModalOpen(true)}>Hinzufügen </button>
+                        <button onClick={() => setRemoveModalOpen(true)}>Entfernen</button>
                     </div>
                 </div>
 
-                <h3>Existing Properties</h3>
                 <PropertiesList
                     properties={properties}
                 />
@@ -109,6 +104,8 @@ const ConfigureProperties = () => {
                 formData={formData}
                 handleInputChange={handleInputChange}
                 handleAddProperty={handleAddProperty}
+                filters={filterResults}
+                setFilters={setFilterResults}
             />
 
             <RemovePropertyModal

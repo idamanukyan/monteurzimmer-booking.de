@@ -175,6 +175,13 @@ public class PropertyService {
                 .collect(Collectors.toList());
     }
 
+    public PropertyDTO getPropertyByLink(String url) {
+        log.info("Fetching property by link: {}", url);
+        Property property = propertyRepository.findBySocialMediaLink(url)
+                .orElseThrow(() -> new RuntimeException("Property not found"));
+        return modelMapper.map(property, PropertyDTO.class);
+    }
+
     public List<PropertyDTO> get20Chepeastproperties() {
         log.info("Fetching 20 cheapest properties.");
         List<Property> propertyList = propertyRepository.find20Chepeast();

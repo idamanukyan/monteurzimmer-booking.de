@@ -3,6 +3,7 @@ body {
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
+    font-size: 16px; /* Use relative font size */
 }
 
 h2 {
@@ -23,6 +24,7 @@ button {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
 }
 
 button:hover {
@@ -51,7 +53,8 @@ button:focus {
     border-radius: 8px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     z-index: 1000;
-    width: 350px;
+    width: 90%; /* Make modal responsive */
+    max-width: 350px;
 }
 
 .modal h3 {
@@ -99,22 +102,23 @@ button:focus {
 
 /* City Card Styles */
 .city-card {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     height: 200px;
     border-radius: 10px;
-    overflow: hidden; /* Ensure content doesn't overflow the card */
+    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background-size: cover; /* Image covers the whole card */
-    background-position: center; /* Center the image in the card */
+    background-size: cover;
+    background-position: center;
     color: white;
     padding: 20px;
     margin: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Adds better text visibility over image */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .city-card:hover {
@@ -126,13 +130,13 @@ button:focus {
     position: absolute;
     top: 10px;
     left: 10px;
-    font-size: 24px;
+    font-size: 1.5rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .city-card p {
     margin: 5px 0;
-    color: #ddd; /* Lighter text color for description */
+    color: #ddd;
     z-index: 1;
     font-size: 0.9em;
 }
@@ -145,7 +149,7 @@ button:focus {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.3); /* Dark overlay for better text visibility */
+    background: rgba(0, 0, 0, 0.3);
     z-index: 0;
 }
 
@@ -153,14 +157,13 @@ button:focus {
     margin-top: 10px;
     width: 48%;
     z-index: 1;
-    background-color: rgba(40, 167, 69, 0.85); /* Slight transparency for buttons */
+    background-color: rgba(40, 167, 69, 0.85);
     transition: background-color 0.3s;
 }
 
 .city-card button:hover {
-    background-color: rgba(40, 167, 69, 1); /* Fully opaque on hover */
+    background-color: rgba(40, 167, 69, 1);
 }
-
 
 .city-card .city-details {
     position: absolute;
@@ -171,7 +174,6 @@ button:focus {
     align-items: center;
     color: white;
     font-size: 14px;
-
 }
 
 .city-card .city-details label {
@@ -184,16 +186,16 @@ button:focus {
 .city-card .city-details label input[type="checkbox"] {
     width: 20px;
     height: 20px;
-    appearance: none; /* Hide default checkbox style */
-    border-radius: 50%; /* Make it circular */
-    border: 2px solid white; /* Add a white border */
+    appearance: none;
+    border-radius: 50%;
+    border: 2px solid white;
     background-color: transparent;
     cursor: pointer;
     position: relative;
 }
 
 .city-card .city-details label input[type="checkbox"]:checked {
-    background-color: #28a745; /* Green color when checked */
+    background-color: #28a745;
     border-color: #28a745;
 }
 
@@ -207,5 +209,42 @@ button:focus {
     transform: translate(-50%, -50%);
 }
 
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.8em;
+    }
 
+    .modal {
+        width: 80%;
+    }
 
+    .city-card {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    h2 {
+        font-size: 1.6em;
+    }
+
+    .city-card {
+        width: 100%;
+    }
+
+    button {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+
+    .city-card h4 {
+        font-size: 1.2rem;
+    }
+}

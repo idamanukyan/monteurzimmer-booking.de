@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -90,11 +92,20 @@ public class PropertyController {
         return ResponseEntity.ok(properties);
     }
 
+    @GetMapping("/find-by-link")
+    public ResponseEntity<PropertyDTO> getPropertyByLink(@RequestParam("url") String encodedUrl) {
+        String decodedUrl = URLDecoder.decode(encodedUrl, StandardCharsets.UTF_8);
+        logger.debug("Decoded URL: " + decodedUrl);
+
+        PropertyDTO property = propertyService.getPropertyByLink(decodedUrl);
+        return ResponseEntity.ok(property);
+    }
+
     @PostMapping("/search-result")
     public ResponseEntity<List<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO) {
         logger.debug("Filtering properties with criteria: {}", filterSearchPropertyDTO);
         List<PropertyDTO> properties = propertyService.getFilteredProperties(filterSearchPropertyDTO);
-        if (filterSearchPropertyDTO.getDistance() != null && filterSearchPropertyDTO.getCity()!=null) {
+        if (filterSearchPropertyDTO.getDistance() != null && filterSearchPropertyDTO.getCity() != null) {
             City city = cityRepository.findByName(filterSearchPropertyDTO.getCity().getName());
             double propertyLat = city.getLatitude();
             double propertyLon = city.getLongitude();

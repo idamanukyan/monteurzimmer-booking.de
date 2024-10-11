@@ -5,10 +5,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* Darkened overlay for better focus */
-    z-index: 999;
-    backdrop-filter: blur(2px); /* Adds a subtle blur effect */
-    transition: opacity 0.3s ease; /* Smooth appearance */
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 /* Style for the modals */
@@ -24,7 +25,6 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
     z-index: 1000;
     animation: modalFadeIn 0.3s ease; /* Smooth fade-in */
-    font-family: 'Arial', sans-serif; /* Clean font */
 }
 
 /* Modal header (Optional) */
@@ -105,7 +105,7 @@
     padding: 20px;
     border-radius: 5px;
     background-color: #f8f9fa; /* Light background for each button box */
-    width: 30%; /* Control the width of each button box */
+    width: 20%; /* Control the width of each button box */
     text-align: center; /* Center the button in the box */
 }
 
@@ -133,3 +133,14 @@ button:hover {
     filter: blur(5px); /* Adjust the blur effect as needed */
     transition: filter 0.3s ease; /* Smooth transition for blur */
 }
+
+
+.button-box {
+    display: flex;
+    gap: 10px; /* Adjust the gap as needed */
+}
+
+button {
+    padding: 10px 20px; /* Add padding for better button size */
+}
+

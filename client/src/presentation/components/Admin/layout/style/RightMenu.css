@@ -22,7 +22,8 @@
 }
 
 .right-menu a {
-    display: block; /* Stack links vertically */
+    display: flex; /* Use flexbox for better alignment */
+    align-items: center; /* Center icon and text vertically */
     color: black; /* Change link color to black */
     text-decoration: none; /* Remove underline */
     padding: 10px; /* Padding inside each link */
@@ -30,19 +31,43 @@
     margin-bottom: 10px; /* Space between links */
     transition: background-color 0.3s; /* Transition for hover effect */
     font-size: 1.2rem; /* Set a consistent font size */
-    font-family: 'Arial', sans-serif; /* Set a consistent font family */
 }
 
 .right-menu a:hover {
     background-color: #e0e0e0; /* Change background color on hover */
     color: #007BFF; /* Change color on hover for better UX */
-
 }
 
 .menu-icon {
     width: 20px; /* Set icon width */
     height: 20px; /* Set icon height */
     margin-right: 10px; /* Space between icon and text */
-    vertical-align: middle; /* Align icon with text */
 }
 
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .right-menu {
+        width: 100%; /* Full width for mobile devices */
+        margin-right: 0; /* Remove margin on mobile */
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+
+    .right-menu a {
+        font-size: 1rem; /* Smaller font size for mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .right-menu {
+        padding: 10px; /* Less padding on very small screens */
+    }
+
+    .right-menu a {
+        font-size: 0.9rem; /* Further reduce font size */
+    }
+
+    .menu-icon {
+        width: 18px; /* Adjust icon size for very small screens */
+        height: 18px;
+    }
+}

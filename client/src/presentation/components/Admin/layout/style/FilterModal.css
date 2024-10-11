@@ -1,98 +1,135 @@
-/* Modal Styles */
+/* Modal Overlay Styles */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay for better focus */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    transition: opacity 0.3s ease; /* Smooth appearance effect */
 }
 
+/* Modal Content */
 .modal-content {
     background-color: #fff;
-    border-radius: 20px;
-    padding: 40px; /* Keep padding for a comfortable layout */
-    width: 50%; /* Increase width to 50% of the screen */
-    height: auto; /* Allow height to be auto for dynamic content */
-    max-height: 80%; /* Limit maximum height to avoid overflow */
-    overflow-y: auto; /* Enable scrolling if content overflows */
+    border-radius: 15px; /* Softer border radius */
+    padding: 30px; /* Slightly reduced padding for compactness */
+    width: 60%; /* Better balance for wider screens */
+    max-width: 800px; /* Cap maximum width to keep modal manageable */
+    height: auto;
+    max-height: 80%; /* Restrict height */
+    overflow-y: auto; /* Enable scroll if content exceeds max height */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     z-index: 1010;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    transition: transform 0.3s ease; /* Subtle transform effect on open */
 }
 
+/* Title */
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
 }
 
+/* Form styles */
 form {
-    margin-bottom: 10px; /* Space below the form */
+    margin-bottom: 15px;
 }
 
 /* Input styles */
 input {
     width: 100%;
-    padding: 10px; /* Add some padding for better aesthetics */
-    margin-bottom: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
     box-sizing: border-box;
     font-size: 14px;
+    transition: border-color 0.2s ease;
 }
 
-/* Icon Grid Container */
+input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Icon Grid */
 .icon-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 icons per row */
-    grid-gap: 10px;
-    margin-bottom: 15px; /* Space below the icon grid */
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); /* Flexible grid layout */
+    grid-gap: 12px; /* Increased gap for better spacing */
+    margin-bottom: 20px;
 }
 
 /* Icon Styles */
 .icon-wrapper {
-    width: 40px;
-    padding-bottom: 60px;
-    background-size: contain;
+    width: 60px; /* Larger icons for better clickability */
+    height: 60px;
+    background-size: 70%; /* Adjust icon size within the wrapper */
     background-repeat: no-repeat;
     background-position: center;
     border: 2px solid transparent;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.icon-wrapper:hover {
+    border-color: #007bff; /* Light border on hover */
+    transform: scale(1.05); /* Slight zoom on hover */
 }
 
 .icon-wrapper.active {
-    border-color: green; /* Highlight active icon */
+    border-color: #28a745; /* Green highlight for active icons */
+    background-color: #e6f4ea; /* Light green background to emphasize selection */
 }
 
 /* Modal Buttons */
 .modal-buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 20px; /* Space between buttons */
-    margin-top: 20px; /* Space above buttons */
+    gap: 15px;
+    margin-top: 20px;
 }
 
+/* Button Styles */
 .modal-buttons button {
-    padding: 10px 15px; /* Adjust button padding */
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #007bff;
-    color: white;
+    color: #fff;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .modal-buttons button:hover {
     background-color: #0056b3;
+    transform: translateY(-2px); /* Slight lift on hover */
 }
 
 .modal-buttons button:active {
     background-color: #00448a;
+    transform: translateY(0); /* Revert the button when clicked */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90%; /* More flexible for mobile screens */
+        padding: 20px;
+    }
+
+    .icon-grid {
+        grid-template-columns: repeat(4, 1fr); /* Adjust grid for smaller screens */
+    }
 }

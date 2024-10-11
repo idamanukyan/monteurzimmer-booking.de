@@ -1,8 +1,8 @@
 import React from 'react';
-import './style/DocumentsManagement.css'; // Add your styles
+import './style/DocumentsManagement.css';
 
 const DocumentsManagement = () => {
-    // List of document file names (make sure these match your actual PDF file names)
+    // List of document file names
     const documents = [
         'Technical-Document.pdf',
         'Admin-Guide.pdf',
@@ -11,23 +11,28 @@ const DocumentsManagement = () => {
     ];
 
     return (
-        <div>
-            <h2>Documents Management</h2>
+        <div className="documents-management-container">
+            <h2>Dokumentenverwaltung</h2>
             <div className="documents-list">
                 {documents.map((document) => (
-                    <div key={document} className="document-card">
-                        <h3>{document}</h3>
-                        <iframe
-                            src={`${process.env.PUBLIC_URL}/docs/${document}`}
-                            width="600"
-                            height="400"
-                            title={document}
-                        />
-                    </div>
+                    <DocumentCard key={document} document={document} />
                 ))}
             </div>
         </div>
     );
 };
+
+const DocumentCard = ({ document }) => (
+    <div className="document-card">
+        <h3>{document}</h3>
+        <iframe
+            src={`/docs/${document}`} // Directly reference the document path
+            width="100%"
+            height="400"
+            title={document}
+            className="document-iframe"
+        />
+    </div>
+);
 
 export default DocumentsManagement;
