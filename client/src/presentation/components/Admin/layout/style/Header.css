@@ -20,7 +20,6 @@
     text-decoration: none; /* Remove underline from links */
     color: black; /* Set text color to black */
     font-size: 1.2rem; /* Set a consistent font size */
-    font-family: 'Arial', sans-serif; /* Set a consistent font family */
 }
 
 .header h1 {

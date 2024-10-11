@@ -1,23 +1,24 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './style/SearchBox.css';
 import FilterModal from '../layout/FilterModal';
 import filterIcon from '../pages/style/public/filter.svg';
 import axios from "axios";
-import {FilterSearchPropertyDTO} from "../models/FilterSearchPropertyDTO";
+import { FilterSearchPropertyDTO } from "../models/FilterSearchPropertyDTO";
 
-const SearchBox = ({filters, setFilters, fetchFilteredProperties}) => {
+const SearchBox = ({ filters, setFilters, fetchFilteredProperties }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [cities, setCities] = useState([]); // State for cities
     const [loadingCities, setLoadingCities] = useState(true); // State for loading indicator
 
+    // Fetch available cities
     const fetchCities = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/cities/all`);
-            setCities(response.data); // Assume the response is an array of cities
+            setCities(response.data);
         } catch (error) {
             console.error('Error fetching cities:', error);
         } finally {
-            setLoadingCities(false); // Stop loading
+            setLoadingCities(false);
         }
     };
 
@@ -59,19 +60,13 @@ const SearchBox = ({filters, setFilters, fetchFilteredProperties}) => {
         return dto;
     };
 
-
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
+    const handleOpenModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => setIsModalOpen(false);
 
     const handleApplyFilters = () => {
-        const dto = mapFiltersToDTO(); // Map filters to DTO
-        fetchFilteredProperties(dto); // Call API with DTO
-        setIsModalOpen(false); // Close modal after applying filters
+        const dto = mapFiltersToDTO();
+        fetchFilteredProperties(dto);
+        setIsModalOpen(false);
     };
 
     return (
@@ -85,7 +80,7 @@ const SearchBox = ({filters, setFilters, fetchFilteredProperties}) => {
                     ) : (
                         <select
                             value={filters.city}
-                            onChange={(e) => setFilters({...filters, city: e.target.value})}
+                            onChange={(e) => setFilters({ ...filters, city: e.target.value })}
                             className="search-input"
                         >
                             <option value="">Wählen Sie eine Stadt</option>
@@ -104,7 +99,7 @@ const SearchBox = ({filters, setFilters, fetchFilteredProperties}) => {
                         type="number"
                         placeholder="8"
                         value={filters.minPrice}
-                        onChange={(e) => setFilters({...filters, minPrice: e.target.value})}
+                        onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
                         className="search-input"
                     />
                 </div>
@@ -115,7 +110,7 @@ const SearchBox = ({filters, setFilters, fetchFilteredProperties}) => {
                         type="number"
                         placeholder="2"
                         value={filters.numberOfGuests}
-                        onChange={(e) => setFilters({...filters, numberOfGuests: e.target.value})}
+                        onChange={(e) => setFilters({ ...filters, numberOfGuests: e.target.value })}
                         className="search-input small-input"
                         min={1}
                         max={50}
@@ -129,7 +124,7 @@ const SearchBox = ({filters, setFilters, fetchFilteredProperties}) => {
                     <label>Eigenschaftstyp</label>
                     <select
                         value={filters.propertyType}
-                        onChange={(e) => setFilters({...filters, propertyType: e.target.value})}
+                        onChange={(e) => setFilters({ ...filters, propertyType: e.target.value })}
                         className="search-input"
                     >
                         <option value="">Wählen Sie einen Typ</option>
@@ -149,28 +144,23 @@ const SearchBox = ({filters, setFilters, fetchFilteredProperties}) => {
                         type="number"
                         placeholder="50"
                         value={filters.maxPrice}
-                        onChange={(e) => setFilters({...filters, maxPrice: e.target.value})}
+                        onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
                         className="search-input"
                     />
                 </div>
 
-                <div className="filter-button-container">
+                <div className="filter-button-container button-container">
                     <button className="filter-button" onClick={handleOpenModal}>
                         <img src={filterIcon} alt="Filter Icon" className="filter-icon" />
                         <span className="filter-text">Filter</span> {/* Added span for text */}
                     </button>
                 </div>
 
-                <div className="apply-button-container">
+                <div className="apply-button-container button-container">
                     <button className="apply-button" onClick={handleApplyFilters}>
                         Filter Anwenden
                     </button>
                 </div>
-
-            </div>
-
-            {/* Apply Filters Button */}
-
 
             {/* Filter Modal */}
             <FilterModal
@@ -180,6 +170,7 @@ const SearchBox = ({filters, setFilters, fetchFilteredProperties}) => {
                 filters={filters}
                 setFilters={setFilters}
             />
+        </div>
         </div>
     );
 };

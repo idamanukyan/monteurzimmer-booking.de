@@ -31,7 +31,6 @@
     margin-bottom: 10px; /* Space between links */
     transition: background-color 0.3s; /* Transition for hover effect */
     font-size: 1.2rem; /* Set a consistent font size */
-    font-family: 'Arial', sans-serif; /* Set a consistent font family */
 }
 
 .right-menu a:hover {

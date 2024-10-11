@@ -7,7 +7,9 @@ body {
 /* Header styles */
 h2 {
     color: #343a40;
+    text-align: center;
     margin-bottom: 20px;
+    font-size: 1.8em;
 }
 
 /* Button styles */
@@ -31,18 +33,20 @@ button:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.9); /* Slight transparency */
+    background-color: rgba(255, 255, 255, 0.95); /* Slight transparency */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
     border-radius: 8px;
     z-index: 1000;
     width: 300px;
+    max-width: 90%;
 }
 
 /* Form styles */
 form {
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 
 input[type="email"],
@@ -53,6 +57,9 @@ input[type="date"] {
     padding: 10px;
     margin-bottom: 15px;
     font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+
 }
 
 input[type="checkbox"] {
@@ -65,17 +72,23 @@ input[type="checkbox"] {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 20px;
+
 }
 
 .subscriber-card {
     background: url('public/mail.jpg');/* Background image */
+    background-size: cover;
+    background-position: center;
     padding: 15px;
     border-radius: 10px;
     margin: 10px; /* Added margin for spacing between cards */
     color: black;
     width: 300px; /* Set a fixed width for uniformity */
+    max-width: 300px; /* Max width for smaller screens */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effect */
+    text-align: center;
 }
 
 /* Hover effect for subscriber cards */
@@ -91,8 +104,10 @@ input[type="checkbox"] {
 
 .subscriber-card p {
     margin: 5px 0;
+    font-size: 0.9em;
 }
 
+/* Responsive modal */
 @media (max-width: 600px) {
     .modal {
         width: 90%;
@@ -117,10 +132,12 @@ input[type="checkbox"] {
 }
 
 .search-input {
-    margin-bottom: 20px; /* Add margin below search input */
-    padding: 10px; /* Padding for better touch targets */
+    margin-bottom: 20px;
+    padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .active-subscriptions-list table {
@@ -131,13 +148,26 @@ input[type="checkbox"] {
 
 .active-subscriptions-list th,
 .active-subscriptions-list td {
-    border: 1px solid #dee2e6; /* Border for table cells */
+    border: 1px solid #dee2e6;
     padding: 10px; /* Padding for table cells */
     text-align: left;
+    font-size: 0.9em;
 }
 
 .active-subscriptions-list th {
     background-color: #f8f9fa; /* Header background color */
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+    }
+
+    .subscriber-card {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 

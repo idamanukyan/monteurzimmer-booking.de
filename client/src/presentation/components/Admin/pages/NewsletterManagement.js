@@ -33,7 +33,7 @@ const NewsletterManagement = () => {
             const response = await axios.get('http://localhost:8080/api/newsletter/all-subscriptions');
             setSubscribers(response.data);
         } catch (error) {
-            console.error('Error fetching subscribers:', error);
+            console.error('Fehler beim Abrufen der Abonnenten:', error);
         }
     };
 
@@ -41,9 +41,9 @@ const NewsletterManagement = () => {
         try {
             const response = await axios.get('http://localhost:8080/api/newsletter/active-subscriptions');
             setActiveSubscriptions(response.data);
-            setFilteredSubscriptions(response.data); // Set filtered subscriptions initially
+            setFilteredSubscriptions(response.data); // Setze gefilterte Abonnements initial
         } catch (error) {
-            console.error('Error fetching active subscriptions:', error);
+            console.error('Fehler beim Abrufen der aktiven Abonnements:', error);
         }
     };
 
@@ -55,21 +55,21 @@ const NewsletterManagement = () => {
             fetchSubscribers();
             fetchActiveSubscriptions();
         } catch (error) {
-            console.error('Error unsubscribing subscriber:', error);
+            console.error('Fehler beim Abmelden des Abonnenten:', error);
         }
     };
 
     const handleSubscribe = async () => {
-        setErrorMessage(''); // Clear previous error message
+        setErrorMessage(''); // Vorherige Fehlermeldung löschen
         try {
             const { email, name, surname, birthDate } = formData;
             await axios.post('http://localhost:8080/api/newsletter/subscribe', { email, name, surname, birthDate });
-            fetchSubscribers(); // Refresh the subscribers list
-            fetchActiveSubscriptions(); // Refresh active subscriptions list
-            setFormData({ email: '', name: '', surname: '', birthDate: '' }); // Reset form data
+            fetchSubscribers(); // Abonnentenliste aktualisieren
+            fetchActiveSubscriptions(); // Aktive Abonnementsliste aktualisieren
+            setFormData({ email: '', name: '', surname: '', birthDate: '' }); // Formulardaten zurücksetzen
         } catch (error) {
-            console.error('Error subscribing:', error);
-            setErrorMessage('Subscription failed. Please check your input.');
+            console.error('Fehler beim Abonnieren:', error);
+            setErrorMessage('Abonnement fehlgeschlagen. Bitte überprüfen Sie Ihre Eingaben.');
         }
     };
 
@@ -79,16 +79,16 @@ const NewsletterManagement = () => {
 
     return (
         <div>
-            <h2>Newsletter Management</h2>
+            <h2>Newsletter-Verwaltung</h2>
 
-            {/* Subscription Form */}
+            {/* Abonnement-Formular */}
             <div>
-                <h3>Subscribe</h3>
+                <h3>Abonnieren</h3>
                 <div className="form-container">
                     <input
                         type="email"
                         name="email"
-                        placeholder="Email"
+                        placeholder="E-Mail"
                         value={formData.email}
                         onChange={handleChange}
                         required
@@ -96,7 +96,7 @@ const NewsletterManagement = () => {
                     <input
                         type="text"
                         name="name"
-                        placeholder="Name"
+                        placeholder="Vorname"
                         value={formData.name}
                         onChange={handleChange}
                         required
@@ -104,7 +104,7 @@ const NewsletterManagement = () => {
                     <input
                         type="text"
                         name="surname"
-                        placeholder="Surname"
+                        placeholder="Nachname"
                         value={formData.surname}
                         onChange={handleChange}
                         required
@@ -116,31 +116,31 @@ const NewsletterManagement = () => {
                         onChange={handleChange}
                         required
                     />
-                    <button onClick={handleSubscribe}>Subscribe</button>
+                    <button onClick={handleSubscribe}>Abonnieren</button>
                 </div>
                 {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             </div>
 
-            {/* Subscribers List */}
-            <h3>Existing Subscribers</h3>
+            {/* Liste der Abonnenten */}
+            <h3>Bestehende Abonnenten</h3>
             <div className="newsletter-management-container">
                 <div className="subscribers-list">
                     {subscribers.map((subscriber) => (
                         <div key={subscriber.id} className="subscriber-card">
                             <h4>{subscriber.name} {subscriber.surname}</h4>
-                            <p>Email: {subscriber.email}</p>
-                            <p>Birth Date: {subscriber.birthDate}</p>
-                            <p>Status: {subscriber.active ? 'Active' : 'Inactive'}</p>
+                            <p>E-Mail: {subscriber.email}</p>
+                            <p>Geburtsdatum: {subscriber.birthDate}</p>
+                            <p>Status: {subscriber.active ? 'Aktiv' : 'Inaktiv'}</p>
                         </div>
                     ))}
                 </div>
             </div>
 
-            {/* Active Subscriptions List */}
-            <h3>Active Subscriptions</h3>
+            {/* Liste der aktiven Abonnements */}
+            <h3>Aktive Abonnements</h3>
             <input
                 type="text"
-                placeholder="Search by email"
+                placeholder="E-Mail suchen"
                 value={searchEmail}
                 onChange={(e) => setSearchEmail(e.target.value)}
                 className="search-input"
@@ -149,8 +149,8 @@ const NewsletterManagement = () => {
                 <table>
                     <thead>
                     <tr>
-                        <th>Email</th>
-                        <th>Actions</th>
+                        <th>E-Mail</th>
+                        <th>Aktionen</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -158,7 +158,7 @@ const NewsletterManagement = () => {
                         <tr key={index}>
                             <td>{email}</td>
                             <td>
-                                <button onClick={() => handleRemoveSubscriber(email)}>Unsubscribe</button>
+                                <button onClick={() => handleRemoveSubscriber(email)}>Abmelden</button>
                             </td>
                         </tr>
                     ))}

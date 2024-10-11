@@ -5,7 +5,17 @@
 .properties-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Center the cards */
+    justify-content: center;
+    gap: 15px; /* Space between cards */
+}
+
+.url-input {
+    width: 100%;
+    max-width: 300px; /* Limit input width */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc; /* Add a border for input */
+    border-radius: 5px;
 }
 
 .pagination-controls {
@@ -16,50 +26,58 @@
 }
 
 .pagination-button {
-    padding: 5px 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.pagination-button:disabled {
+    background-color: #b0c4de;
+    cursor: not-allowed;
 }
 
 .configure-properties-button {
     display: inline-block;
     padding: 10px 20px;
     margin: 10px 0;
-    background-color: #007bff; /* Bootstrap primary color */
+    background-color: #007bff;
     color: white;
     text-decoration: none;
     border-radius: 5px;
     text-align: center;
-    border: none; /* No border for the link */
-    cursor: pointer; /* Change cursor to pointer */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .configure-properties-button:hover {
-    background-color: #0056b3; /* Darker shade for hover */
+    background-color: #0056b3;
 }
 
-.pagination-button,
-.configure-properties-button,
 .find-property-button {
-    padding: 10px 20px; /* Make all buttons have the same padding */
+    padding: 10px 20px;
     margin: 10px 0;
-    background-color: #007bff; /* Bootstrap primary color */
+    background-color: #007bff;
     color: white;
-    text-decoration: none;
+    border: none;
     border-radius: 5px;
-    text-align: center;
-    border: none; /* No border for the buttons */
-    cursor: pointer; /* Change cursor to pointer */
-    width: 200px; /* Set a consistent width for all buttons */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%; /* Full width for the button */
 }
 
-.pagination-button:hover,
-.configure-properties-button:hover,
-.find-property-button:hover {
-    background-color: #0056b3; /* Darker shade for hover */
+.find-property-button:disabled {
+    background-color: #b0c4de;
+    cursor: not-allowed;
 }
 
-.find-property-button:disabled,
-.pagination-button:disabled {
-    background-color: #b0c4de; /* A lighter disabled color */
-    cursor: not-allowed; /* Show that the button is disabled */
-}
+
 

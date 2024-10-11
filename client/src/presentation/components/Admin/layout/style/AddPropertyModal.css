@@ -1,65 +1,11 @@
-/* Modal Background Overlay */
+/* Modal Styles */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    z-index: 999;
-    backdrop-filter: blur(5px); /* Apply blur effect */
-}
-
-/* Basic Modal Layout */
-.modal {
-    position: fixed;
-    top: 50%; /* Center the modal vertically */
-    left: 50%; /* Center the modal horizontally */
-    transform: translate(-50%, -50%); /* Translate to truly center */
-    background-color: white;
-    padding: 40px; /* Adjust padding for a cleaner look */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    border-radius: 20px;
-    width: 80%; /* Set modal width to 80% of the screen */
-    max-width: 800px; /* Optional: set a maximum width for larger screens */
-    height: auto; /* Allow height to adjust based on content */
-    max-height: 80vh; /* Limit the height to 80% of the viewport height */
-    overflow-y: auto; /* Enable scrolling if content overflows */
-    z-index: 1000; /* Ensure modal is above overlay */
-}
-
-/* Adjust button styles */
-.button-row {
-    display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-}
-
-button {
-    padding: 8px 12px; /* Adjust padding for smaller buttons */
-    font-size: 14px; /* Smaller font size */
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px; /* Space between buttons */
-}
-
-button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-}
-
-button[type="button"] {
-    background-color: #f44336;
-    color: white;
-}
-
-.modal-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,12 +13,64 @@ button[type="button"] {
 }
 
 .modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
-    position: relative;
-    width: 400px;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 40px;
+    width: 50%;
+    max-height: 80%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1010;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-bottom: 10px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-buttons button:hover {
+    background-color: #0056b3;
+}
+
+.modal-buttons button:active {
+    background-color: #00448a;
 }
 

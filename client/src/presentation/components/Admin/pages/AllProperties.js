@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PropertyCard from './PropertyCard';
 import './style/AllProperties.css';
-import SearchBox from '../layout/SearchBox'; // Import your SearchBox component
+import SearchBox from '../layout/SearchBox';
 
 const AllProperties = () => {
-    const [properties, setProperties] = useState([]); // State for all properties
-    const [url, setUrl] = useState(''); // State for URL input
-    const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
-    const [totalProperties, setTotalProperties] = useState(0); // Total property count
+    const [properties, setProperties] = useState([]);
+    const [url, setUrl] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalProperties, setTotalProperties] = useState(0);
     const [filters, setFilters] = useState({
         city: {},
         numberOfGuests: '',
@@ -19,13 +19,11 @@ const AllProperties = () => {
     });
 
     const pageSize = 9;
-    const navigate = useNavigate(); // Use navigate hook for programmatic navigation
+    const navigate = useNavigate();
 
-    // Fetch all properties on initial render
     const fetchAllProperties = async () => {
         try {
             const response = await axios.get('http://localhost:8080/api/properties');
-            console.log('Fetched all properties:', response.data);
             setProperties(response.data);
             setTotalProperties(response.data.length);
         } catch (error) {
@@ -33,11 +31,9 @@ const AllProperties = () => {
         }
     };
 
-    // Fetch filtered properties based on search criteria
     const fetchFilteredProperties = async (filterSearchPropertyDTO) => {
         try {
             const response = await axios.post('http://localhost:8080/api/properties/search-result', filterSearchPropertyDTO);
-            console.log('Fetched filtered properties:', response.data);
             setProperties(response.data);
             setTotalProperties(response.data.length);
         } catch (error) {
@@ -45,19 +41,13 @@ const AllProperties = () => {
         }
     };
 
-    // Fetch all properties when the component mounts
     useEffect(() => {
         fetchAllProperties();
     }, []);
 
-    // Logic to calculate pagination pages
     const totalPages = Math.ceil(totalProperties / pageSize);
-    const currentProperties = properties.slice(
-        (currentPage - 1) * pageSize,
-        currentPage * pageSize
-    );
+    const currentProperties = properties.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
-    // Handle next page click
     const handleNextPage = () => {
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
@@ -65,7 +55,6 @@ const AllProperties = () => {
         }
     };
 
-    // Handle previous page click
     const handlePreviousPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
@@ -73,27 +62,23 @@ const AllProperties = () => {
         }
     };
 
-    // Fetch property by URL and redirect to property details page
     const handleFindByLink = async () => {
         try {
-            const encodedUrl = encodeURIComponent(url); // Encode URL before making the request
-            console.log(`Fetching property by URL: ${url}`);
-
+            const encodedUrl = encodeURIComponent(url);
             const response = await axios.get(`http://localhost:8080/api/properties/find-by-link?url=${encodedUrl}`);
             const newProperty = response.data;
 
-            console.log('Property fetched by URL:', newProperty);
-
-            // After fetching the property, redirect to the details page of the fetched property
             if (newProperty && newProperty.id) {
-                navigate(`/admin/properties/${newProperty.id}`); // Redirect to the dynamic property details page
+                navigate(`/admin/properties/${newProperty.id}`);
             } else {
-                console.log('Property not found or invalid response.');
+                // Show message when no property is found by URL
+                setProperties([]);  // Empty the property list if not found
             }
 
-            setUrl(''); // Clear the input after fetching
+            setUrl('');  // Clear the input field after search
         } catch (error) {
             console.error('Error fetching property by link:', error);
+            setProperties([]);  // Also clear properties on error
         }
     };
 
@@ -105,7 +90,6 @@ const AllProperties = () => {
                 Konfigurieren von Eigenschaften
             </a>
 
-            {/* Integrating the SearchBox */}
             <SearchBox
                 filters={filters}
                 setFilters={setFilters}
@@ -114,20 +98,19 @@ const AllProperties = () => {
 
             <input
                 type="text"
-                placeholder="Enter property URL"
+                placeholder="Geben Sie die URL der Immobilie ein"
                 value={url}
-                onChange={(e) => setUrl(e.target.value)} // Update the URL state
+                onChange={(e) => setUrl(e.target.value)}
+                className="url-input" // Added class for styling
             />
             <button
                 onClick={handleFindByLink}
-                disabled={!url} // Disable the button if the URL input is empty
+                disabled={!url}
                 className="find-property-button"
             >
-                Find Property by Link
+                Objekt per URL finden
             </button>
 
-
-            {/* Check if properties are available */}
             {properties.length > 0 ? (
                 <div className="properties-list">
                     {currentProperties.map((property) => (
@@ -135,7 +118,7 @@ const AllProperties = () => {
                     ))}
                 </div>
             ) : (
-                <p>No properties available</p>
+                <p>Keine Objekte verfügbar</p>
             )}
 
             <div className="pagination-controls">
