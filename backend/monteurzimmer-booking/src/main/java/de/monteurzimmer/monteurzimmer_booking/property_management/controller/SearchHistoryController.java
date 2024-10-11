@@ -2,9 +2,8 @@ package de.monteurzimmer.monteurzimmer_booking.property_management.controller;
 
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.SearchHistoryDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.service.SearchHistoryService;
+import de.monteurzimmer.monteurzimmer_booking.log.LogEntryService; // Import your custom log service
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,47 +25,46 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchHistoryController {
 
-    private static final Logger logger = LoggerFactory.getLogger(SearchHistoryController.class);
-
     private final SearchHistoryService searchHistoryService;
+    private final LogEntryService logEntryService; // Add your custom log service
 
     @GetMapping
     public ResponseEntity<List<SearchHistoryDTO>> getAllSearchHistories() {
-        logger.debug("Fetching all search histories.");
+        logEntryService.log("DEBUG", "Fetching all search histories.");
         List<SearchHistoryDTO> searchHistories = searchHistoryService.getAllSearchHistories();
-        logger.info("Retrieved {} search histories.", searchHistories.size());
+        logEntryService.log("INFO", "Retrieved {} search histories." + searchHistories.size());
         return ResponseEntity.ok(searchHistories);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<SearchHistoryDTO> getSearchHistoryById(@PathVariable Long id) {
-        logger.debug("Fetching search history with ID: {}", id);
+        logEntryService.log("DEBUG", "Fetching search history with ID: {}" + id);
         SearchHistoryDTO searchHistory = searchHistoryService.getSearchHistoryById(id);
-        logger.info("Retrieved search history: {}", searchHistory);
+        logEntryService.log("INFO", "Retrieved search history: {}" + searchHistory);
         return ResponseEntity.ok(searchHistory);
     }
 
     @PostMapping
     public ResponseEntity<SearchHistoryDTO> createSearchHistory(@RequestBody SearchHistoryDTO searchHistoryDTO) {
-        logger.debug("Creating search history: {}", searchHistoryDTO);
+        logEntryService.log("DEBUG", "Creating search history: {}" + searchHistoryDTO);
         SearchHistoryDTO createdSearchHistory = searchHistoryService.createSearchHistory(searchHistoryDTO);
-        logger.info("Successfully created search history: {}", createdSearchHistory);
+        logEntryService.log("INFO", "Successfully created search history: {}" + createdSearchHistory);
         return ResponseEntity.status(201).body(createdSearchHistory);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<SearchHistoryDTO> updateSearchHistory(@PathVariable Long id, @RequestBody SearchHistoryDTO searchHistoryDTO) {
-        logger.debug("Updating search history ID {}: {}", id, searchHistoryDTO);
+        logEntryService.log("DEBUG", "Updating search history ID {}: {}" + id + searchHistoryDTO);
         SearchHistoryDTO updatedSearchHistory = searchHistoryService.updateSearchHistory(id, searchHistoryDTO);
-        logger.info("Successfully updated search history ID {}: {}", id, updatedSearchHistory);
+        logEntryService.log("INFO", "Successfully updated search history ID {}: {}" + id + updatedSearchHistory);
         return ResponseEntity.ok(updatedSearchHistory);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSearchHistory(@PathVariable Long id) {
-        logger.debug("Deleting search history ID {}.", id);
+        logEntryService.log("DEBUG", "Deleting search history ID {}." + id);
         searchHistoryService.deleteSearchHistory(id);
-        logger.info("Successfully deleted search history ID {}.", id);
+        logEntryService.log("INFO", "Successfully deleted search history ID {}." + id);
         return ResponseEntity.noContent().build();
     }
 }

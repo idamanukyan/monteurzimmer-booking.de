@@ -24,7 +24,7 @@ public class Favorite {
     private Property property;
 
     @Column(name = "session_id", nullable = false)
-    private String sessionId; // For anonymous users
+    private String sessionId;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
