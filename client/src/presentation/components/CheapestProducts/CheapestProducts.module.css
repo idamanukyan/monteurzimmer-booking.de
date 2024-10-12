@@ -1,0 +1,83 @@
+.carousel-container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+button[type="button"] {
+    background-color: #ff3c00;
+}
+
+button[type="button"]:hover {
+    background-color: #e04300;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+button[type="button"]:focus {
+    border: none;
+    background-color: #e04300;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.carousel-cell {
+    width: 30%; /* Makes each slide take full width */
+    height: 100px; /* Adjust height to suit your content */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #333;
+}
+
+.carousel-cell img {
+    width: auto;
+    height: 100px;
+    border-radius: 15px;
+}
+
+.carouselCellContainer {
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 0 0 15px 0;
+    width: 20vw;
+    margin: 30px 20px;
+    transition: transform 0.3s ease;
+}
+
+.carouselCellContainer:hover {
+    transform: scale(1.05);
+}
+
+.carouselCellContainer > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 25px 10px 25px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.carouselCellContainer > div > h3 {
+    margin: 0;
+    text-align: left;
+    color: black;
+}
+
+.carouselCellContainer > div > h5 {
+    margin: 0;
+    text-align: left;
+    font-weight: normal;
+}
+
+.carouselCellContainer > img {
+    width: 100%;
+    border-radius: 15px 15px 0 0;
+}
+
+.carouselCellContainer > h2 {
+    margin: 0;
+    text-align: right;
+    padding: 0 25px 0 25px;
+}
+

@@ -30,32 +30,26 @@ const Header: React.FC<HeaderProps> = ({ city }) => {
         <>
         <header className={styles.header}>
             <img src={'/assets/images/logo.png'} alt={''} onClick={() => navigate('/')}/>
-            <nav>
-                <ul>
-                    <li>
-                        <Button
-                            variant="contained"
-                            className={styles.contactUs}
-                            onClick={() => setIsModalContactUsOpen(true)}>
-                            Kontaktieren Sie uns
-                        </Button>
-                    </li>
-                    <li>
-                        <Button
-                            variant="contained"
-                            className={styles.contactUs}
-                            onClick={() => setIsModalSubscribeOpen(true)}>
-                            Newsletter Abonnieren
-                        </Button>
-                    </li>
-                </ul>
-            </nav>
+            <div>
+                <button
+                    className={styles.searchButton}
+                    onClick={() => setIsModalContactUsOpen(true)}
+                >
+                    Kontaktieren Sie uns
+                </button>
+                <button
+                    className={styles.searchButton}
+                    onClick={() => setIsModalSubscribeOpen(true)}
+                >
+                    Newsletter Abonnieren
+                </button>
+            </div>
         </header>
 
             {isModalContactUsOpen && <ContactUsModal closeModal={() => setIsModalContactUsOpen(false)}/>}
             {isModalSubscribeOpen && <SubscribeModal closeModal={() => setIsModalSubscribeOpen(false)}/>}
         </>
-    );
+);
 };
 
 export default Header;

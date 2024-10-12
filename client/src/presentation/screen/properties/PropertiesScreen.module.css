@@ -1,10 +1,10 @@
 .headerContainer {
     padding: 25px 30px;
-    margin-bottom: 100px;
+    /*margin-bottom: 100px;*/
 }
 
 .heroSlideContainer {
-    padding: 0 30px;
+    padding: 0;
     justify-content: center;
     display: flex;
 }

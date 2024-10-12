@@ -1,24 +1,16 @@
 .header {
-    position: fixed; /* Fixes the header to the top */
     padding: 25px 30px;
-    background-color: #ececec;
-    /*box-shadow: 0 0 4px #ffb5a8; !* orange shadow *!*/
+    /*background-color: #ffffff;*/
     border-radius: 20px;
-    /*border-width: 1px;*/
-    /*border-color: #f1715e;*/
-    /*border-style: solid;*/
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 30px;
-    width: 90%;
     z-index: 1000;
-    backdrop-filter: blur(10px); /* Apply blur effect */
 }
 
-
 .header img {
-    height: 40px;
+    height: 50px;
 }
 
 .header h1 a {
@@ -28,30 +20,30 @@
     color: white;
 }
 
-.header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-}
-
-.header nav ul li Button {
-    border-radius: 15px;
-}
-
-.header nav a {
-    background-color: transparent;
-    border-radius: 10px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    padding: 10px;
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.header nav a:hover {
-    background-color: #08b8fa;
+.searchButton {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ff4812;
     color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    height: 50px;
+    margin: 0 10px;
 }
 
-.contactUs {
+.searchButton .arrowIcon {
+    margin-left: 10px;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.searchButton:hover {
+    background-color: #e04300;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }

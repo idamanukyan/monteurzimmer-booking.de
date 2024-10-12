@@ -1,12 +1,8 @@
-.headerContainer {
-    padding: 25px 30px;
-    margin-bottom: 25px;
-}
-
 .heroSlideContainer {
-    padding: 0 30px;
+    padding: 0;
     justify-content: center;
     display: flex;
+    height: 100vh;
 }
 
 .favProdsContainer {
@@ -16,7 +12,8 @@
 
 .favProdsContainer > div {
     margin-bottom: 20px;
-    margin-top: 20px;}
+    margin-top: 20px;
+}
 
 .favTitle {
     font-weight: bold;
@@ -27,12 +24,18 @@
 .favTitle2 {
     font-weight: bold;
     font-size: 34px;
+    text-align: left;
     color: #000000;
-    margin-bottom: 50px !important;
+    padding: 0 15px;
 }
 
 .favCitiesContainer {
     padding: 20px 50px;
+}
+
+.favCitiesContainer > div {
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .aboutUsTitle {
@@ -60,4 +63,22 @@
     font-weight: bold;
     color: black;
     font-size: 34px;
+}
+
+.dividerLine {
+    border: none;
+    width: 520px;
+    height: 3px;
+    border-radius: 5px;
+    background-color: #ff3c00;
+    margin: 0 15px;
+}
+
+.dividerLine2 {
+    border: none;
+    width: 245px;
+    height: 3px;
+    border-radius: 5px;
+    background-color: #ff3c00;
+    margin: 0 15px;
 }

@@ -99,18 +99,6 @@ export default function PropertiesScreenModel(propertyService: PropertyService) 
             ...prevState,
             [name]: checked
         }));
-        setState((prevState) => {
-            const filteredProperties = prevState.allProperties?.filter(property =>
-                checked
-                    ? property[name as keyof typeof property] === true
-                    : (property[name as keyof typeof property] === false) || (property[name as keyof typeof property] === true)
-            );
-
-            return {
-                ...prevState,
-                filteredProperties: filteredProperties || prevState.allProperties
-            }
-        })
 
         setState((prevState) => {
             const updatedState = { ...prevState, [name]: checked };
