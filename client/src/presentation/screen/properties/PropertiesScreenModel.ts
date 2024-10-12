@@ -141,6 +141,7 @@ export default function PropertiesScreenModel(propertyService: PropertyService) 
 
     useEffect(() => {
         console.log(state)
+        window.scrollTo(0, 0);
     }, [state]);
 
     return {
