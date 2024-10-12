@@ -40,8 +40,9 @@ input, select, textarea {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    /*margin-left: 10px; !* Space between buttons *!*/
 }
 
 .input-row {

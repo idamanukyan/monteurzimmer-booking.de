@@ -1,62 +1,76 @@
 .heroSlide {
-    margin-top: 50px;
-    position: relative; /* Make the container relative to contain the ::before pseudo-element */
-    border-radius: 20px;
-    background-image: url('../../../assets/images/bgHeroSlide.jpg');
-    background-size: cover; /* Make the image cover the entire container */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Avoid repeating the image */
-    padding: 100px 20px 20px 20px;
+    position: relative;
+    border-radius: 0 0 20px 20px;
+    background-image: url('../../../assets/images/bgImage1.jpg');
+    background-size: 100vw 75vh;
+    background-position: top;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    width: 70%;
-    height: 220px; /* Set desired height */
+    width: 100vw;
+    height: 100vh;
 }
 
 .heroSlide::before {
-    content: ''; /* Required for pseudo-element to display */
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Black color with 20% opacity */
-    border-radius: inherit; /* Match the border-radius of the parent */
-    z-index: 1; /* Place it behind the content but above the background */
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+    border-radius: inherit;
+    z-index: 1;
 }
 
 .heroSlide * {
     position: relative;
-    z-index: 2; /* Ensure content stays above the overlay */
+    z-index: 2;
+}
+
+.headerContainer {
+    padding: 25px 30px;
+    margin-bottom: 25px;
+    width: 90vw;
 }
 
 .motto {
-    margin-bottom: 40px;
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.motto > span {
+.motto > p {
+    margin: 0;
     color: #ffffff;
-    font-size: 44px;
+    font-size: 68px;
     font-weight: bold;
 }
 
 .contactUs {
 }
 
-.inputFields {
+.searchContainer {
     background-color: white;
-    padding: 30px;
-    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 30vh;
+    width: 75vw;
+    padding: 0 40px;
+    justify-content: space-between;
+}
+
+.inputFields {
     display: flex;
     flex-direction: row;
     gap: 20px;
     align-items: center;
-}
-
-.inputFields > button {
-    height: 40px;
 }
 
 .datePicker {
@@ -65,11 +79,249 @@
     width: 300px;
 }
 
-.dropdown {
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+.heroSlideDetails {
+    margin-bottom: 10vh;
+    /*height: 50vh;*/
+}
+
+.searchInput {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 0.5rem;
+    font-family: 'Poppins', sans-serif;
+    background-color: #D9D9D9;
+    font-size: 14px;
+}
+
+select,
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"] {
+    /*width: -webkit-fill-available;*/
+    flex: 1;
+    padding: 5px 15px 5px 15px;
     font-size: 16px;
-    width: 200px;
-    margin-top: 10px;
+    border: 2px solid #cccccc;
+    border-radius: 15px;
+    background-color: #fff;
+    height: 50px;
+    color: #222;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+select:hover,
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="number"]:hover,
+input[type="password"]:hover {
+    border-color: #ec7b6a;
+    background-color: #fff;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus {
+    border-color: #ff3c00;
+    background-color: #fff;
+}
+
+.label {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #999;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus + .label,
+input[type="text"]:not(:placeholder-shown) + .label,
+input[type="email"]:focus + .label,
+input[type="email"]:not(:placeholder-shown) + .label,
+input[type="number"]:focus + .label,
+input[type="number"]:not(:placeholder-shown) + .label,
+input[type="password"]:focus + .label,
+input[type="password"]:not(:placeholder-shown) + .label {
+    top: 2px;
+    left: 15px;
+    font-size: 12px;
+    color: #ff3c00;
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #ff3c00;
+    padding: 0 5px;
+}
+
+.dropdown {
+    color: gray !important;
+    border: none;
+    outline: none;
+    flex: 1;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.dropdown:not([value=""]) {
+    color: #222;
+}
+
+.searchButton {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ff4812;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    height: 60px;
+}
+
+.searchButton .arrowIcon {
+    margin-left: 10px;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.searchButton:hover {
+    background-color: #e04300;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.searchButton:hover .arrowIcon {
+    transform: translateX(5px);
+}
+
+svg {
+    width: 25px;
+    height: 25px;
+    fill: white;
+}
+
+.buttonContainer {
+    align-self: center;
+}
+
+.buttonContainer > button {
+    bottom: 0;
+    transform: translateY(50%);
+}
+
+.searchContainer > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.searchContainer > div > h1 {
+    margin: 30px 0 0 0;
+}
+
+.dividerLine {
+    border: none;
+    width: 300px;
+    height: 3px;
+    border-radius: 5px;
+    background-color: #ff3c00;
+    margin: 10px 0 20px 0;
+}
+
+.slideContainer {
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #04AA6D;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #04AA6D;
+    cursor: pointer;
+}
+input[type="range"] {
+    font-size: 1.5rem;
+    width: 12.5em;
+}
+
+input[type="range"] {
+    color: #ef233c;
+    --thumb-height: 1.125em;
+    --track-height: 0.125em;
+    --track-color: rgba(0, 0, 0, 0.2);
+    --brightness-hover: 180%;
+    --brightness-down: 80%;
+    --clip-edges: 0.125em;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: #000;
+    }
+
+    html::before {
+        background: radial-gradient(circle at center, #101112, #000);
+    }
+
+    input[type="range"] {
+        color: #f07167;
+        --track-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* === range commons === */
+input[type="range"] {
+    position: relative;
+    background: #fff0;
+    overflow: hidden;
+}
+
+input[type="range"]:active {
+    cursor: grabbing;
+}
+
+input[type="range"]:disabled {
+    filter: grayscale(1);
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.sliderText {
+    margin: 0;
+    text-align: left;
+    padding: -1px !important;
 }
