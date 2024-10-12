@@ -3,6 +3,10 @@
     margin: 0 auto;
 }
 
+.flickity-viewport {
+    height: auto;
+}
+
 button[type="button"] {
     background-color: #ff3c00;
 }
@@ -20,7 +24,7 @@ button[type="button"]:focus {
 
 .carousel-cell {
     width: 30%; /* Makes each slide take full width */
-    height: 100px; /* Adjust height to suit your content */
+    height: auto; /* Adjust height to suit your content */
     border-radius: 10px;
     display: flex;
     justify-content: center;
