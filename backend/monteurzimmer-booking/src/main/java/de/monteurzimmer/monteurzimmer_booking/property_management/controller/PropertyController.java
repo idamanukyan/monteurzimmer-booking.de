@@ -121,12 +121,6 @@ public class PropertyController {
         return ResponseEntity.status(201).body(createdProperty);
     }
 
-    @PostMapping("/favorite-properties/add")
-    public ResponseEntity<String> addFavoriteProperty(@RequestParam Long adminId, @RequestParam Long propertyId) {
-        //adminService.addFavoriteProperty(adminId, propertyId);
-        return ResponseEntity.ok("Favorite property added successfully!");
-    }
-
     @PutMapping("/add-favorite-property/{id}")
     public ResponseEntity<PropertyDTO> addFavoriteProperty(@PathVariable Long id) {
         logEntryService.log("DEBUG", "Adding property ID " + id + " to favorites.");
