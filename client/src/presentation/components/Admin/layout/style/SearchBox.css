@@ -1,16 +1,26 @@
 .search-box-container {
     display: flex;
-    flex-direction: column; /* Align elements vertically */
-    margin: 20px 0; /* Space above and below the search box */
+    flex-direction: column;
+    margin: 20px 0;
 }
 
 .search-inputs {
-    display: flex; /* Align inputs in a row */
-    flex-wrap: nowrap; /* Prevent wrapping */
-    gap: 15px; /* Space between input groups */
-    margin-bottom: 15px; /* Additional space below the first row */
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15px;
+    margin-bottom: 15px;
+
 }
 
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 35px;
+}
+
+.input-group:last-child {
+    margin-right: 0;
+}
 
 .search-input {
     padding: 10px;
@@ -18,90 +28,45 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s;
-    height: 50px; /* Same height as other inputs */
     font-size: 14px;
 }
 
-.input-group {
-    display: flex;
-    flex-direction: column; /* Stack label and input vertically */
-    margin-right: 35px; /* Add right margin to create space between input groups */
-}
-
-.input-group:last-child {
-    margin-right: 0; /* No margin for the last input */
-}
-
-.city-input {
-    flex: 0 0 30%; /* 30% width for city input */
-}
-
-.property-type-input {
-    flex: 0 0 30%; /* 30% width for property type input */
-}
-
-.min-price-input {
-    flex: 0 0 25%; /* 25% width for min price input */
-}
-
-.max-price-input {
-    flex: 0 0 25%; /* 25% width for max price input */
-}
-
-.guests-input {
-    flex: 0 0 15%; /* 15% width for guests input */
-}
-
-.search-input {
-    padding: 10px; /* Uniform padding for all inputs */
-    border: 1px solid #ccc; /* Border for inputs */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Soft shadow */
-    transition: border-color 0.3s; /* Smooth border color transition */
-    height: 40px; /* Set a fixed height for all inputs */
-    font-size: 14px; /* Ensure uniform font size for consistency */
-}
-
 .small-input {
-    min-width: 80px; /* Minimum width for the number of guests */
+    min-width: 80px;
 }
 
 .filter-button {
-    display: flex; /* Center the icon and text */
-    align-items: center; /* Vertically center the icon */
-    justify-content: center; /* Horizontally center the icon */
-    background-color: #007bff; /* Button background color */
-    border: none; /* Remove border */
-    border-radius: 10px; /* Rounded corners for the button */
-    padding: 12px; /* Increase padding for a larger button */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    font-size: 16px; /* Increase font size */
-    height: 40px; /* Set a consistent height */
-    margin-top: 30px; /* Add margin to bring it down */
-    line-height: 1; /* Adjust line height for better alignment */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 30px;
 }
 
 .apply-button-container {
     display: flex;
-    justify-content: flex-end; /* Aligns button to the right */
+    justify-content: flex-end;
 }
 
 .apply-button {
-    background-color: #28a745; /* Green background for Apply button */
-    color: white; /* White text color */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 12px 20px; /* Padding for the button */
-    font-size: 16px; /* Button text size */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
-}
-
-.apply-button:hover {
-    background-color: #218838; /* Darker green on hover */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 30px;
 }
 
 .filter-icon {
-    width: 24px; /* Adjust size of the icon */
-    height: 24px; /* Adjust size of the icon */
+    width: 24px;
+    height: 24px;
 }

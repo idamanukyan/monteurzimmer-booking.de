@@ -1,2 +1,2 @@
 alter table properties
-add column city_id bigint references city(id);
+add column city_id bigint references cities(id);

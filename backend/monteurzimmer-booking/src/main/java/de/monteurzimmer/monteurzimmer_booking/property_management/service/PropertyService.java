@@ -2,6 +2,7 @@ package de.monteurzimmer.monteurzimmer_booking.property_management.service;
 
 import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import de.monteurzimmer.monteurzimmer_booking.city_management.repository.CityRepository;
+import de.monteurzimmer.monteurzimmer_booking.log.LogEntryService;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.Property;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FavoritePropertyDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
@@ -10,8 +11,6 @@ import de.monteurzimmer.monteurzimmer_booking.property_management.repository.Pro
 import de.monteurzimmer.monteurzimmer_booking.property_management.util.DistanceUtils;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -24,14 +23,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PropertyService {
 
-    private static final Logger log = LoggerFactory.getLogger(PropertyService.class);
-
     private final PropertyRepository propertyRepository;
     private final CityRepository cityRepository;
     private final ModelMapper modelMapper;
+    private final LogEntryService logEntryService; // Inject your custom logger
 
     public List<PropertyDTO> getAllProperties() {
-        log.info("Fetching all properties.");
+        logEntryService.log("INFO", "Fetching all properties.");
         List<Property> properties = propertyRepository.findAll();
 
         return properties.stream()
@@ -40,7 +38,7 @@ public class PropertyService {
     }
 
     public List<PropertyDTO> getFilteredProperties(FilterSearchPropertyDTO propertyDTO) {
-        log.info("Filtering properties with criteria: {}", propertyDTO);
+        logEntryService.log("INFO", "Filtering properties with criteria: {}" + propertyDTO);
         Specification<Property> spec = Specification.where(null);
 
         if (propertyDTO.getCity() != null) {
@@ -66,8 +64,8 @@ public class PropertyService {
             }
         }
         if (propertyDTO.getMaxPrice() != null && propertyDTO.getMinPrice() != null) {
-                spec = spec.and(PropertySpecification.withPriceRange(propertyDTO.getMinPrice(), propertyDTO.getMaxPrice()));
-            }
+            spec = spec.and(PropertySpecification.withPriceRange(propertyDTO.getMinPrice(), propertyDTO.getMaxPrice()));
+        }
         if (propertyDTO.getRoomCount() != null)
             if (propertyDTO.getRoomCount() > 0) {
                 spec = spec.and(PropertySpecification.withRoomCount(propertyDTO.getRoomCount()));
@@ -76,7 +74,7 @@ public class PropertyService {
         addBooleanSpecifications(spec, propertyDTO);
 
         List<Property> filteredProperties = propertyRepository.findAll(spec);
-        log.info("Retrieved {} filtered properties.", filteredProperties.size());
+        logEntryService.log("INFO", "Retrieved {} filtered properties." + filteredProperties.size());
         return filteredProperties.stream()
                 .map(property -> modelMapper.map(property, PropertyDTO.class))
                 .collect(Collectors.toList());
@@ -161,22 +159,29 @@ public class PropertyService {
     }
 
     public PropertyDTO getPropertyById(Long id) {
-        log.info("Fetching property with ID: {}", id);
+        logEntryService.log("INFO", "Fetching property with ID: {}" + id);
         Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
         return modelMapper.map(property, PropertyDTO.class);
     }
 
     public List<PropertyDTO> getPropertyByCity(String city) {
-        log.info("Fetching properties in city: {}", city);
+        logEntryService.log("INFO", "Fetching properties in city: {}" + city);
         List<Property> propertyList = propertyRepository.findByCity_Name(city);
         return propertyList.stream()
                 .map(property -> modelMapper.map(property, PropertyDTO.class))
                 .collect(Collectors.toList());
     }
 
+    public PropertyDTO getPropertyByLink(String url) {
+        logEntryService.log("INFO", "Fetching property by link: {}" + url);
+        Property property = propertyRepository.findBySocialMediaLink(url)
+                .orElseThrow(() -> new RuntimeException("Property not found"));
+        return modelMapper.map(property, PropertyDTO.class);
+    }
+
     public List<PropertyDTO> get20Chepeastproperties() {
-        log.info("Fetching 20 cheapest properties.");
+        logEntryService.log("INFO", "Fetching 20 cheapest properties.");
         List<Property> propertyList = propertyRepository.find20Chepeast();
         return propertyList.stream()
                 .map(property -> modelMapper.map(property, PropertyDTO.class))
@@ -184,7 +189,7 @@ public class PropertyService {
     }
 
     public List<PropertyDTO> get20FavoriteProperties() {
-        log.info("Fetching 20 favorite properties.");
+        logEntryService.log("INFO", "Fetching 20 favorite properties.");
         List<Property> propertyList = propertyRepository.find20Favorite();
         return propertyList.stream()
                 .map(property -> modelMapper.map(property, PropertyDTO.class))
@@ -192,7 +197,7 @@ public class PropertyService {
     }
 
     public List<PropertyDTO> get20LastProperties() {
-        log.info("Fetching 20 last properties.");
+        logEntryService.log("INFO", "Fetching 20 last properties.");
         List<Property> propertyList = propertyRepository.find20Latest();
         return propertyList.stream()
                 .map(property -> modelMapper.map(property, PropertyDTO.class))
@@ -220,7 +225,7 @@ public class PropertyService {
     }
 
     public PropertyDTO createProperty(PropertyDTO propertyDTO) {
-        log.info("Creating new property: {}", propertyDTO);
+        logEntryService.log("INFO", "Creating new property: " + propertyDTO);
 
         Property property = modelMapper.map(propertyDTO, Property.class);
 
@@ -231,7 +236,7 @@ public class PropertyService {
         property.setCreatedAt(LocalDateTime.now());
         Property savedProperty = propertyRepository.save(property);
 
-        log.info("Successfully created property with ID: {}", savedProperty.getId());
+        logEntryService.log("INFO", "Successfully created property with ID: " + savedProperty.getId());
 
         // Ensure PropertyDTO contains the correct property ID
         PropertyDTO responseDTO = modelMapper.map(savedProperty, PropertyDTO.class);
@@ -240,34 +245,45 @@ public class PropertyService {
         return responseDTO;
     }
 
-
     public PropertyDTO addFavoriteProperty(FavoritePropertyDto propertyDto) {
-        log.info("Updating favorite status for property ID: {}", propertyDto.getPropertyId());
+        logEntryService.log("INFO", "Updating favorite status for property ID: " + propertyDto.getPropertyId());
         Property property = propertyRepository.findById(propertyDto.getPropertyId())
                 .orElseThrow(() -> new RuntimeException("Property not found"));
 
         property.setIsFavorite(propertyDto.getIsFavorite());
         Property updatedProperty = propertyRepository.save(property);
-        log.info("Successfully updated favorite status for property ID: {}", propertyDto.getPropertyId());
+        logEntryService.log("INFO", "Successfully updated favorite status for property ID: " + propertyDto.getPropertyId());
         return modelMapper.map(updatedProperty, PropertyDTO.class);
     }
 
     public PropertyDTO updateProperty(Long id, PropertyDTO propertyDTO) {
-        log.info("Updating property with ID: {}", id);
+        logEntryService.log("INFO", "Updating property with ID: " + id);
         Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
 
         modelMapper.map(propertyDTO, property);
         Property updatedProperty = propertyRepository.save(property);
-        log.info("Successfully updated property with ID: {}", id);
+        logEntryService.log("INFO", "Successfully updated property with ID: " + id);
         return modelMapper.map(updatedProperty, PropertyDTO.class);
     }
 
     public void deleteProperty(Long id) {
-        log.info("Deleting property with ID: {}", id);
+        logEntryService.log("INFO", "Deleting property with ID: " + id);
         Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
         propertyRepository.delete(property);
-        log.info("Successfully deleted property with ID: {}", id);
+        logEntryService.log("INFO", "Successfully deleted property with ID: " + id);
     }
+
+    public void deletePropertyByLink(String url) {
+        logEntryService.log("INFO", "Deleting property with URL: " + url);
+
+        Property property = propertyRepository.findBySocialMediaLink(url)
+                .orElseThrow(() -> new RuntimeException("Property not found"));
+
+        propertyRepository.delete(property);
+
+        logEntryService.log("INFO", "Successfully deleted property with URL: " + url);
+    }
+
 }

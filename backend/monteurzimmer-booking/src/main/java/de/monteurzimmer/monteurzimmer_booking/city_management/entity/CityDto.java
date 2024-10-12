@@ -5,9 +5,15 @@ import lombok.Data;
 @Data
 public class CityDto {
 
+    private Long id;
+
     private String name;
 
     private Boolean isFavorite;
 
     private String photo;
+
+    private Double longitude;
+
+    private Double latitude;
 }

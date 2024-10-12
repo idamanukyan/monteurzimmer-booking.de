@@ -66,9 +66,7 @@ const LogsPage = () => {
                 {currentLogs.length > 0 ? (
                     currentLogs.map((log, index) => (
                         <div key={index} className="log-item">
-                           <span className="log-level" style={getLogStyle(log.level)}>
-                                {log.level}
-                            </span>
+                            <span className={`log-level ${log.level.toLowerCase()}`}>{log.level}</span>
                             <span className="log-message">{log.message}</span>
                             <span className="log-timestamp">
                                 {new Date(log.timestamp).toLocaleString()}
