@@ -3,7 +3,7 @@ import axios from 'axios';
 import './style/AddPropertyModal.css';
 import FilterModal from "./FilterModal";
 
-const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleAddProperty}) => {
+const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleFilterResults, resetForm}) => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [filters, setFilters] = useState({}); // State to hold the filters
     const [cities, setCities] = useState([]); // State to hold fetched cities
@@ -21,13 +21,16 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleA
             }
         };
 
-        fetchCities(); // Call the fetchCities function when the component mounts
-    }, []); // Empty dependency array means this runs once when the component mounts
+        fetchCities();
+    }, []);
 
-    if (!isOpen) return null; // If modal is not open, return null
+    useEffect(() => {
+        console.log('Filters ' + filters)
+    }, [filters]);
+
+    if (!isOpen) return null;
 
     const handleClickOutside = (e) => {
-        // If the clicked target is the modal background, close the modal
         if (e.target.className === 'modal') {
             onClose();
         }
@@ -46,6 +49,22 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleA
         setFilters(appliedFilters); // Update filters with applied filters
         setIsFilterModalOpen(false); // Close the filter modal
     };
+
+    const handleAddProperty = async (e) => {
+        e.preventDefault();
+        try {
+            const dataToSend = {
+                ...formData,
+                facilities: filters
+            };
+            console.log(dataToSend)
+            await axios.post('http://localhost:8080/api/properties', dataToSend);
+            resetForm();
+        } catch (error) {
+            console.error('Error adding property:', error);
+        }
+    };
+
     return (
         <div className="modal-wrapper" onClick={handleClickOutside}>
             <div className="modal">

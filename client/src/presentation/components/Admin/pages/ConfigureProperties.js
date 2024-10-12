@@ -39,20 +39,6 @@ const ConfigureProperties = () => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleAddProperty = async (e) => {
-        e.preventDefault();
-        try {
-            const dataToSend = {
-                ...formData,
-                facilities: filterResults // Include filter results in the request
-            };
-            await axios.post('http://localhost:8080/api/properties', dataToSend);
-            resetForm();
-        } catch (error) {
-            console.error('Error adding property:', error);
-        }
-    };
-
     const handleUpdateProperty = async (e) => {
         e.preventDefault();
         try {
@@ -98,7 +84,7 @@ const ConfigureProperties = () => {
     };
 
     const handleFilterResults = (results) => {
-        setFilterResults(results); // Update filter results from FilterModal
+        setFilterResults((prevResults) => [...prevResults, results]);
     };
 
     // Determine if any modal is open
@@ -160,7 +146,8 @@ const ConfigureProperties = () => {
                 onClose={() => setAddModalOpen(false)}
                 formData={formData}
                 handleInputChange={handleInputChange}
-                handleAddProperty={handleAddProperty}
+                handleFilterResults={handleFilterResults}
+                resetForm={resetForm}
             />
 
             <UpdatePropertyModal
