@@ -54,7 +54,7 @@ public class PropertyController {
     public ResponseEntity<PropertyDTO> getPropertyById(@PathVariable Long id) {
         logEntryService.log("DEBUG", "Fetching property with ID: " + id);
         PropertyDTO property = propertyService.getPropertyById(id);
-        logEntryService.log("INFO", "Retrieved property: " + property);
+        logEntryService.log("INFO", "Retrieved property: " + property.getId());
         return ResponseEntity.ok(property);
     }
 

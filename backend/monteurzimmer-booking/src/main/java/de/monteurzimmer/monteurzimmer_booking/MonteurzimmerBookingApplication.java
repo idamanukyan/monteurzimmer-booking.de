@@ -33,5 +33,5 @@ public class MonteurzimmerBookingApplication implements CommandLineRunner {
 
 }
 
-//cd C:\Users\Admin\Desktop\monteurzimmer-booking-master.de\client
+//cd C:\Users\Admin\Desktop\monteurzimmer-booking.de-final\client
 //npm start
