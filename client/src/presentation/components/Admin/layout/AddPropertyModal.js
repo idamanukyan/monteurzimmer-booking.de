@@ -3,8 +3,7 @@ import axios from 'axios';
 import './style/AddPropertyModal.css';
 import FilterModal from './FilterModal';
 
-const AddPropertyModal = ({ isOpen, onClose, formData, handleInputChange, handleAddProperty }) => {
-    // State for filter modal, cities, and loading status
+const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleFilterResults, resetForm}) => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [filters, setFilters] = useState({});
     const [cities, setCities] = useState([]);
@@ -25,9 +24,17 @@ const AddPropertyModal = ({ isOpen, onClose, formData, handleInputChange, handle
         fetchCities();
     }, []);
 
-    // Close modal when clicking outside the content area
+        fetchCities();
+    }, []);
+
+    useEffect(() => {
+        console.log('Filters ' + filters)
+    }, [filters]);
+
+    if (!isOpen) return null;
+
     const handleClickOutside = (e) => {
-        if (e.target.className === 'modal-overlay') {
+        if (e.target.className === 'modal') {
             onClose();
         }
     };
@@ -42,6 +49,27 @@ const AddPropertyModal = ({ isOpen, onClose, formData, handleInputChange, handle
 
     // Return null if modal is not open
     if (!isOpen) return null;
+
+
+    const handleApplyFilters = (appliedFilters) => {
+        setFilters(appliedFilters); // Update filters with applied filters
+        setIsFilterModalOpen(false); // Close the filter modal
+    };
+
+    const handleAddProperty = async (e) => {
+        e.preventDefault();
+        try {
+            const dataToSend = {
+                ...formData,
+                facilities: filters
+            };
+            console.log(dataToSend)
+            await axios.post('http://localhost:8080/api/properties', dataToSend);
+            resetForm();
+        } catch (error) {
+            console.error('Error adding property:', error);
+        }
+    };
 
     return (
         <div className="modal-overlay" onClick={handleClickOutside}>

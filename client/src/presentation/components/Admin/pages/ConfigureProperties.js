@@ -39,24 +39,19 @@ const ConfigureProperties = () => {
         }));
     };
 
-    const handleAddProperty = async (e) => {
+    const handleUpdateProperty = async (e) => {
         e.preventDefault();
-        const dataToSend = {
-            ...formData,
-            facilities: Object.keys(filterResults).filter(key => filterResults[key]),
-        };
-
         try {
-            await axios.post('http://localhost:8080/api/properties', dataToSend);
+            await axios.put(`http://localhost:8080/api/properties/${selectedPropertyId}`, formData);
             resetForm();
-            setAddModalOpen(false);
-            fetchProperties();
+            setUpdateModalOpen(false);
+            setSelectedPropertyId(null);
         } catch (error) {
-            console.error('Error adding property:', error);
+            console.error('Error updating property:', error);
         }
     };
 
-    const handleRemoveProperty = async (url) => {
+    const handleRemoveProperty = async () => {
         try {
             await axios.delete(`http://localhost:8080/api/properties/remove/by/link`, { params: { url } });
             setRemoveModalOpen(false);
@@ -74,7 +69,10 @@ const ConfigureProperties = () => {
             description: '',
             facilities: [],
         });
-        setFilterResults({});
+    };
+
+    const handleFilterResults = (results) => {
+        setFilterResults((prevResults) => [...prevResults, results]);
     };
 
     // Determine if any modal is open
@@ -103,9 +101,16 @@ const ConfigureProperties = () => {
                 onClose={() => setAddModalOpen(false)}
                 formData={formData}
                 handleInputChange={handleInputChange}
-                handleAddProperty={handleAddProperty}
-                filters={filterResults}
-                setFilters={setFilterResults}
+                handleFilterResults={handleFilterResults}
+                resetForm={resetForm}
+            />
+
+            <UpdatePropertyModal
+                isOpen={isUpdateModalOpen}
+                onClose={() => setUpdateModalOpen(false)}
+                formData={formData}
+                handleInputChange={handleInputChange}
+                handleUpdateProperty={handleUpdateProperty}
             />
 
             <RemovePropertyModal
