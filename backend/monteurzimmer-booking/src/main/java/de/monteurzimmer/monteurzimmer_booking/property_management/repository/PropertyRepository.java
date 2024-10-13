@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSpecificationExecutor<Property> {
@@ -24,6 +25,8 @@ public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSp
     List<Property> find20Latest();
 
     List<Property> findByCityIn(List<City> cities);
+
+    Optional<Property> findBySocialMediaLink(String url);
 
 
 }

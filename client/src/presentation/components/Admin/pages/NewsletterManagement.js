@@ -1,215 +1,169 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './style/NewsletterManagement.css'; // Add your styles
+import './style/NewsletterManagement.css';
 
 const NewsletterManagement = () => {
     const [subscribers, setSubscribers] = useState([]);
+    const [activeSubscriptions, setActiveSubscriptions] = useState([]);
+    const [searchEmail, setSearchEmail] = useState('');
+    const [filteredSubscriptions, setFilteredSubscriptions] = useState([]);
     const [formData, setFormData] = useState({
-        id: '',
         email: '',
         name: '',
         surname: '',
         birthDate: '',
-        subscribedAt: '',
-        isActive: true,
     });
-    const [isAddModalOpen, setAddModalOpen] = useState(false);
-    const [isUpdateModalOpen, setUpdateModalOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         fetchSubscribers();
+        fetchActiveSubscriptions();
     }, []);
+
+    useEffect(() => {
+        setFilteredSubscriptions(
+            activeSubscriptions.filter(subscription =>
+                subscription.toLowerCase().includes(searchEmail.toLowerCase())
+            )
+        );
+    }, [searchEmail, activeSubscriptions]);
 
     const fetchSubscribers = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/newsletter/active-subscriptions');
+            const response = await axios.get('http://localhost:8080/api/newsletter/all-subscriptions');
             setSubscribers(response.data);
         } catch (error) {
-            console.error('Error fetching subscribers:', error);
+            console.error('Fehler beim Abrufen der Abonnenten:', error);
         }
     };
 
-    const handleInputChange = (e) => {
-        const {name, value, type, checked} = e.target;
-        setFormData({...formData, [name]: type === 'checkbox' ? checked : value});
-    };
-
-    const handleAddSubscriber = async (e) => {
-        e.preventDefault();
+    const fetchActiveSubscriptions = async () => {
         try {
-            await axios.post('http://localhost:8080/api/newsletter', formData);
-            fetchSubscribers(); // Refresh the subscribers list
-            setAddModalOpen(false); // Close the modal
-            resetForm();
+            const response = await axios.get('http://localhost:8080/api/newsletter/active-subscriptions');
+            setActiveSubscriptions(response.data);
+            setFilteredSubscriptions(response.data); // Setze gefilterte Abonnements initial
         } catch (error) {
-            console.error('Error adding subscriber:', error);
+            console.error('Fehler beim Abrufen der aktiven Abonnements:', error);
         }
     };
 
-    const handleUpdateSubscriber = async (e) => {
-        e.preventDefault();
+    const handleRemoveSubscriber = async (email) => {
         try {
-            await axios.put(`http://localhost:8080/api/newsletter/${formData.id}`, formData);
-            fetchSubscribers(); // Refresh the subscribers list
-            setUpdateModalOpen(false); // Close the modal
-            resetForm();
+            await axios.post('http://localhost:8080/api/newsletter/unsubscribe', null, {
+                params: { email }
+            });
+            fetchSubscribers();
+            fetchActiveSubscriptions();
         } catch (error) {
-            console.error('Error updating subscriber:', error);
+            console.error('Fehler beim Abmelden des Abonnenten:', error);
         }
     };
 
-    const handleRemoveSubscriber = async (id) => {
+    const handleSubscribe = async () => {
+        setErrorMessage(''); // Vorherige Fehlermeldung löschen
         try {
-            await axios.delete(`http://localhost:8080/api/newsletter/${id}`);
-            fetchSubscribers(); // Refresh the subscribers list
+            const { email, name, surname, birthDate } = formData;
+            await axios.post('http://localhost:8080/api/newsletter/subscribe', { email, name, surname, birthDate });
+            fetchSubscribers(); // Abonnentenliste aktualisieren
+            fetchActiveSubscriptions(); // Aktive Abonnementsliste aktualisieren
+            setFormData({ email: '', name: '', surname: '', birthDate: '' }); // Formulardaten zurücksetzen
         } catch (error) {
-            console.error('Error removing subscriber:', error);
+            console.error('Fehler beim Abonnieren:', error);
+            setErrorMessage('Abonnement fehlgeschlagen. Bitte überprüfen Sie Ihre Eingaben.');
         }
     };
 
-    const openUpdateModal = (subscriber) => {
-        setFormData(subscriber);
-        setUpdateModalOpen(true);
-    };
-
-    const resetForm = () => {
-        setFormData({
-            id: '',
-            email: '',
-            name: '',
-            surname: '',
-            birthDate: '',
-            subscribedAt: '',
-            isActive: true,
-        });
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     return (
         <div>
-            <h2>Newsletter Management</h2>
+            <h2>Newsletter-Verwaltung</h2>
 
-            <button onClick={() => setAddModalOpen(true)}>Add Subscriber</button>
-
-            {/* Add Subscriber Modal */}
-            {isAddModalOpen && (
-                <div className="modal">
-                    <h3>Add Subscriber</h3>
-                    <form onSubmit={handleAddSubscriber}>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
-                        />
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            required
-                        />
-                        <input
-                            type="text"
-                            name="surname"
-                            placeholder="Surname"
-                            value={formData.surname}
-                            onChange={handleInputChange}
-                            required
-                        />
-                        <input
-                            type="date"
-                            name="birthDate"
-                            value={formData.birthDate}
-                            onChange={handleInputChange}
-                        />
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="isActive"
-                                checked={formData.isActive}
-                                onChange={handleInputChange}
-                            />
-                            Active
-                        </label>
-                        <button type="submit">Add Subscriber</button>
-                        <button type="button" onClick={() => setAddModalOpen(false)}>Close</button>
-                    </form>
+            {/* Abonnement-Formular */}
+            <div>
+                <h3>Abonnieren</h3>
+                <div className="form-container">
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="E-Mail"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Vorname"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="surname"
+                        placeholder="Nachname"
+                        value={formData.surname}
+                        onChange={handleChange}
+                        required
+                    />
+                    <input
+                        type="date"
+                        name="birthDate"
+                        value={formData.birthDate}
+                        onChange={handleChange}
+                        required
+                    />
+                    <button onClick={handleSubscribe}>Abonnieren</button>
                 </div>
-            )}
+                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+            </div>
 
-            {/* Update Subscriber Modal */}
-            {isUpdateModalOpen && (
-                <div className="modal">
-                    <h3>Update Subscriber</h3>
-                    <form onSubmit={handleUpdateSubscriber}>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            required
-                        />
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            required
-                        />
-                        <input
-                            type="text"
-                            name="surname"
-                            placeholder="Surname"
-                            value={formData.surname}
-                            onChange={handleInputChange}
-                            required
-                        />
-                        <input
-                            type="date"
-                            name="birthDate"
-                            value={formData.birthDate}
-                            onChange={handleInputChange}
-                        />
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="isActive"
-                                checked={formData.isActive}
-                                onChange={handleInputChange}
-                            />
-                            Active
-                        </label>
-                        <button type="submit">Update Subscriber</button>
-                        <button type="button" onClick={() => setUpdateModalOpen(false)}>Close</button>
-                    </form>
+            {/* Liste der Abonnenten */}
+            <h3>Bestehende Abonnenten</h3>
+            <div className="newsletter-management-container">
+                <div className="subscribers-list">
+                    {subscribers.map((subscriber) => (
+                        <div key={subscriber.id} className="subscriber-card">
+                            <h4>{subscriber.name} {subscriber.surname}</h4>
+                            <p>E-Mail: {subscriber.email}</p>
+                            <p>Geburtsdatum: {subscriber.birthDate}</p>
+                            <p>Status: {subscriber.active ? 'Aktiv' : 'Inaktiv'}</p>
+                        </div>
+                    ))}
                 </div>
-            )}
+            </div>
 
-            {/* Subscribers List */}
-            <h3>Existing Subscribers</h3>
-            <div className="subscribers-list">
-                {subscribers.map((subscriber) => (
-                    <div key={subscriber.id} className="subscriber-card">
-                        <h4>{subscriber.name} {subscriber.surname}</h4>
-                        <p>Email: {subscriber.email}</p>
-                        <p>Birth Date: {subscriber.birthDate}</p>
-                        <label>
-                            <input
-                                type="checkbox"
-                                checked={subscriber.isActive}
-                                readOnly
-                            />
-                            Active
-                        </label>
-                        <button onClick={() => openUpdateModal(subscriber)}>Update</button>
-                        <button onClick={() => handleRemoveSubscriber(subscriber.id)}>Remove</button>
-                    </div>
-                ))}
+            {/* Liste der aktiven Abonnements */}
+            <h3>Aktive Abonnements</h3>
+            <input
+                type="text"
+                placeholder="E-Mail suchen"
+                value={searchEmail}
+                onChange={(e) => setSearchEmail(e.target.value)}
+                className="search-input"
+            />
+            <div className="active-subscriptions-list">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>E-Mail</th>
+                        <th>Aktionen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {filteredSubscriptions.map((email, index) => (
+                        <tr key={index}>
+                            <td>{email}</td>
+                            <td>
+                                <button onClick={() => handleRemoveSubscriber(email)}>Abmelden</button>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );

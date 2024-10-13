@@ -27,11 +27,6 @@
     border-bottom: 1px solid #ccc;
 }
 
-.log-item p {
-    margin: 5px 0; /* Space between paragraphs */
-}
-
-
 .log-level {
     flex: 1; /* Takes up 1 part of the space */
     font-weight: bold;
@@ -39,11 +34,13 @@
 
 .log-message {
     flex: 2; /* Takes up 2 parts of the space */
+    color: #333; /* Standard message color */
 }
 
 .log-timestamp {
     flex: 1; /* Takes up 1 part of the space */
     text-align: right; /* Align timestamp to the right */
+    color: #666; /* Lighter color for the timestamp */
 }
 
 .pagination-controls {
@@ -74,4 +71,43 @@
 
 .pagination-controls span {
     font-size: 16px;
+}
+
+/* Log Level Color Styles */
+.log-level.INFO {
+    color: green; /* Green for info */
+}
+
+.log-level.WARN {
+    color: orange; /* Orange for warning */
+}
+
+.log-level.ERROR {
+    color: red; /* Red for error */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .log-item {
+        flex-direction: column; /* Stack items on smaller screens */
+        align-items: flex-start; /* Align items to start */
+    }
+
+    .log-level, .log-message, .log-timestamp {
+        text-align: left; /* Align text to the left */
+        margin-bottom: 5px; /* Space between stacked items */
+    }
+}
+
+/* Log Level Color Styles */
+.log-level.info {
+    color: green; /* Green for info */
+}
+
+.log-level.warn {
+    color: orange; /* Orange for warning */
+}
+
+.log-level.error {
+    color: red; /* Red for error */
 }

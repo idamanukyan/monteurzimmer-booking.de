@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PropertyCard from './PropertyCard';
 import './style/AllProperties.css';
-import SearchBox from '../layout/SearchBox'; // Import your SearchBox component
+import SearchBox from '../layout/SearchBox';
 
 const AllProperties = () => {
     const [properties, setProperties] = useState([]);
+    const [url, setUrl] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [totalProperties, setTotalProperties] = useState(0);
     const [filters, setFilters] = useState({
-        city:{},
+        city: {},
         numberOfGuests: '',
         minPrice: '',
         maxPrice: '',
         propertyType: '',
     });
-    const pageSize = 9;
 
+    const pageSize = 9;
+    const navigate = useNavigate();
 
     const fetchAllProperties = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/properties`);
-            console.log('All properties response:', response.data);
+            const response = await axios.get('http://localhost:8080/api/properties');
             setProperties(response.data);
             setTotalProperties(response.data.length);
         } catch (error) {
@@ -32,8 +34,6 @@ const AllProperties = () => {
     const fetchFilteredProperties = async (filterSearchPropertyDTO) => {
         try {
             const response = await axios.post('http://localhost:8080/api/properties/search-result', filterSearchPropertyDTO);
-            console.log("Filtered properties:", response.data);
-
             setProperties(response.data);
             setTotalProperties(response.data.length);
         } catch (error) {
@@ -46,10 +46,7 @@ const AllProperties = () => {
     }, []);
 
     const totalPages = Math.ceil(totalProperties / pageSize);
-    const currentProperties = properties.slice(
-        (currentPage - 1) * pageSize,
-        currentPage * pageSize
-    );
+    const currentProperties = properties.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     const handleNextPage = () => {
         if (currentPage < totalPages) {
@@ -65,23 +62,55 @@ const AllProperties = () => {
         }
     };
 
+    const handleFindByLink = async () => {
+        try {
+            const encodedUrl = encodeURIComponent(url);
+            const response = await axios.get(`http://localhost:8080/api/properties/find-by-link?url=${encodedUrl}`);
+            const newProperty = response.data;
+
+            if (newProperty && newProperty.id) {
+                navigate(`/admin/properties/${newProperty.id}`);
+            } else {
+                // Show message when no property is found by URL
+                setProperties([]);  // Empty the property list if not found
+            }
+
+            setUrl('');  // Clear the input field after search
+        } catch (error) {
+            console.error('Error fetching property by link:', error);
+            setProperties([]);  // Also clear properties on error
+        }
+    };
+
     return (
         <div className="all-properties">
             <h2>Alle Eigenschaften</h2>
 
-            {/* Integrating the SearchBox */}
+            <a href="/admin/configure-properties" className="configure-properties-button">
+                Konfigurieren von Eigenschaften
+            </a>
+
             <SearchBox
                 filters={filters}
                 setFilters={setFilters}
                 fetchFilteredProperties={fetchFilteredProperties}
             />
 
-            {/* Button that links to Configure Properties page */}
-            <a href="/admin/configure-properties" className="configure-properties-button">
-                Konfigurieren von Eigenschaften
-            </a>
+            <input
+                type="text"
+                placeholder="Geben Sie die URL der Immobilie ein"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                className="url-input" // Added class for styling
+            />
+            <button
+                onClick={handleFindByLink}
+                disabled={!url}
+                className="find-property-button"
+            >
+                Objekt per URL finden
+            </button>
 
-            {/* Check if properties are available */}
             {properties.length > 0 ? (
                 <div className="properties-list">
                     {currentProperties.map((property) => (
@@ -89,7 +118,7 @@ const AllProperties = () => {
                     ))}
                 </div>
             ) : (
-                <p>No properties available</p>
+                <p>Keine Objekte verfügbar</p>
             )}
 
             <div className="pagination-controls">

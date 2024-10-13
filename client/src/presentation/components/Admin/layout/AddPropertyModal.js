@@ -1,25 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './style/AddPropertyModal.css';
-import FilterModal from "./FilterModal";
+import FilterModal from './FilterModal';
 
 const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleFilterResults, resetForm}) => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-    const [filters, setFilters] = useState({}); // State to hold the filters
-    const [cities, setCities] = useState([]); // State to hold fetched cities
-    const [loadingCities, setLoadingCities] = useState(true); // State to handle loading
+    const [filters, setFilters] = useState({});
+    const [cities, setCities] = useState([]);
+    const [loadingCities, setLoadingCities] = useState(true);
 
+    // Fetch the list of cities on component mount
     useEffect(() => {
         const fetchCities = async () => {
             try {
-                const response = await axios.get('http://localhost:8080/api/cities/all'); // Fetch cities from API
-                setCities(response.data); // Set cities from the API response
+                const response = await axios.get('http://localhost:8080/api/cities/all');
+                setCities(response.data);
             } catch (error) {
-                console.error('Error fetching cities:', error); // Log any errors
+                console.error('Error fetching cities:', error);
             } finally {
-                setLoadingCities(false); // Stop loading
+                setLoadingCities(false);
             }
         };
+        fetchCities();
+    }, []);
 
         fetchCities();
     }, []);
@@ -36,15 +39,18 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
         }
     };
 
-    const handleOpenFilterModal = () => {
-        setIsFilterModalOpen(true); // Open filter modal
+    // Handlers for opening/closing filter modal and applying filters
+    const handleOpenFilterModal = () => setIsFilterModalOpen(true);
+    const handleCloseFilterModal = () => setIsFilterModalOpen(false);
+    const handleApplyFilters = (appliedFilters) => {
+        setFilters(appliedFilters);
+        setIsFilterModalOpen(false);
     };
 
-    const handleCloseFilterModal = () => {
-        setIsFilterModalOpen(false); // Close filter modal
-    };
+    // Return null if modal is not open
+    if (!isOpen) return null;
 
-    // Function to apply the filters
+
     const handleApplyFilters = (appliedFilters) => {
         setFilters(appliedFilters); // Update filters with applied filters
         setIsFilterModalOpen(false); // Close the filter modal
@@ -66,29 +72,31 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
     };
 
     return (
-        <div className="modal-wrapper" onClick={handleClickOutside}>
-            <div className="modal">
-                <h3>Add Property</h3>
+        <div className="modal-overlay" onClick={handleClickOutside}>
+            <div className="modal-content">
+                <h2>Eigenschaft Hinzufügen</h2>
                 <form onSubmit={handleAddProperty}>
-
+                    {/* Social Media Link Input */}
                     <input
                         type="text"
                         name="socialMediaLink"
-                        placeholder="Social Media Link"
+                        placeholder="Soziale Medien"
                         value={formData.socialMediaLink}
                         onChange={handleInputChange}
                         required
                     />
 
+                    {/* Property Name Input */}
                     <input
                         type="text"
                         name="propertyName"
-                        placeholder="Property Name"
+                        placeholder="Eigenschaftsname"
                         value={formData.propertyName}
                         onChange={handleInputChange}
                         required
                     />
 
+                    {/* Property Type Select */}
                     <select
                         name="propertyType"
                         value={formData.propertyType}
@@ -105,19 +113,21 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                         <option value="Andere">Andere</option>
                     </select>
 
+                    {/* Description Textarea */}
                     <textarea
                         name="description"
-                        placeholder="Description"
+                        placeholder="Beschreibung"
                         value={formData.description}
                         onChange={handleInputChange}
                         required
                     />
 
+                    {/* Row for Price, Rating, Room Count, Guests, Bathrooms */}
                     <div className="input-row">
                         <input
                             type="number"
                             name="price"
-                            placeholder="Price"
+                            placeholder="Preis"
                             value={formData.price}
                             onChange={handleInputChange}
                             required
@@ -125,7 +135,7 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                         <input
                             type="number"
                             name="rating"
-                            placeholder="Rating"
+                            placeholder="Bewertungen"
                             value={formData.rating}
                             onChange={handleInputChange}
                             required
@@ -133,7 +143,7 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                         <input
                             type="number"
                             name="roomCount"
-                            placeholder="Room Count"
+                            placeholder="Anzahl der Zimmer"
                             value={formData.roomCount}
                             onChange={handleInputChange}
                             required
@@ -141,7 +151,7 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                         <input
                             type="number"
                             name="numberOfGuests"
-                            placeholder="Number of Guests"
+                            placeholder="Anzahl der Gäste"
                             value={formData.numberOfGuests}
                             onChange={handleInputChange}
                             required
@@ -149,56 +159,58 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                         <input
                             type="number"
                             name="bathrooms"
-                            placeholder="Bathrooms"
+                            placeholder="Anzahl der Badezimmer"
                             value={formData.bathrooms}
                             onChange={handleInputChange}
                             required
                         />
                     </div>
 
+                    {/* Row for City and Address */}
                     <div className="input-row">
                         <select
                             name="city"
                             value={formData.city}
                             onChange={handleInputChange}
                             required
-                            disabled={loadingCities} // Disable if still loading
+                            disabled={loadingCities}
                         >
-                            <option value="">Select a City</option>
+                            <option value="">Wählen Sie eine Stadt</option>
                             {loadingCities ? (
                                 <option value="" disabled>Loading...</option>
                             ) : (
                                 cities.map(city => (
-                                    city && <option key={city.id} value={city.name}>{city.name}</option> // Add a check here
+                                    city && <option key={city.id} value={city.name}>{city.name}</option>
                                 ))
                             )}
                         </select>
                         <input
                             type="text"
                             name="address"
-                            placeholder="Address"
+                            placeholder="Adresse"
                             value={formData.address}
                             onChange={handleInputChange}
                             required
                         />
                     </div>
 
-                    <button type="button" onClick={handleOpenFilterModal}>Open Filters</button>
+                    {/* Button to open the Filter Modal */}
+                    <button type="button" onClick={handleOpenFilterModal}>Filter öffnen</button>
 
-                    {/* Pass handleApplyFilters to FilterModal */}
+                    {/* Filter Modal Component */}
                     <FilterModal
                         filters={filters}
                         setFilters={setFilters}
                         isOpen={isFilterModalOpen}
                         onClose={handleCloseFilterModal}
-                        onApply={handleApplyFilters} // Pass the handleApplyFilters function here
+                        onApply={handleApplyFilters}
                     />
 
-                    <div className="button-row">
-                        <button type="submit">Add Property</button>
-                        <button type="button" onClick={onClose}>Close</button>
+                    {/* Modal buttons for submission and close */}
+                    <div className="modal-buttons">
+                        <button type="submit">Eigenschaft hinzufügen</button>
+                        <button type="button" onClick={onClose}>Schließen</button>
                     </div>
-
                 </form>
             </div>
         </div>

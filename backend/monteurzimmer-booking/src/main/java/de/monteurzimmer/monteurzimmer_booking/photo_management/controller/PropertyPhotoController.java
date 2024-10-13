@@ -1,10 +1,9 @@
 package de.monteurzimmer.monteurzimmer_booking.photo_management.controller;
 
+import de.monteurzimmer.monteurzimmer_booking.log.LogEntryService;
 import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhoto;
 import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhotoDTO;
 import de.monteurzimmer.monteurzimmer_booking.photo_management.service.PropertyPhotoService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +20,11 @@ import java.util.List;
 @RequestMapping("/api/properties/photos")
 public class PropertyPhotoController {
 
-    private static final Logger logger = LoggerFactory.getLogger(PropertyPhotoController.class);
-
     @Autowired
     private PropertyPhotoService propertyPhotoService;
+
+    @Autowired
+    private LogEntryService logEntryService;
 
     /**
      * Upload a new photo for a property.
@@ -38,16 +38,16 @@ public class PropertyPhotoController {
     public ResponseEntity<PropertyPhotoDTO> uploadPhoto(@PathVariable Long propertyId,
                                                         @RequestParam("photoFile") MultipartFile photoFile,
                                                         @RequestParam("isPrimary") boolean isPrimary) {
-        logger.info("Received request to upload photo for propertyId: {}", propertyId);
+        logEntryService.log("info", "Received request to upload photo for propertyId: " + propertyId);
 
         try {
             // Store the uploaded photo
             String photoUrl = propertyPhotoService.storePhoto(photoFile);
-            logger.info("Photo stored successfully, URL: {}", photoUrl);
+            logEntryService.log("info", "Photo stored successfully, URL: " + photoUrl);
 
             // Add photo to the property
             PropertyPhoto photo = propertyPhotoService.addPhotoToProperty(propertyId, photoUrl, isPrimary);
-            logger.info("Photo added to property, propertyId: {}, photoId: {}", propertyId, photo.getId());
+            logEntryService.log("info", "Photo added to property, propertyId: " + propertyId + ", photoId: " + photo.getId());
 
             // Map the PropertyPhoto entity to the DTO
             PropertyPhotoDTO photoDTO = new PropertyPhotoDTO();
@@ -58,7 +58,7 @@ public class PropertyPhotoController {
 
             return ResponseEntity.ok(photoDTO);
         } catch (Exception e) {
-            logger.error("Error occurred while uploading photo for propertyId: {}", propertyId, e);
+            logEntryService.log("error", "Error occurred while uploading photo for propertyId: " + propertyId + e);
             return ResponseEntity.status(500).body(null);
         }
     }
@@ -71,32 +71,38 @@ public class PropertyPhotoController {
      */
     @GetMapping("/{propertyId}")
     public ResponseEntity<List<String>> getPhotos(@PathVariable Long propertyId) {
-        logger.info("Received request to get photos for propertyId: {}", propertyId);
+        logEntryService.log("info", "Received request to get photos for propertyId: " + propertyId);
 
         try {
             // Get the list of photo URLs for the given property ID
             List<String> photos = propertyPhotoService.getPhotosByPropertyId(propertyId);
-            logger.info("Successfully retrieved {} photos for propertyId: {}", photos.size(), propertyId);
+            logEntryService.log("info", "Successfully retrieved " + photos.size() + " photos for propertyId: " + propertyId);
 
             return ResponseEntity.ok(photos);
         } catch (Exception e) {
-            logger.error("Error occurred while retrieving photos for propertyId: {}", propertyId, e);
+            logEntryService.log("error", "Error occurred while retrieving photos for propertyId: " + propertyId + e);
             return ResponseEntity.status(500).body(null);
         }
     }
 
+    /**
+     * Retrieve the primary photo for a specific property.
+     *
+     * @param propertyId The ID of the property for which to retrieve the primary photo.
+     * @return ResponseEntity containing the primary photo URL.
+     */
     @GetMapping("/primary/{propertyId}")
     public ResponseEntity<String> getPrimaryPhoto(@PathVariable Long propertyId) {
-        logger.info("Received request to get primary photo for propertyId: {}", propertyId);
+        logEntryService.log("info", "Received request to get primary photo for propertyId: " + propertyId);
 
         try {
-            // Get the list of photo URLs for the given property ID
+            // Get the primary photo for the given property ID
             String photo = propertyPhotoService.getPrimaryPhoto(propertyId);
-            logger.info("Successfully retrieved {} primary photo for propertyId: {}", photo, propertyId);
+            logEntryService.log("info", "Successfully retrieved primary photo for propertyId: " + propertyId);
 
             return ResponseEntity.ok(photo);
         } catch (Exception e) {
-            logger.error("Error occurred while retrieving primary photo for propertyId: {}", propertyId, e);
+            logEntryService.log("error", "Error occurred while retrieving primary photo for propertyId: " + propertyId + e.toString());
             return ResponseEntity.status(500).body(null);
         }
     }

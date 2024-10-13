@@ -1,10 +1,9 @@
 package de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.service;
 
+import de.monteurzimmer.monteurzimmer_booking.log.LogEntryService;
 import de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.entity.NewsletterSubscription;
 import de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.entity.NewsletterSubscriptionDTO;
 import de.monteurzimmer.monteurzimmer_booking.newsletter_subscription_management.repository.NewsletterSubscriptionRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,31 +13,31 @@ import java.util.Optional;
 @Service
 public class NewsletterSubscriptionService {
 
-    private static final Logger logger = LoggerFactory.getLogger(NewsletterSubscriptionService.class);
-
     private final NewsletterSubscriptionRepository repository;
+    private final LogEntryService logEntryService;
 
     @Autowired
-    public NewsletterSubscriptionService(NewsletterSubscriptionRepository repository) {
+    public NewsletterSubscriptionService(NewsletterSubscriptionRepository repository, LogEntryService logEntryService) {
         this.repository = repository;
+        this.logEntryService = logEntryService;
     }
 
     public void subscribe(NewsletterSubscriptionDTO dto) throws Exception {
-        logger.debug("Attempting to subscribe email: {}", dto.getEmail());
+        logEntryService.log("debug", "Attempting to subscribe email: " + dto.getEmail());
 
         // Validate input
         if (dto.getEmail() == null || dto.getEmail().isEmpty()) {
-            logger.error("Failed to subscribe: Email is null or empty.");
+            logEntryService.log("error", "Failed to subscribe: Email is null or empty.");
             throw new IllegalArgumentException("Email must not be null or empty.");
         }
 
         Optional<NewsletterSubscription> existingSubscription = repository.findByEmail(dto.getEmail());
         if (existingSubscription.isPresent()) {
             if (existingSubscription.get().getActive()) {
-                logger.warn("Subscription attempt for already active email: {}", dto.getEmail());
+                logEntryService.log("warn", "Subscription attempt for already active email: " + dto.getEmail());
                 throw new Exception("Email is already subscribed!");
             } else {
-                logger.info("Reactivating previously inactive subscription for email: {}", dto.getEmail());
+                logEntryService.log("info", "Reactivating previously inactive subscription for email: " + dto.getEmail());
                 NewsletterSubscription subscription = existingSubscription.get();
                 subscription.setActive(true);
                 repository.save(subscription);
@@ -54,38 +53,45 @@ public class NewsletterSubscriptionService {
         subscription.setBirthDate(dto.getBirthDate());
 
         repository.save(subscription);
-        logger.info("Successfully subscribed email: {}", dto.getEmail());
+        logEntryService.log("info", "Successfully subscribed email: " + dto.getEmail());
     }
 
-    public void unsubscribe(String email) throws Exception {
-        logger.debug("Attempting to unsubscribe email: {}", email);
+    public void unsubscribe(Long id) throws Exception {
+        logEntryService.log("debug", "Attempting to unsubscribe email with id: " + id);
 
         // Validate input
-        if (email == null || email.isEmpty()) {
-            logger.error("Failed to unsubscribe: Email is null or empty.");
-            throw new IllegalArgumentException("Email must not be null or empty.");
+        if (id == null) {
+            logEntryService.log("error", "Failed to unsubscribe: ID is null or empty.");
+            throw new IllegalArgumentException("ID must not be null or empty.");
         }
 
-        Optional<NewsletterSubscription> subscription = repository.findByEmail(email);
+        Optional<NewsletterSubscription> subscription = repository.findById(id);
         if (subscription.isPresent()) {
             NewsletterSubscription subs = subscription.get();
             if (!subs.getActive()) {
-                logger.warn("Attempt to unsubscribe already inactive email: {}", email);
+                logEntryService.log("warn", "Attempt to unsubscribe already inactive email with id: " + id);
                 throw new Exception("Email is not currently subscribed.");
             }
             subs.setActive(false);
             repository.save(subs);
-            logger.info("Successfully unsubscribed email: {}", email);
+            logEntryService.log("info", "Successfully unsubscribed email with id: " + id);
         } else {
-            logger.error("Unsubscribe attempt failed: Subscription not found for email: {}", email);
+            logEntryService.log("error", "Unsubscribe attempt failed: Subscription not found for id: " + id);
             throw new Exception("Subscription not found!");
         }
     }
 
     public List<String> getAllSubscribedUserEmails() {
-        logger.debug("Fetching all active subscriptions.");
+        logEntryService.log("info", "Fetching all active subscriptions.");
         List<String> emails = repository.findAllActiveEmails();
-        logger.info("Fetched {} active subscriptions.", emails.size());
+        logEntryService.log("info", "Fetched " + emails.size() + " active subscriptions.");
         return emails;
+    }
+
+    public List<NewsletterSubscription> getAllSubscribedUser() {
+        logEntryService.log("info", "Fetching all active subscriptions.");
+        List<NewsletterSubscription> users = repository.findAll();
+        logEntryService.log("info", "Fetched " + users.size() + " active subscriptions.");
+        return users;
     }
 }

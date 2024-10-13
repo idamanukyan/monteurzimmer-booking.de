@@ -56,6 +56,8 @@ public class PropertyDTO {
     private Boolean shopsNearby;
     private List<PropertyPhoto> photos;
     private String socialMediaLink;
+    private Boolean isFavorite;
+
 
 }
 

@@ -1,24 +1,250 @@
-/* CitiesManagement.css */
+/* Global Styles */
+body {
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    font-size: 16px; /* Use relative font size */
+}
+
+h2 {
+    color: #343a40;
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Button Styles */
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #218838;
+    transform: translateY(-3px);
+}
+
+button:active {
+    background-color: #1e7e34;
+    transform: translateY(0);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.4);
+}
+
+/* Modal Styles */
 .modal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    width: 90%; /* Make modal responsive */
+    max-width: 350px;
 }
 
+.modal h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    color: #343a40;
+}
+
+.modal input[type="text"],
+.modal input[type="number"],
+.modal label {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.modal input[type="text"],
+.modal input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+
+.modal button {
+    margin-top: 10px;
+    width: 48%;
+}
+
+.modal button[type="button"] {
+    background-color: #dc3545;
+}
+
+.modal button[type="button"]:hover {
+    background-color: #c82333;
+}
+
+/* City Cards List */
 .cities-list {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
     margin-top: 20px;
 }
 
+/* City Card Styles */
 .city-card {
-    border: 1px solid #ccc;
-    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
+    margin: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.city-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.city-card h4 {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.city-card p {
     margin: 5px 0;
-    border-radius: 4px;
+    color: #ddd;
+    z-index: 1;
+    font-size: 0.9em;
+}
+
+/* Overlay for background image */
+.city-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
+}
+
+.city-card button {
+    margin-top: 10px;
+    width: 48%;
+    z-index: 1;
+    background-color: rgba(40, 167, 69, 0.85);
+    transition: background-color 0.3s;
+}
+
+.city-card button:hover {
+    background-color: rgba(40, 167, 69, 1);
+}
+
+.city-card .city-details {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+}
+
+.city-card .city-details label {
+    color: white;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.city-card .city-details label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    appearance: none;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+}
+
+.city-card .city-details label input[type="checkbox"]:checked {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.city-card .city-details label input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .modal {
+        width: 80%;
+    }
+
+    .city-card {
+        width: 100%;
+        max-width: 90%;
+    }
+
+    button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 576px) {
+    h2 {
+        font-size: 1.6em;
+    }
+
+    .city-card {
+        width: 100%;
+    }
+
+    button {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+
+    .city-card h4 {
+        font-size: 1.2rem;
+    }
 }

@@ -13,6 +13,7 @@ import NewsletterManagement from "./presentation/components/Admin/pages/Newslett
 import TrafficChart from "./presentation/components/Admin/pages/TrafficChart";
 import DocumentsManagement from "./presentation/components/Admin/pages/DocumentsManagement";
 import PropertiesScreen from "./presentation/screen/properties/PropertiesScreen";
+import FormSubmission from "./presentation/components/Admin/pages/FormSubmission";
 
 function App() {
     return (
@@ -31,6 +32,7 @@ function App() {
                         <Route path="configure-properties" element={<ConfigureProperties />} />
                         <Route path="cities" element={<CitiesManagement />} />
                         <Route path="newsletter" element={<NewsletterManagement />} />
+                        <Route path="form-submission" element={<FormSubmission />} />
                         <Route path="graphs" element={<TrafficChart />} />
                         <Route path="documents" element={<DocumentsManagement />} />
                     </Route>

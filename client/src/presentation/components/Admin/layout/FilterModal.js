@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './style/FilterModal.css';
+
+// Importing all icons dynamically
 import wifiIcon from '../pages/style/public/searchIcons/wifi.svg';
 import tvIcon from '../pages/style/public/searchIcons/tv.svg';
 import privateBath from '../pages/style/public/searchIcons/privateBath.svg';
@@ -20,36 +22,46 @@ import cookingUtensils from '../pages/style/public/searchIcons/cookingUtensils.s
 import washingMachine from '../pages/style/public/searchIcons/washingMachine.svg';
 import smoking from '../pages/style/public/searchIcons/smoking.svg';
 import quietLocation from '../pages/style/public/searchIcons/quietLocation.svg';
-import goodTransportation from '../pages/style/public/searchIcons/quietLocation.svg';
+import goodTransportation from '../pages/style/public/searchIcons/goodTransportation.svg';
 import shopsNearby from '../pages/style/public/searchIcons/shopsNearby.svg';
 
+// Icon array for easier mapping
+const icons = [
+    { name: 'wifi', icon: wifiIcon },
+    { name: 'tv', icon: tvIcon },
+    { name: 'privateBath', icon: privateBath },
+    { name: 'cookingFacilities', icon: cookingFacilities },
+    { name: 'separateBeds', icon: separateBeds },
+    { name: 'radio', icon: radio },
+    { name: 'towels', icon: towels },
+    { name: 'fridge', icon: fridge },
+    { name: 'coffeeMachine', icon: coffeeMachine },
+    { name: 'microwave', icon: microwave },
+    { name: 'dishwasher', icon: dishwasher },
+    { name: 'wc', icon: wc },
+    { name: 'terrace', icon: terrace },
+    { name: 'kettle', icon: kettle },
+    { name: 'bathtub', icon: bathtub },
+    { name: 'garden', icon: garden },
+    { name: 'cookingUtensils', icon: cookingUtensils },
+    { name: 'washingMachine', icon: washingMachine },
+    { name: 'smoking', icon: smoking },
+    { name: 'quietLocation', icon: quietLocation },
+    { name: 'goodTransportation', icon: goodTransportation },
+    { name: 'shopsNearby', icon: shopsNearby },
+];
+
+// Reusable IconWrapper component
+const IconWrapper = ({ name, icon, isActive, onToggle }) => (
+    <div
+        className={`icon-wrapper ${isActive ? 'active' : ''}`}
+        onClick={() => onToggle(name)}
+        style={{ backgroundImage: `url(${icon})` }}
+    />
+);
 
 const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
-
-    const initialFilterState = {
-        wifi: null,
-        tv: null,
-        privateBath: null,
-        cookingFacilities: null,
-        separateBeds: null,
-        radio: null,
-        towels: null,
-        fridge: null,
-        coffeeMachine: null,
-        microwave: null,
-        dishwasher: null,
-        wc: null,
-        terrace: null,
-        kettle: null,
-        bathtub: null,
-        garden: null,
-        cookingUtensils: null,
-        washingMachine: null,
-        smoking: null,
-        quietLocation: null,
-        goodTransportation: null,
-        shopsNearby: null,
-    };
+    if (!isOpen) return null;
 
     const handleIconToggle = (name) => {
         setFilters((prevState) => ({
@@ -58,170 +70,45 @@ const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
         }));
     };
 
-    const handleApply = () => {
-        onClose();
+    const handleApplyFilters = () => {
+        onClose(); // Close the modal
     };
 
-    const handleCancel = () => {
-        onClose();
+    const resetFilters = () => {
+        const resetState = Object.keys(filters).reduce((acc, key) => {
+            acc[key] = false;
+            return acc;
+        }, {});
+        setFilters(resetState);
     };
 
-    const handleOverlayClick = (e) => {
-        // Close the modal if clicked on the overlay
-        onClose();
+    const closeWithoutApplying = () => {
+        onClose(); // Just close the modal without applying any changes
     };
-
-
-    if (!isOpen) return null;
 
     return (
-        <div className="modal-overlay" onClick={handleOverlayClick}>
+        <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <h2>Filtereigenschaften</h2>
-                <form>
-                    {/* Wi-Fi Icon Toggle */}
                     <div className="icon-grid">
-                        <div
-                            className={`icon-wrapper ${filters.wifi ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('wifi')}
-                            style={{backgroundImage: `url(${wifiIcon})`}} // Use the icon as background
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.tv ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('tv')}
-                            style={{backgroundImage: `url(${tvIcon})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.privateBath ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('privateBath')}
-                            style={{backgroundImage: `url(${privateBath})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.cookingFacilities ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('cookingFacilities')}
-                            style={{backgroundImage: `url(${cookingFacilities})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.separateBeds ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('separateBeds')}
-                            style={{backgroundImage: `url(${separateBeds})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.radio ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('radio')}
-                            style={{backgroundImage: `url(${radio})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.towels ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('towels')}
-                            style={{backgroundImage: `url(${towels})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.fridge ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('fridge')}
-                            style={{backgroundImage: `url(${fridge})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.coffeeMachine ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('coffeeMachine')}
-                            style={{backgroundImage: `url(${coffeeMachine})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.microwave ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('microwave')}
-                            style={{backgroundImage: `url(${microwave})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.dishwasher ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('dishwasher')}
-                            style={{backgroundImage: `url(${dishwasher})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.wc ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('wc')}
-                            style={{backgroundImage: `url(${wc})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.terrace ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('terrace')}
-                            style={{backgroundImage: `url(${terrace})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.kettle ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('kettle')}
-                            style={{backgroundImage: `url(${kettle})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.bathtub ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('bathtub')}
-                            style={{backgroundImage: `url(${bathtub})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.garden ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('garden')}
-                            style={{backgroundImage: `url(${garden})`}}
-                        >
-                        </div>
-
-                        <div
-                            className={`icon-wrapper ${filters.cookingUtensils ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('cookingUtensils')}
-                            style={{backgroundImage: `url(${cookingUtensils})`}}
-                        >
-                        </div>
-
-                        <div
-                            className={`icon-wrapper ${filters.washingMachine ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('washingMachine')}
-                            style={{backgroundImage: `url(${washingMachine})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.smoking ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('smoking')}
-                            style={{backgroundImage: `url(${smoking})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.quietLocation ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('quietLocation')}
-                            style={{backgroundImage: `url(${quietLocation})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.goodTransportation ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('goodTransportation')}
-                            style={{backgroundImage: `url(${goodTransportation})`}}
-                        >
-                        </div>
-                        <div
-                            className={`icon-wrapper ${filters.shopsNearby ? 'active' : ''}`}
-                            onClick={() => handleIconToggle('shopsNearby')}
-                            style={{backgroundImage: `url(${shopsNearby})`}}
-                        >
-                        </div>
+                        {icons.map(({ name, icon }) => (
+                            <IconWrapper
+                                key={name}
+                                name={name}
+                                icon={icon}
+                                isActive={filters[name]}
+                                onToggle={handleIconToggle}
+                            />
+                        ))}
                     </div>
 
-                </form>
-
                 <div className="modal-buttons">
-                    <button onClick={handleCancel}>Stornieren</button>
-                    <button onClick={handleApply}>Filter Anwenden</button>
+                    {/* Cancel Filters button */}
+                    <button onClick={resetFilters}>Filter Zurücksetzen</button>
+                    {/* Close Modal button */}
+                    <button onClick={closeWithoutApplying}>Schließen</button>
+                    {/* Apply Filters button */}
+                    <button onClick={handleApplyFilters}>Filter Anwenden</button>
                 </div>
             </div>
         </div>
