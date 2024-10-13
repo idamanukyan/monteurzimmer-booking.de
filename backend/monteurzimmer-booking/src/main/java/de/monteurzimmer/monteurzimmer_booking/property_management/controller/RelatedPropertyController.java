@@ -30,7 +30,6 @@ public class RelatedPropertyController {
 
     @GetMapping
     public ResponseEntity<List<RelatedPropertyDTO>> getAllRelatedProperties() {
-        logEntryService.log("DEBUG", "Fetching all related properties.");
         List<RelatedPropertyDTO> relatedProperties = relatedPropertyService.getAllRelatedProperties();
         logEntryService.log("INFO", "Retrieved {} related properties." + String.valueOf(relatedProperties.size()));
         return ResponseEntity.ok(relatedProperties);
@@ -38,7 +37,6 @@ public class RelatedPropertyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RelatedPropertyDTO> getRelatedPropertyById(@PathVariable Long id) {
-        logEntryService.log("DEBUG", "Fetching related property with ID: {}" + String.valueOf(id));
         RelatedPropertyDTO relatedProperty = relatedPropertyService.getRelatedPropertyById(id);
         logEntryService.log("INFO", "Retrieved related property: {}" + relatedProperty.toString());
         return ResponseEntity.ok(relatedProperty);
@@ -46,7 +44,6 @@ public class RelatedPropertyController {
 
     @PostMapping
     public ResponseEntity<RelatedPropertyDTO> createRelatedProperty(@RequestBody RelatedPropertyDTO relatedPropertyDTO) {
-        logEntryService.log("DEBUG", "Creating related property: {}" + relatedPropertyDTO.toString());
         RelatedPropertyDTO createdRelatedProperty = relatedPropertyService.createRelatedProperty(relatedPropertyDTO);
         logEntryService.log("INFO", "Successfully created related property: {}" + createdRelatedProperty.toString());
         return ResponseEntity.status(201).body(createdRelatedProperty);
@@ -54,7 +51,6 @@ public class RelatedPropertyController {
 
     @PutMapping("/{id}")
     public ResponseEntity<RelatedPropertyDTO> updateRelatedProperty(@PathVariable Long id, @RequestBody RelatedPropertyDTO relatedPropertyDTO) {
-        logEntryService.log("DEBUG", "Updating related property ID {}: {}" + id + relatedPropertyDTO.toString());
         RelatedPropertyDTO updatedRelatedProperty = relatedPropertyService.updateRelatedProperty(id, relatedPropertyDTO);
         logEntryService.log("INFO", "Successfully updated related property ID {}: {}" + id + updatedRelatedProperty.toString());
         return ResponseEntity.ok(updatedRelatedProperty);
@@ -62,7 +58,6 @@ public class RelatedPropertyController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRelatedProperty(@PathVariable Long id) {
-        logEntryService.log("DEBUG", "Deleting related property ID {}." + id);
         relatedPropertyService.deleteRelatedProperty(id);
         logEntryService.log("INFO", "Successfully deleted related property ID {}." + id);
         return ResponseEntity.noContent().build();

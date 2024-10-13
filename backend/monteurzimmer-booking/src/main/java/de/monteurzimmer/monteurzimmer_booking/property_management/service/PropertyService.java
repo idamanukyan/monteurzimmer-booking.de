@@ -277,14 +277,16 @@ public class PropertyService {
     }
 
 
-    public PropertyDTO addFavoriteProperty(FavoritePropertyDto propertyDto) {
-        logEntryService.log("INFO", "Updating favorite status for property ID: " + propertyDto.getPropertyId());
-        Property property = propertyRepository.findById(propertyDto.getPropertyId())
+    public PropertyDTO addFavoriteProperty(Long id) {
+        Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
 
-        property.setIsFavorite(propertyDto.getIsFavorite());
+        if(!property.getIsFavorite()){
+            property.setIsFavorite(true);
+        } else{
+            property.setIsFavorite(false);
+        }
         Property updatedProperty = propertyRepository.save(property);
-        logEntryService.log("INFO", "Successfully updated favorite status for property ID: " + propertyDto.getPropertyId());
         return modelMapper.map(updatedProperty, PropertyDTO.class);
     }
 

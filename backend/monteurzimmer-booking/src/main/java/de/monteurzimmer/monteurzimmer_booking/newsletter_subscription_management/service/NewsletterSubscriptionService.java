@@ -23,7 +23,6 @@ public class NewsletterSubscriptionService {
     }
 
     public void subscribe(NewsletterSubscriptionDTO dto) throws Exception {
-        logEntryService.log("debug", "Attempting to subscribe email: " + dto.getEmail());
 
         // Validate input
         if (dto.getEmail() == null || dto.getEmail().isEmpty()) {
@@ -57,7 +56,6 @@ public class NewsletterSubscriptionService {
     }
 
     public void unsubscribe(Long id) throws Exception {
-        logEntryService.log("debug", "Attempting to unsubscribe email with id: " + id);
 
         // Validate input
         if (id == null) {

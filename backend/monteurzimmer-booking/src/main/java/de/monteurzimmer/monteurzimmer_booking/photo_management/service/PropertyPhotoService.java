@@ -122,7 +122,6 @@ public class PropertyPhotoService {
     private boolean isValidImageFile(MultipartFile photoFile) {
         String contentType = photoFile.getContentType();
         boolean isValid = contentType != null;
-        logEntryService.log("DEBUG", "Validating photo file type: " + contentType + " - isValid: " + isValid);
         return isValid;
     }
 }

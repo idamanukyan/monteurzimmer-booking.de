@@ -30,7 +30,6 @@ public class SearchHistoryController {
 
     @GetMapping
     public ResponseEntity<List<SearchHistoryDTO>> getAllSearchHistories() {
-        logEntryService.log("DEBUG", "Fetching all search histories.");
         List<SearchHistoryDTO> searchHistories = searchHistoryService.getAllSearchHistories();
         logEntryService.log("INFO", "Retrieved {} search histories." + searchHistories.size());
         return ResponseEntity.ok(searchHistories);
@@ -38,7 +37,6 @@ public class SearchHistoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<SearchHistoryDTO> getSearchHistoryById(@PathVariable Long id) {
-        logEntryService.log("DEBUG", "Fetching search history with ID: {}" + id);
         SearchHistoryDTO searchHistory = searchHistoryService.getSearchHistoryById(id);
         logEntryService.log("INFO", "Retrieved search history: {}" + searchHistory);
         return ResponseEntity.ok(searchHistory);
@@ -46,7 +44,6 @@ public class SearchHistoryController {
 
     @PostMapping
     public ResponseEntity<SearchHistoryDTO> createSearchHistory(@RequestBody SearchHistoryDTO searchHistoryDTO) {
-        logEntryService.log("DEBUG", "Creating search history: {}" + searchHistoryDTO);
         SearchHistoryDTO createdSearchHistory = searchHistoryService.createSearchHistory(searchHistoryDTO);
         logEntryService.log("INFO", "Successfully created search history: {}" + createdSearchHistory);
         return ResponseEntity.status(201).body(createdSearchHistory);
@@ -54,7 +51,6 @@ public class SearchHistoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<SearchHistoryDTO> updateSearchHistory(@PathVariable Long id, @RequestBody SearchHistoryDTO searchHistoryDTO) {
-        logEntryService.log("DEBUG", "Updating search history ID {}: {}" + id + searchHistoryDTO);
         SearchHistoryDTO updatedSearchHistory = searchHistoryService.updateSearchHistory(id, searchHistoryDTO);
         logEntryService.log("INFO", "Successfully updated search history ID {}: {}" + id + updatedSearchHistory);
         return ResponseEntity.ok(updatedSearchHistory);
@@ -62,7 +58,6 @@ public class SearchHistoryController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSearchHistory(@PathVariable Long id) {
-        logEntryService.log("DEBUG", "Deleting search history ID {}." + id);
         searchHistoryService.deleteSearchHistory(id);
         logEntryService.log("INFO", "Successfully deleted search history ID {}." + id);
         return ResponseEntity.noContent().build();

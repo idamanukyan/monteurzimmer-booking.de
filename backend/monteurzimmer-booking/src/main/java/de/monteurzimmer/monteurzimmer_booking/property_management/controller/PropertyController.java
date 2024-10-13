@@ -44,7 +44,6 @@ public class PropertyController {
 
     @GetMapping
     public ResponseEntity<List<PropertyDTO>> getAllProperties() {
-        logEntryService.log("DEBUG", "Fetching all properties.");
         List<PropertyDTO> properties = propertyService.getAllProperties();
         logEntryService.log("INFO", "Retrieved " + properties.size() + " properties.");
         return ResponseEntity.ok(properties);
@@ -52,7 +51,6 @@ public class PropertyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PropertyDTO> getPropertyById(@PathVariable Long id) {
-        logEntryService.log("DEBUG", "Fetching property with ID: " + id);
         PropertyDTO property = propertyService.getPropertyById(id);
         logEntryService.log("INFO", "Retrieved property: " + property.getId());
         return ResponseEntity.ok(property);
@@ -60,7 +58,6 @@ public class PropertyController {
 
     @GetMapping("/city/{city}")
     public ResponseEntity<List<PropertyDTO>> getPropertyByCity(@PathVariable String city) {
-        logEntryService.log("DEBUG", "Fetching properties for city: " + city);
         List<PropertyDTO> properties = propertyService.getPropertyByCity(city);
         logEntryService.log("INFO", "Retrieved " + properties.size() + " properties for city: " + city);
         return ResponseEntity.ok(properties);
@@ -68,7 +65,6 @@ public class PropertyController {
 
     @GetMapping("/cheapest")
     public ResponseEntity<List<PropertyDTO>> get20CheapestProperties() {
-        logEntryService.log("DEBUG", "Fetching 20 cheapest properties.");
         List<PropertyDTO> properties = propertyService.get20Chepeastproperties();
         logEntryService.log("INFO", "Retrieved " + properties.size() + " cheapest properties.");
         return ResponseEntity.ok(properties);
@@ -76,7 +72,6 @@ public class PropertyController {
 
     @GetMapping("/favorites")
     public ResponseEntity<List<PropertyDTO>> get20FavoriteProperties() {
-        logEntryService.log("DEBUG", "Fetching 20 favorite properties.");
         List<PropertyDTO> properties = propertyService.get20FavoriteProperties();
         logEntryService.log("INFO", "Retrieved " + properties.size() + " favorite properties.");
         return ResponseEntity.ok(properties);
@@ -84,7 +79,6 @@ public class PropertyController {
 
     @GetMapping("/latest")
     public ResponseEntity<List<PropertyDTO>> getLast20Properties() {
-        logEntryService.log("DEBUG", "Fetching 20 latest properties.");
         List<PropertyDTO> properties = propertyService.get20LastProperties();
         logEntryService.log("INFO", "Retrieved " + properties.size() + " latest properties.");
         return ResponseEntity.ok(properties);
@@ -93,15 +87,12 @@ public class PropertyController {
     @GetMapping("/find-by-link")
     public ResponseEntity<PropertyDTO> getPropertyByLink(@RequestParam("url") String encodedUrl) {
         String decodedUrl = URLDecoder.decode(encodedUrl, StandardCharsets.UTF_8);
-        logEntryService.log("DEBUG", "Decoded URL: " + decodedUrl);
-
         PropertyDTO property = propertyService.getPropertyByLink(decodedUrl);
         return ResponseEntity.ok(property);
     }
 
     @PostMapping("/search-result")
     public ResponseEntity<List<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO) {
-        logEntryService.log("DEBUG", "Filtering properties with criteria: " + filterSearchPropertyDTO.getCity().getName());
         List<PropertyDTO> properties = propertyService.getFilteredProperties(filterSearchPropertyDTO);
         if (filterSearchPropertyDTO.getDistance() != null && filterSearchPropertyDTO.getCity() != null) {
             City city = cityRepository.findByName(filterSearchPropertyDTO.getCity().getName());
@@ -115,7 +106,6 @@ public class PropertyController {
 
     @PostMapping
     public ResponseEntity<PropertyDTO> createProperty(@RequestBody PropertyDTO propertyDTO) {
-        logEntryService.log("DEBUG", "Creating property: " + propertyDTO.getId());
         PropertyDTO createdProperty = propertyService.createProperty(propertyDTO);
         logEntryService.log("INFO", "Successfully created property: " + createdProperty.getId());
         return ResponseEntity.status(201).body(createdProperty);
@@ -123,20 +113,13 @@ public class PropertyController {
 
     @PutMapping("/add-favorite-property/{id}")
     public ResponseEntity<PropertyDTO> addFavoriteProperty(@PathVariable Long id) {
-        logEntryService.log("DEBUG", "Adding property ID " + id + " to favorites.");
-
-        FavoritePropertyDto favoritePropertyDto = new FavoritePropertyDto();
-        favoritePropertyDto.setPropertyId(id);
-        favoritePropertyDto.setIsFavorite(true);
-
-        PropertyDTO updatedProperty = propertyService.addFavoriteProperty(favoritePropertyDto);
+        PropertyDTO updatedProperty = propertyService.addFavoriteProperty(id);
         logEntryService.log("INFO", "Property ID " + id + " marked as favorite.");
         return ResponseEntity.ok(updatedProperty);
     }
 
     @PostMapping("/by-link")
     public ResponseEntity<PropertyDTO> createPropertyByLink(@RequestBody PropertyByLinkDto propertyByLinkDto) {
-        logEntryService.log("DEBUG", "Creating property from link: " + propertyByLinkDto.getLink());
 
         PropertyDTO createdProperty = new PropertyDTO();
         createdProperty.setSocialMediaLink(propertyByLinkDto.getLink());
@@ -149,8 +132,6 @@ public class PropertyController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PropertyDTO> updateProperty(@PathVariable Long id, @RequestBody PropertyDTO propertyDTO) {
-        logEntryService.log("DEBUG", "Updating property ID " + id + ": " + propertyDTO.getId());
-
         PropertyDTO updatedProperty = propertyService.updateProperty(id, propertyDTO);
         logEntryService.log("INFO", "Successfully updated property ID " + id + ": " + updatedProperty.getId());
         return ResponseEntity.ok(updatedProperty);
@@ -158,7 +139,6 @@ public class PropertyController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProperty(@PathVariable Long id) {
-        logEntryService.log("DEBUG", "Deleting property ID " + id + ".");
         propertyService.deleteProperty(id);
         logEntryService.log("INFO", "Successfully deleted property ID " + id + ".");
         return ResponseEntity.noContent().build();
@@ -166,7 +146,6 @@ public class PropertyController {
 
     @DeleteMapping("/remove/by/link")
     public ResponseEntity<Void> deleteProperty(@RequestParam String url) {
-        logEntryService.log("DEBUG", "Deleting property with URL " + url + ".");
         propertyService.deletePropertyByLink(url);
         logEntryService.log("INFO", "Successfully deleted property with URL " + url + ".");
         return ResponseEntity.noContent().build();
