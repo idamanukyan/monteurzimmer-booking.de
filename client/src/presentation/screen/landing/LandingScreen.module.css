@@ -65,7 +65,7 @@
     font-size: 34px;
 }
 
-.dividerLine {
+.dividerLineCheapestProperties {
     border: none;
     width: 520px;
     height: 3px;
@@ -74,7 +74,16 @@
     margin: 0 15px;
 }
 
-.dividerLine2 {
+.dividerLineFavoriteProperties {
+    border: none;
+    width: 370px;
+    height: 3px;
+    border-radius: 5px;
+    background-color: #ff3c00;
+    margin: 0 15px;
+}
+
+.dividerLineFavortieCities {
     border: none;
     width: 245px;
     height: 3px;

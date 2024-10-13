@@ -9,6 +9,7 @@ interface LandingState {
     readonly city?: string
     readonly radius?: number
     readonly cheapestProperties: PropertyMainFields[]
+    readonly favoriteProperties: PropertyMainFields[]
     readonly favCities: FavCitiesModel
 }
 
@@ -20,12 +21,14 @@ export default function LandingScreenModel(
         city: "",
         radius: 0,
         cheapestProperties: [],
+        favoriteProperties: [],
         favCities: []
     })
     const navigate = useNavigate();
 
     useEffect(() => {
         getCheapestProperties();
+        getFavoriteProperties();
         getFavCities();
     }, []);
 
@@ -99,6 +102,43 @@ export default function LandingScreenModel(
     };
 
     const getCheapestPropertyMainFields = async (link: string): Promise<PropertyMainFields | null> => {
+        if (link) {
+            try {
+                return await propertyService.getPropertyMainFields(link)
+            } catch (error) {
+                console.error('Error fetching properties:', error);
+                return null
+            }
+        }
+        return null
+    };
+
+    const getFavoriteProperties = async () => {
+        try {
+            const favoriteProperties = await propertyService.getFavoriteProperties();
+            if (favoriteProperties) {
+                const propertyFields = await Promise.all(
+                    favoriteProperties.map(property => getFavoritePropertyMainFields(property.socialMediaLink))
+                )
+                const validProperties = propertyFields.filter(
+                    (property): property is PropertyMainFields => property !== null
+                );
+
+                setState((prevState) => ({
+                    ...prevState,
+                    favoriteProperties: validProperties
+                }));
+            }
+        } catch (error) {
+            console.error('Error fetching properties:', error);
+            setState((prevState) => ({
+                ...prevState,
+                favoriteProperties: []
+            }));
+        }
+    };
+
+    const getFavoritePropertyMainFields = async (link: string): Promise<PropertyMainFields | null> => {
         if (link) {
             try {
                 return await propertyService.getPropertyMainFields(link)
