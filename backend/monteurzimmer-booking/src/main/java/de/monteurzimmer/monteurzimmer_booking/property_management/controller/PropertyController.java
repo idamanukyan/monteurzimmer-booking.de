@@ -101,7 +101,7 @@ public class PropertyController {
 
     @PostMapping("/search-result")
     public ResponseEntity<List<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO) {
-        logEntryService.log("DEBUG", "Filtering properties with criteria: " + filterSearchPropertyDTO);
+        logEntryService.log("DEBUG", "Filtering properties with criteria: " + filterSearchPropertyDTO.getCity().getName());
         List<PropertyDTO> properties = propertyService.getFilteredProperties(filterSearchPropertyDTO);
         if (filterSearchPropertyDTO.getDistance() != null && filterSearchPropertyDTO.getCity() != null) {
             City city = cityRepository.findByName(filterSearchPropertyDTO.getCity().getName());
@@ -115,9 +115,9 @@ public class PropertyController {
 
     @PostMapping
     public ResponseEntity<PropertyDTO> createProperty(@RequestBody PropertyDTO propertyDTO) {
-        logEntryService.log("DEBUG", "Creating property: " + propertyDTO);
+        logEntryService.log("DEBUG", "Creating property: " + propertyDTO.getId());
         PropertyDTO createdProperty = propertyService.createProperty(propertyDTO);
-        logEntryService.log("INFO", "Successfully created property: " + createdProperty);
+        logEntryService.log("INFO", "Successfully created property: " + createdProperty.getId());
         return ResponseEntity.status(201).body(createdProperty);
     }
 
@@ -149,10 +149,10 @@ public class PropertyController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PropertyDTO> updateProperty(@PathVariable Long id, @RequestBody PropertyDTO propertyDTO) {
-        logEntryService.log("DEBUG", "Updating property ID " + id + ": " + propertyDTO);
+        logEntryService.log("DEBUG", "Updating property ID " + id + ": " + propertyDTO.getId());
 
         PropertyDTO updatedProperty = propertyService.updateProperty(id, propertyDTO);
-        logEntryService.log("INFO", "Successfully updated property ID " + id + ": " + updatedProperty);
+        logEntryService.log("INFO", "Successfully updated property ID " + id + ": " + updatedProperty.getId());
         return ResponseEntity.ok(updatedProperty);
     }
 

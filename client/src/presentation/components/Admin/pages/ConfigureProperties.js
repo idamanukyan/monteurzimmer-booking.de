@@ -9,7 +9,9 @@ const ConfigureProperties = () => {
     const [isAddModalOpen, setAddModalOpen] = useState(false);
     const [isRemoveModalOpen, setRemoveModalOpen] = useState(false);
     const [properties, setProperties] = useState([]);
-    const [filterResults, setFilterResults] = useState({});
+    const [selectedPropertyId, setSelectedPropertyId] = useState(null); // Add selectedPropertyId to state
+    const [url, setUrl] = useState(''); // Add url state for property removal
+    const [filterResults, setFilterResults] = useState([]); // Define filterResults and setFilterResults
     const [formData, setFormData] = useState({
         propertyName: '',
         propertyType: '',
@@ -37,18 +39,6 @@ const ConfigureProperties = () => {
             ...prevState,
             [name]: value,
         }));
-    };
-
-    const handleUpdateProperty = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.put(`http://localhost:8080/api/properties/${selectedPropertyId}`, formData);
-            resetForm();
-            setUpdateModalOpen(false);
-            setSelectedPropertyId(null);
-        } catch (error) {
-            console.error('Error updating property:', error);
-        }
     };
 
     const handleRemoveProperty = async () => {
@@ -91,9 +81,7 @@ const ConfigureProperties = () => {
                     </div>
                 </div>
 
-                <PropertiesList
-                    properties={properties}
-                />
+                <PropertiesList properties={properties} />
             </div>
 
             <AddPropertyModal
@@ -103,14 +91,6 @@ const ConfigureProperties = () => {
                 handleInputChange={handleInputChange}
                 handleFilterResults={handleFilterResults}
                 resetForm={resetForm}
-            />
-
-            <UpdatePropertyModal
-                isOpen={isUpdateModalOpen}
-                onClose={() => setUpdateModalOpen(false)}
-                formData={formData}
-                handleInputChange={handleInputChange}
-                handleUpdateProperty={handleUpdateProperty}
             />
 
             <RemovePropertyModal

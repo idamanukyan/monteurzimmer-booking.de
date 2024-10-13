@@ -24,9 +24,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
         fetchCities();
     }, []);
 
-        fetchCities();
-    }, []);
-
     useEffect(() => {
         console.log('Filters ' + filters)
     }, [filters]);
@@ -51,25 +48,50 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
     if (!isOpen) return null;
 
 
-    const handleApplyFilters = (appliedFilters) => {
+  /*  const handleApplyFilters = (appliedFilters) => {
         setFilters(appliedFilters); // Update filters with applied filters
         setIsFilterModalOpen(false); // Close the filter modal
-    };
+    };*/
 
     const handleAddProperty = async (e) => {
         e.preventDefault();
         try {
             const dataToSend = {
                 ...formData,
-                facilities: filters
+                wifi: filters.wifi || false,
+                tv: filters.tv || false,
+                separateBeds: filters.separateBeds || false,
+                privateBath: filters.privateBath || false,
+                cookingFacilities: filters.cookingFacilities || false,
+                radio: filters.radio || false,
+                towels: filters.towels || false,
+                fridge: filters.fridge || false,
+                coffeeMachine: filters.coffeeMachine || false,
+                microwave: filters.microwave || false,
+                dishwasher: filters.dishwasher || false,
+                wc: filters.wc || false,
+                terrace: filters.terrace || false,
+                kettle: filters.kettle || false,
+                bathtub: filters.bathtub || false,
+                garden: filters.garden || false,
+                cookingUtensils: filters.cookingUtensils || false,
+                washingMachine: filters.washingMachine || false,
+                smoking: filters.smoking || false,
+                quietLocation: filters.quietLocation || false,
+                goodTransportation: filters.goodTransportation || false,
+                shopsNearby: filters.shopsNearby || false,
+                socialMediaLink: formData.socialMediaLink || ""
             };
-            console.log(dataToSend)
+
+            console.log(dataToSend);
+
             await axios.post('http://localhost:8080/api/properties', dataToSend);
             resetForm();
         } catch (error) {
             console.error('Error adding property:', error);
         }
     };
+
 
     return (
         <div className="modal-overlay" onClick={handleClickOutside}>
@@ -215,6 +237,7 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
             </div>
         </div>
     );
+
 };
 
 export default AddPropertyModal;

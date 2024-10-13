@@ -38,7 +38,6 @@ public class PropertyService {
     }
 
     public List<PropertyDTO> getFilteredProperties(FilterSearchPropertyDTO propertyDTO) {
-        logEntryService.log("INFO", "Filtering properties with criteria: {}" + propertyDTO);
         Specification<Property> spec = Specification.where(null);
 
         if (propertyDTO.getCity() != null) {
@@ -225,25 +224,58 @@ public class PropertyService {
     }
 
     public PropertyDTO createProperty(PropertyDTO propertyDTO) {
-        logEntryService.log("INFO", "Creating new property: " + propertyDTO);
+        logEntryService.log("INFO", "Creating new property: " + propertyDTO.getId());
 
+        // Map DTO to Entity
         Property property = modelMapper.map(propertyDTO, Property.class);
 
         // Fetch or create the city
         City city = cityRepository.findByName(propertyDTO.getCity().getName());
-        property.setCity(city);
+        if (city != null) {
+            property.setCity(city);
+        }
+
+        // Set default values for boolean and Boolean fields
+        property.setWifi(propertyDTO.isWifi());
+        property.setTv(propertyDTO.isTv());
+        property.setSeparateBeds(propertyDTO.isSeparateBeds());
+        property.setPrivateBath(propertyDTO.getPrivateBath() != null ? propertyDTO.getPrivateBath() : null);
+        property.setCookingFacilities(propertyDTO.isCookingFacilities());
+        property.setRadio(propertyDTO.isRadio());
+        property.setTowels(propertyDTO.isTowels());
+        property.setFridge(propertyDTO.getFridge() != null ? propertyDTO.getFridge() : null);
+        property.setCoffeeMachine(propertyDTO.getCoffeeMachine() != null ? propertyDTO.getCoffeeMachine() : null);
+        property.setMicrowave(propertyDTO.getMicrowave() != null ? propertyDTO.getMicrowave() : null);
+        property.setDishwasher(propertyDTO.getDishwasher() != null ? propertyDTO.getDishwasher() : null);
+        property.setWc(propertyDTO.isWc());
+        property.setTerrace(propertyDTO.getTerrace() != null ? propertyDTO.getTerrace() : null);
+        property.setKettle(propertyDTO.getKettle() != null ? propertyDTO.getKettle() : null);
+        property.setBathtub(propertyDTO.getBathtub() != null ? propertyDTO.getBathtub() : null);
+        property.setGarden(propertyDTO.getGarden() != null ? propertyDTO.getGarden() : null);
+        property.setCookingUtensils(propertyDTO.isCookingUtensils());
+        property.setWashingMachine(propertyDTO.getWashingMachine() != null ? propertyDTO.getWashingMachine() : null);
+        property.setSmoking(propertyDTO.getSmoking() != null ? propertyDTO.getSmoking() : false);
+        property.setQuietLocation(propertyDTO.getQuietLocation() != null ? propertyDTO.getQuietLocation() : null);
+        property.setGoodTransportation(propertyDTO.getGoodTransportation() != null ? propertyDTO.getGoodTransportation() : null);
+        property.setShopsNearby(propertyDTO.getShopsNearby() != null ? propertyDTO.getShopsNearby() : null);
+        property.setIsFavorite(propertyDTO.getFavorite() != null ? propertyDTO.getFavorite() : null);
+
+        // Set additional fields
         property.setFullPrice(propertyDTO.getPrice());
         property.setCreatedAt(LocalDateTime.now());
+
+        // Save property to database
         Property savedProperty = propertyRepository.save(property);
 
         logEntryService.log("INFO", "Successfully created property with ID: " + savedProperty.getId());
 
-        // Ensure PropertyDTO contains the correct property ID
+        // Map back to DTO and return
         PropertyDTO responseDTO = modelMapper.map(savedProperty, PropertyDTO.class);
-        responseDTO.setId(savedProperty.getId()); // Explicitly set the property ID if needed
+        responseDTO.setId(savedProperty.getId());
 
         return responseDTO;
     }
+
 
     public PropertyDTO addFavoriteProperty(FavoritePropertyDto propertyDto) {
         logEntryService.log("INFO", "Updating favorite status for property ID: " + propertyDto.getPropertyId());
