@@ -97,7 +97,7 @@ public class CityService {
 
     public List<CityDto> getFavoriteCities() {
         logEntryService.log("info", "Fetching favorite cities.");
-        List<City> favoriteCities = cityRepository.findTop10ByIsFavoriteTrueOrderByIdDesc();
+        List<City> favoriteCities = cityRepository.findAllByIsFavoriteTrue();
         logEntryService.log("info", "Retrieved " + favoriteCities.size() + " favorite cities.");
         return favoriteCities.stream()
                 .map(city -> modelMapper.map(city, CityDto.class))

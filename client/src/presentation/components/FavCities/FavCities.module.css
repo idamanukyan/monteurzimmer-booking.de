@@ -12,6 +12,7 @@
     position: relative; /* For absolute positioning of overlay */
     background-size: cover; /* Cover the entire card */
     background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Ensure no repeating of background image */
     height: 200px; /* Fixed height for city cards */
     overflow: hidden; /* Ensure content stays within bounds */
     transition: transform 0.3s ease; /* Smooth transition for scaling */

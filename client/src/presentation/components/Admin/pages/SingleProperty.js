@@ -53,7 +53,7 @@ const SingleProperty = () => {
     // Function to fetch link preview data from LinkPreview API
     const fetchLinkPreview = async (link) => {
         try {
-            const apiKey = '4373ea0eb5df509be3677bbf53bb640c'; // Your LinkPreview API key
+            const apiKey = '447b14b374c440e2dad14c10a0e6f513'; // Your LinkPreview API key
             const response = await axios.get(`https://api.linkpreview.net/?key=${apiKey}&q=${link}`);
 
             // Set the link preview state

@@ -60,7 +60,7 @@ const PropertiesList = () => {
             {/* Search Input */}
             <input
                 type="text"
-                placeholder="Search by property name"
+                placeholder="Suche nach Monteurzimmernamen..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"

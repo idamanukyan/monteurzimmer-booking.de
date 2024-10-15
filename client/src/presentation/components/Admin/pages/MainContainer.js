@@ -15,7 +15,7 @@ const MainContainer = () => {
     return (
         <main className="main-container">
             <header className="search-section">
-                <h3>Zuletzt hinzugefügte Immobilien</h3>
+                <h3>Zuletzt hinzugefügte Monteurzimmer</h3>
                 <div className="date-box">
                     <img src={calendarIcon} alt="Calendar" className="calendar-icon" />
                     <span className="date-display">{today}</span>

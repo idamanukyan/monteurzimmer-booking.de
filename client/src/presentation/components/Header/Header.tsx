@@ -41,7 +41,7 @@ const Header: React.FC<HeaderProps> = ({ city }) => {
                     className={styles.searchButton}
                     onClick={() => setIsModalSubscribeOpen(true)}
                 >
-                    Newsletter Abonnieren
+                    Preiswecker
                 </button>
             </div>
         </header>

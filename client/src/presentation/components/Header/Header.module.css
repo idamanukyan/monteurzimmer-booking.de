@@ -9,6 +9,11 @@
     z-index: 1000;
 }
 
+.header > div {
+    display: flex;
+    flex-direction: row;
+}
+
 .header img {
     height: 50px;
 }
@@ -35,6 +40,7 @@
     box-shadow: none;
     height: 50px;
     margin: 0 10px;
+    width: 200px;
 }
 
 .searchButton .arrowIcon {

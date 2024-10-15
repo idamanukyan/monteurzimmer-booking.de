@@ -4,9 +4,10 @@ import {PropertiesModel, PropertyMainFields} from "../model/PropertiesModel";
 const api_url_main = 'http://localhost:8080/api/properties';
 const api_url_link_preview = 'https://api.linkpreview.net/?key='
 const apiKey = '8896ff78dcac79066cbd0bebc5dc2645';
-// const apiKey = '41ef05896abe124c64fce7d10447a2a5';
-// const apiKey = '3d1b63b63ac0aee4fefe3a828b181a9f';
-// const apiKey = '1c285900f108b0c13f2ca9cc99c99ff0';
+//const apiKey = '41ef05896abe124c64fce7d10447a2a5';
+//const apiKey = '3d1b63b63ac0aee4fefe3a828b181a9f';
+//const apiKey = '1c285900f108b0c13f2ca9cc99c99ff0';
+//const apiKey = 'd4ab2b77250129d32f65e75989eb6066';
 
 export class PropertyService {
     getProperties = async (city: string) : Promise<PropertiesModel | null> => {

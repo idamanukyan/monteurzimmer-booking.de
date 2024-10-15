@@ -13,4 +13,6 @@ public interface CityRepository extends JpaRepository<City, Long> {
 
     List<City> findTop10ByIsFavoriteTrueOrderByIdDesc();
 
+    List<City> findAllByIsFavoriteTrue();
+
 }

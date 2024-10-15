@@ -40,7 +40,7 @@ const HeroSlide: React.FC<HeroSlideProps> = ({ onSearchClick, onRadiusSliderChan
                 </div>
                 <div className={styles.searchContainer}>
                     <div>
-                        <h1>Explore properties</h1>
+                        <h1>Unterkünfte für Monteure- Preiswert finden und vergleichen </h1>
                         <hr className={styles.dividerLine}/>
                         <div className={styles.inputFields}>
                             <div>
@@ -53,7 +53,7 @@ const HeroSlide: React.FC<HeroSlideProps> = ({ onSearchClick, onRadiusSliderChan
                                     value={inputValue}
                                 />
                                 <label htmlFor="searchCity" className={styles.label}>
-                                    Name der Stadt
+                                    Standort
                                 </label>
                             </div>
 
@@ -92,7 +92,7 @@ const HeroSlide: React.FC<HeroSlideProps> = ({ onSearchClick, onRadiusSliderChan
                             </div>
 
                             <Box sx={{width: 200}}>
-                                <p className={styles.sliderText}>Suchradius</p>
+                                <p className={styles.sliderText}>Umkreis</p>
                                 <Slider
                                     value={radiusValue}
                                     onChange={handleSliderChange}

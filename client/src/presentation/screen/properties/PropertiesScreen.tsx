@@ -51,13 +51,32 @@ export default function PropertiesScreen() {
                         {/* Popular Filters */}
                         <div className={styles.filterCategory}>
                             <h4>Popular Filters</h4>
+                            <div className={styles.filterItemText}>
+                                <input type="text" id="roomCount" name="roomCount"
+                                       placeholder={"Anzahl der Zimmer"} onChange={onCheckboxChange} checked={state.quietLocation || false}/>
+                            </div>
+                            <div className={styles.filterItemText}>
+                                <input type="text" id="bedcount" name="bedcount"
+                                       placeholder={"Bettenzahl"}
+                                       onChange={onCheckboxChange} checked={state.quietLocation || false}/>
+                            </div>
+                            <div className={styles.filterItemText}>
+                                <input type="text" id="bathrooms" name="bathrooms"
+                                       placeholder={"Badezimmer"}
+                                       onChange={onCheckboxChange} checked={state.quietLocation || false}/>
+                            </div>
+                            <div className={styles.filterItemText}>
+                                <input type="text" id="numberofGuests" name="numberofGuests"
+                                       placeholder={"Anzahl der Gäste"}
+                                       onChange={onCheckboxChange} checked={state.quietLocation || false}/>
+                            </div>
                             <div className={styles.filterItem}>
                                 <input type="checkbox" id="quietLocation" name="quietLocation" onChange={onCheckboxChange} checked={state.quietLocation || false}/>
-                                <label htmlFor="quietLocation">Quiet Location</label>
+                                <label htmlFor="quietLocation">Ruhige Lage</label>
                             </div>
                             <div className={styles.filterItem}>
                                 <input type="checkbox" id="goodTransportation" name="goodTransportation" onChange={onCheckboxChange} checked={state.goodTransportation || false}/>
-                                <label htmlFor="goodTransportation">Good Transportation</label>
+                                <label htmlFor="goodTransportation">Guter Transport</label>
                             </div>
                         </div>
 

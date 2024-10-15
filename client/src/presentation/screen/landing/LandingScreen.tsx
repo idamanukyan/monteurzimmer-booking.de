@@ -30,21 +30,34 @@ export default function LandingScreen() {
                            onSearchTextChange={onSearchTextChange}
                            onKeyPress={onKeyPress}/>
             </div>
-            <div className={styles.favProdsContainer}>
-                <div className={styles.favTitle2}>Top 20 der günstigsten Optionen</div>
-                <hr className={styles.dividerLineCheapestProperties}/>
-                <CheapestProducts cheapestProperties={state.cheapestProperties}/>
-            </div>
-            <div className={styles.favProdsContainer}>
-                <div className={styles.favTitle2}>Beliebte Eigenschaften</div>
-                <hr className={styles.dividerLineFavoriteProperties}/>
-                <FavoriteProperties favoriteProperties={state.favoriteProperties}/>
-            </div>
+
             <div className={styles.favCitiesContainer}>
                 <div className={styles.favTitle2}>Beliebte Städte</div>
                 <hr className={styles.dividerLineFavortieCities}/>
                 <FavCities favCities={state.favCities}/>
             </div>
+
+            <div className={styles.favProdsContainer}>
+                <div className={styles.favTitle2}>Beliebte Unterkunfte</div>
+                <hr className={styles.dividerLineFavoriteProperties}/>
+                <FavoriteProperties favoriteProperties={state.favoriteProperties}/>
+            </div>
+
+            <div className={styles.favProdsContainer}>
+                <div className={styles.favTitle2}>Top 20 der günstigsten Optionen</div>
+                <hr className={styles.dividerLineCheapestProperties}/>
+                <CheapestProducts cheapestProperties={state.cheapestProperties}/>
+            </div>
+           {/* <div className={styles.favProdsContainer}>
+                <div className={styles.favTitle2}>Beliebte Eigenschaften</div>
+                <hr className={styles.dividerLineFavoriteProperties}/>
+                <FavoriteProperties favoriteProperties={state.favoriteProperties}/>
+            </div>*/}
+           {/* <div className={styles.favCitiesContainer}>
+                <div className={styles.favTitle2}>Beliebte Städte</div>
+                <hr className={styles.dividerLineFavortieCities}/>
+                <FavCities favCities={state.favCities}/>
+            </div>*/}
             <div className={styles.aboutUsContainer}>
                 <div className={styles.aboutUsTitle}>CHECK-MONTEURZIMMER - Dein Partner für den besten Preis</div>
                 <AboutUs/>
