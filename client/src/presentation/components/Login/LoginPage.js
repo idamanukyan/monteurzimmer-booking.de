@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './css/LoginPage.css'; // Import the CSS file
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
@@ -11,7 +12,6 @@ const LoginPage = () => {
         e.preventDefault();
 
         try {
-            // Make the API call to your sign-in endpoint
             const response = await fetch('http://localhost:8080/api/users/sign-in', {
                 method: 'POST',
                 headers: {
@@ -26,46 +26,42 @@ const LoginPage = () => {
             }
 
             const data = await response.json();
-
-            // Save access and refresh tokens to local storage
             localStorage.setItem('access_token', data.access_token);
             localStorage.setItem('refresh_token', data.refresh_token);
 
-            console.log('Navigating to /admin/dashboard'); // Add this line for debugging
+            console.log('Navigating to /admin/dashboard'); // Debugging line
             navigate('/admin/dashboard'); // Redirect to admin dashboard
         } catch (err) {
             setError(err.message);
         }
-        // Check in the console if token is correctly stored
-        console.log(localStorage.getItem('access_token'));
 
+        console.log(localStorage.getItem('access_token')); // Check token storage
     };
 
     return (
-        <div className="login-container" style={{ textAlign: 'center', margin: '50px' }}>
-            <h2>Admin Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="email" // Email input for better user experience
-                    placeholder="Email"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <br />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <br />
-                <button type="submit">Login</button>
-            </form>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+        <div className="login-page">
+            <div className="login-container">
+                <h2>Admin Login</h2>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <button type="submit">Login</button>
+                </form>
+                {error && <p className="error-message">{error}</p>}
+            </div>
         </div>
-
     );
 };
 

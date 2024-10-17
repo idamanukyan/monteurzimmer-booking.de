@@ -53,21 +53,31 @@ const SingleProperty = () => {
     // Function to fetch link preview data from LinkPreview API
     const fetchLinkPreview = async (link) => {
         try {
-            const apiKey = '447b14b374c440e2dad14c10a0e6f513'; // Your LinkPreview API key
-            const response = await axios.get(`https://api.linkpreview.net/?key=${apiKey}&q=${link}`);
+            const apiKey = '4a7bef5d-e98c-4d24-9f8b-e3c1a6970c25';
+            const response = await axios.get(`https://link-scrapper.vercel.app/get-link-info?api_key=${apiKey}&url=${link}`);
 
-            // Set the link preview state
-            setLinkPreview({
-                title: response.data.title || 'No title found',
-                description: response.data.description || 'No description found',
-                image: response.data.image || 'default-image-url.jpg',
-            });
+            // Check if response data exists
+            if (response.data) {
+                // Set the link preview state using the correct keys from the response
+                setLinkPreview({
+                    title: response.data.title || 'No title found',
+                    description: response.data.description || 'No description found',
+                    image: response.data.thumbnail ? `https:${response.data.thumbnail}` : 'default-image-url.jpg', // Ensure the thumbnail URL is absolute
+                    price: response.data.price || 'No price available', // Include price if needed
+                    subtitle: response.data.subtitle || 'No subtitle available' // Include subtitle if needed
+                });
+            } else {
+                // Handle the case where there is no response data
+                throw new Error('No data returned from the API');
+            }
         } catch (error) {
             console.error('Error fetching link preview:', error.response ? error.response.data : error.message);
             setLinkPreview({
                 title: 'Link Preview Unavailable',
                 description: 'Could not retrieve link preview.',
                 image: 'default-image-url.jpg',
+                price: 'No price available',
+                subtitle: 'No subtitle available'
             });
         }
     };

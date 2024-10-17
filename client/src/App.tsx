@@ -15,8 +15,8 @@ import DocumentsManagement from "./presentation/components/Admin/pages/Documents
 import PropertiesScreen from "./presentation/screen/properties/PropertiesScreen";
 import FormSubmission from "./presentation/components/Admin/pages/FormSubmission";
 import ProtectedRoute from "./ProtectedRoute"; // Ensure this imports your ProtectedRoute correctly
-import NotFound from "./presentation/components/NotFound";
-import LoginPage from "./presentation/components/LoginPage"; // This can be your main Admin landing page
+import NotFound from "./presentation/components/Login/NotFound";
+import LoginPage from "./presentation/components/Login/LoginPage"; // This can be your main Admin landing page
 
 function App() {
     return (
