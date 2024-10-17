@@ -55,3 +55,51 @@
     color: #ff5904; /* Change text color on hover */
     transform: translateY(50px); /* Move text down by 10px on hover */
 }
+
+
+.cityName {
+    white-space: nowrap; /* Keeps the city name on one line */
+    font-weight: bold;
+    color: #ffa915;
+    font-size: medium;
+}
+
+.citiesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.cityBox {
+    width: calc(100% / 9 - 20px);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.cityBox:hover {
+    background-color: #ffa915; /* Light background color change on hover */
+    transform: scale(1.05); /* Slight scaling effect on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.cityBox:active {
+    transform: scale(0.98); /* Scale down slightly on click for feedback */
+    background-color: #ffa915; /* Background color change on click */
+}
+
+.cityName {
+    white-space: nowrap;
+    font-weight: bold;
+    color: #333; /* Adjusted color for better readability */
+}
+
