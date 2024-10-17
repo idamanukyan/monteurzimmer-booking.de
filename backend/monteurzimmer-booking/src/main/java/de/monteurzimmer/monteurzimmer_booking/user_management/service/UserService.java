@@ -13,16 +13,16 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -114,5 +114,21 @@ public class UserService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
     }
 
+    public ResponseEntity<?> signIn(String email, String password) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (!userOptional.isPresent()) {
+            // User not found
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        User user = userOptional.get();
+
+        if (!Objects.equals(password, user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    "Wrong password or email");
+        }
+        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
+        return new ResponseEntity<>(
+                       userDTO, HttpStatus.OK);
+    }
 }
 

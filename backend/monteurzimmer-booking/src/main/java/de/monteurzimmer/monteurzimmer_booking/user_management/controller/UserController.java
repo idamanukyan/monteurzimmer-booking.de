@@ -47,5 +47,10 @@ public class UserController {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/sign-in")
+    public ResponseEntity<?> signIn(@RequestBody UserDTO request) {
+        return userService.signIn(request.getEmail(), request.getPassword());
+    }
 }
 
