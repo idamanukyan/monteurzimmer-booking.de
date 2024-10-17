@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './css/LoginPage.css'; // Import the CSS file
+import './css/LoginPage.css';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
@@ -22,14 +22,13 @@ const LoginPage = () => {
 
             if (!response.ok) {
                 const errorResponse = await response.json();
-                throw new Error(errorResponse.message || 'Login failed');
+                throw new Error(errorResponse.message || 'Fehler bei der Anmeldung');
             }
 
             const data = await response.json();
             localStorage.setItem('access_token', data.access_token);
             localStorage.setItem('refresh_token', data.refresh_token);
 
-            console.log('Navigating to /admin/dashboard'); // Debugging line
             navigate('/admin/dashboard'); // Redirect to admin dashboard
         } catch (err) {
             setError(err.message);
@@ -41,18 +40,18 @@ const LoginPage = () => {
     return (
         <div className="login-page">
             <div className="login-container">
-                <h2>Admin Login</h2>
+                <h2>Administrator-Anmeldung</h2>
                 <form onSubmit={handleSubmit}>
                     <input
                         type="email"
-                        placeholder="Email"
+                        placeholder="E-Mail"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
                     <input
                         type="password"
-                        placeholder="Password"
+                        placeholder="Passwort"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
