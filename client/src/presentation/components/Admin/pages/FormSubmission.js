@@ -1,66 +1,91 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './style/FormSubmission.css'; // Create this CSS file for styling
+import './style/FormSubmission.css'; // Ensure this CSS file exists for styling
 
 const FormSubmission = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: '',
-    });
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+    const [forms, setForms] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10; // Number of logs per page
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const fetchForms = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/api/contact/all-forms`);
+            setForms(response.data);
+        } catch (error) {
+            console.error('Error fetching forms:', error);
+        }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setErrorMessage('');
-        setSuccessMessage('');
+    useEffect(() => {
+        fetchForms();
+    }, []);
 
-        try {
-            await axios.post('http://localhost:8080/api/form/submit', formData);
-            setSuccessMessage('Form submitted successfully!');
-            setFormData({ name: '', email: '', message: '' }); // Reset form data
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            setErrorMessage('Failed to submit form. Please try again.');
+    if (!forms || forms.length === 0) {
+        return <p>No forms available</p>;
+    }
+
+    const totalPages = Math.ceil(forms.length / pageSize);
+
+    // Get the forms for the current page
+    const currentForms = forms.slice(
+        (currentPage - 1) * pageSize,
+        currentPage * pageSize
+    );
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+            window.scrollTo(0, 0);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+            window.scrollTo(0, 0);
         }
     };
 
     return (
-        <div className="form-submission-container">
-            <h2>Form Submission</h2>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                />
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                />
-                <textarea
-                    name="message"
-                    placeholder="Your Message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                />
-                <button type="submit">Submit</button>
-            </form>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            {successMessage && <p className="success-message">{successMessage}</p>}
+        <div className="forms-page">
+            <h2 className="forms-title">Formularübersicht</h2>
+            <div className="forms-list">
+                {currentForms.length > 0 ? (
+                    currentForms.map((form) => (
+                        <div key={form.id} className="form-item">
+                            <div className="form-header">
+                                <h3>{form.userName}</h3>
+                                <p className="form-date">{new Date(form.userDate).toLocaleDateString()}</p>
+                            </div>
+                            <p><strong>Telefon:</strong> {form.userPhone}</p>
+                            <p><strong>Email:</strong> {form.userEmail}</p>
+                            <p><strong>Nachricht:</strong> {form.userMessage}</p>
+                        </div>
+                    ))
+                ) : (
+                    <p>No forms available.</p>
+                )}
+            </div>
+            {/* Pagination controls */}
+            <div className="pagination-controls">
+                <button
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 1}
+                    className="pagination-button"
+                >
+                    Zurück
+                </button>
+                <span className="pagination-info">
+                    Seite {currentPage} von {totalPages}
+                </span>
+                <button
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages}
+                    className="pagination-button"
+                >
+                    Weiter
+                </button>
+            </div>
         </div>
     );
 };

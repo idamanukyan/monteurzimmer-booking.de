@@ -21,10 +21,26 @@ const ContactUsModal: React.FC<ContactUsModalProps> = ({ closeModal }) => {
         });
     };
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle form submission logic here (e.g., API call)
-        closeModal();
+
+        try {
+            const response = await fetch('http://localhost:8080/api/contact/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(contactForm),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to send email');
+            }
+
+            closeModal();
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
     };
 
     return (
