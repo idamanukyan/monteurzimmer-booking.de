@@ -56,7 +56,6 @@
     transform: translateY(50px); /* Move text down by 10px on hover */
 }
 
-
 .cityName {
     white-space: nowrap; /* Keeps the city name on one line */
     font-weight: bold;
@@ -103,3 +102,41 @@
     color: #333; /* Adjusted color for better readability */
 }
 
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+    .citiesGrid {
+        padding: 10px; /* Reduced padding for smaller screens */
+    }
+
+    .cityCard {
+        height: 150px; /* Reduced height for mobile view */
+    }
+
+    .cityName {
+        font-size: 1.2rem; /* Smaller font size for mobile */
+    }
+
+    .citiesContainer {
+        gap: 15px; /* Reduced gap for mobile */
+    }
+
+    .cityBox {
+        width: calc(100% / 3 - 15px); /* 3 items per row on mobile */
+        padding: 10px; /* Reduced padding */
+    }
+}
+
+@media (max-width: 480px) {
+    .cityName {
+        font-size: 1rem; /* Further reduced font size */
+    }
+
+    .cityBox {
+        width: calc(100% / 2 - 10px); /* 2 items per row on smaller mobile screens */
+        padding: 5px; /* Reduced padding */
+    }
+
+    .citiesContainer {
+        gap: 10px; /* Further reduced gap for smaller mobile */
+    }
+}

@@ -91,3 +91,39 @@
     background-color: #ff3c00;
     margin: 0 15px;
 }
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+    .heroSlideContainer {
+        height: auto; /* Adjust height for smaller screens */
+        padding: 20px; /* Add padding */
+        margin-bottom: 20px; /* Add margin below HeroSlide to separate it from FavCities */
+    }
+
+    .favCitiesContainer, .favProdsContainer, .aboutUsContainer {
+        padding: 0 15px; /* Reduce padding */
+        margin-bottom: 20px; /* Add bottom margin to separate sections */
+    }
+
+    .favTitle, .favTitle2, .favCityTitle, .aboutUsTitle {
+        font-size: 24px; /* Reduce font size */
+        text-align: center; /* Center align titles */
+    }
+
+    .dividerLineCheapestProperties,
+    .dividerLineFavoriteProperties,
+    .dividerLineFavortieCities {
+        width: 100%; /* Full width on smaller screens */
+        margin: 10px 0; /* Adjust margin */
+    }
+
+    .aboutUsContainer {
+        gap: 20px; /* Reduce gap for smaller screens */
+        margin-top: 50px; /* Adjust margin */
+    }
+}
+
+@media (max-width: 480px) {
+    .favTitle, .favTitle2, .favCityTitle, .aboutUsTitle {
+        font-size: 20px; /* Further reduce font size */
+    }
+}
