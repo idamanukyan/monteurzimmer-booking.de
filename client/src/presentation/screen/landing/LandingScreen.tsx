@@ -20,7 +20,6 @@ export default function LandingScreen() {
         onKeyPress
     } = LandingScreenModel(new FavCitiesService(), new PropertyService());
 
-    console.log('Fav: ' + state.favCities)
 
     return (
         <div>

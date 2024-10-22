@@ -32,6 +32,14 @@ const SingleProperty = () => {
     const [error, setError] = useState(null); // State for error handling
     const [isFavorite, setIsFavorite] = useState(false);
 
+    const truncateDescription = (description, maxLength = 50) => {
+        if (!description) return '';  // Check if description is empty
+        return description.length > maxLength
+            ? description.slice(0, maxLength) + '...'
+            : description;  // Append "..." only if truncated
+    };
+
+
     useEffect(() => {
         const fetchProperty = async () => {
             try {
@@ -90,11 +98,9 @@ const SingleProperty = () => {
                     isFavorite: !isFavorite
                 });
 
-            console.log('Updated favorite response:', response.data); // Log the response from the update
 
             // Fetch the property again to get the updated status
             const updatedPropertyResponse = await axios.get(`http://localhost:8080/api/properties/${propertyId}`);
-            console.log('Updated property:', updatedPropertyResponse.data); // Log the updated property
 
             setProperty(updatedPropertyResponse.data);
             setIsFavorite(updatedPropertyResponse.data.isFavorite); // Update local favorite state
@@ -105,7 +111,6 @@ const SingleProperty = () => {
     };
 
     useEffect(() => {
-        console.log("Favorite: " + isFavorite)
     }, [isFavorite]);
 
 
@@ -136,7 +141,7 @@ const SingleProperty = () => {
                                     <img src={linkPreview.image} alt="Link Preview" className="preview-image"/>
                                     <div className="preview-details">
                                         <h4>{linkPreview.title}</h4>
-                                        <p>{linkPreview.description}</p>
+                                        <p>{truncateDescription(property.description, 90)}</p> {/* Use the truncate function here */}
                                     </div>
                                 </a>
                             </div>

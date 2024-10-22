@@ -8,7 +8,7 @@ interface FavoritePropertiesProps {
     favoriteProperties: PropertyMainFields[]
 }
 
-const FavoriteProperties: React.FC<FavoritePropertiesProps> = ({ favoriteProperties }) => {
+const FavoriteProperties: React.FC<FavoritePropertiesProps> = ({favoriteProperties}) => {
     const carouselRef = useRef<HTMLDivElement | null>(null);
     const flickityOptions = {
         initialIndex: 0,
@@ -18,6 +18,13 @@ const FavoriteProperties: React.FC<FavoritePropertiesProps> = ({ favoritePropert
         prevNextButtons: true,
         autoPlay: 1500,
         wrapAround: true,
+    };
+
+    const truncateDescription = (description: string, maxLength = 500) => {
+        if (!description) return '';  // Check if description is empty
+        return description.length > maxLength
+            ? description.slice(0, maxLength) + '...'
+            : description;  // Append "..." only if truncated
     };
 
     useEffect(() => {
@@ -34,16 +41,20 @@ const FavoriteProperties: React.FC<FavoritePropertiesProps> = ({ favoritePropert
     return (
         <div className="carousel-container" ref={carouselRef}>
             {favoriteProperties.map((property, index) => (
-                <div className="carousel-cell" key={index}>
-                    <div className={styles.carouselCellContainer}>
-                        <img src={property.image} alt={''} />
-                        <div>
-                            <h3>{property.title}</h3>
-                            <h5>{property.description || "No description available"}</h5>
+                <a key={index} href="facebook.com" target="_blank" rel="noopener noreferrer"
+                   className={styles.link}
+                   style={{textDecoration: 'none', color: 'inherit'}}>
+                    <div className="carousel-cell" key={index}>
+                        <div className={styles.carouselCellContainer}>
+                            <img src={property.thumbnail} alt={''}/>
+                            <div>
+                                <h3>{property.title}</h3>
+                                <h5>{truncateDescription(property.description, 350) || "No description available"}</h5>
+                            </div>
+                            <h2>€{property.price}</h2>
                         </div>
-                        <h2>€400</h2>
                     </div>
-                </div>
+                </a>
             ))}
         </div>
     );

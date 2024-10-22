@@ -1,5 +1,4 @@
 /* SubscribeModal.module.css */
-
 .modalOverlay {
     position: fixed;
     top: 0;
@@ -16,49 +15,84 @@
 
 .modalContent {
     background-color: white;
-    padding: 30px;
-    border-radius: 10px;
+    padding: 40px; /* Increased padding for a more spacious feel */
+    border-radius: 15px; /* Rounded corners */
     width: 400px;
     max-width: 90%;
-    box-shadow: 0 4px 15px rgba(255, 106, 0, 0.5); /* Orange shadow */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Softer shadow */
+    animation: fadeIn 0.3s ease; /* Animation for modal appearance */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .modalContent h2 {
     margin-bottom: 20px;
+    font-size: 1.5em; /* Larger title font */
+    text-align: center; /* Center align title */
 }
 
 .modalContent form label {
-    margin-bottom: 10px;
-    align-items: flex-start;
+    margin-bottom: 15px; /* More space between fields */
     display: flex;
     flex-direction: column;
 }
 
-.modalContent form input,
-.modalContent form textarea {
-    width: -webkit-fill-available;;
-    padding: 8px;
-    height: 20px;
-    margin-top: 5px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+.inputField,
+.textareaField {
+    width: 100%; /* Full width */
+    padding: 10px; /* Increased padding */
+    border-radius: 8px; /* Rounded input corners */
+    border: 1px solid #ccc; /* Light gray border */
+    transition: border-color 0.3s; /* Smooth border color transition */
+}
+
+.inputField:focus,
+.textareaField:focus {
+    border-color: #ff6200; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+.textareaField {
+    height: 80px; /* Set height for the textarea */
 }
 
 .modalActions {
     margin-top: 20px;
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .modalActions button {
-    padding: 10px 20px;
-    background-color: #ff6200;
+    padding: 12px 20px; /* Increased button padding */
     border: none;
     border-radius: 10px;
     color: white;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition effects */
 }
 
-.modalActions button[type="button"] {
-    background-color: #afafaf;
+.submitButton {
+    background-color: #ff6200; /* Primary button color */
+}
+
+.cancelButton {
+    background-color: #afafaf; /* Secondary button color */
+}
+
+.modalActions button:hover {
+    transform: scale(1.05); /* Slight scaling effect on hover */
+}
+
+.modalActions button:active {
+    transform: scale(0.95); /* Slight shrinking effect on click */
 }

@@ -1,6 +1,4 @@
-/* SubscribeModal.module.css */
-
-.modalOverlay {
+.uniqueModalOverlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -14,52 +12,98 @@
     backdrop-filter: blur(10px); /* Blur the background */
 }
 
-.modalContent {
+.uniqueModalContent {
     background-color: white;
-    padding: 30px;
+    padding: 20px; /* Reduced padding */
     border-radius: 10px;
     width: 400px;
     max-width: 90%;
     box-shadow: 0 4px 15px rgba(255, 106, 0, 0.5); /* Orange shadow */
+    animation: fadeIn 0.3s; /* Optional animation for better UX */
 }
 
-.modalContent h2 {
-    margin-bottom: 20px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.modalContent form label {
+.uniqueModalContent h2 {
     margin-bottom: 10px;
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
+    font-size: 20px; /* Smaller title font */
 }
 
-.modalContent form input,
-.modalContent form textarea {
-    width: -webkit-fill-available;;
-    padding: 8px;
-    height: 20px;
-    margin-top: 5px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+.uniqueModalContent p {
+    margin-bottom: 10px; /* Reduced space between paragraphs */
+    color: #555; /* Slightly darker color for contrast */
+    font-size: 14px; /* Smaller font size */
 }
 
-.modalActions {
-    margin-top: 20px;
+.uniqueInputGroup {
+    display: flex; /* Use flexbox to align inputs */
+    justify-content: space-between; /* Space out inputs */
+    margin-bottom: 10px; /* Space between input groups */
+}
+
+.uniqueInputGroup label {
+    flex: 1; /* Allow labels to take equal space */
+    margin-right: 10px; /* Space between labels */
+}
+
+.uniqueInputGroup label:last-child {
+    margin-right: 0; /* Remove right margin from the last label */
+}
+
+.uniqueInputField,
+.uniqueTextareaField {
+    width: 100%; /* Full width */
+    padding: 10px; /* Uniform padding */
+    border-radius: 10px; /* Consistent border radius */
+    border: 1px solid #ccc; /* Same border style */
+    margin-top: 5px; /* Margin above inputs */
+    font-size: 14px; /* Consistent font size */
+    box-shadow: none; /* Remove any box shadow */
+    height: 40px; /* Fixed height for inputs */
+    transition: border-color 0.3s; /* Smooth transition on focus */
+}
+
+.uniqueTextareaField {
+    height: 80px; /* Fixed height for textarea */
+}
+
+.uniqueInputField:focus,
+.uniqueTextareaField:focus {
+    border-color: #ff6200; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+.uniqueModalActions {
+    margin-top: 15px; /* Reduced top margin */
     display: flex;
     justify-content: space-between;
+    gap: 10px; /* Gap between buttons */
 }
 
-.modalActions button {
-    padding: 10px 20px;
-    background-color: #ff6200;
+.uniqueModalActions button {
+    padding: 8px 16px; /* Uniform padding for buttons */
+    background-color: #ff6200; /* Primary button color */
     border: none;
-    border-radius: 10px;
+    border-radius: 10px; /* Consistent border radius for buttons */
     color: white;
     cursor: pointer;
-    width: 200px !important;
+    flex-grow: 1; /* Makes buttons take equal space */
+    transition: background-color 0.3s; /* Smooth transition on hover */
 }
 
-.modalActions button[type="button"] {
-    background-color: #afafaf;
+.uniqueModalActions button[type="button"] {
+    background-color: #afafaf; /* Different color for cancel button */
+}
+
+.uniqueModalActions button:hover {
+    background-color: #e55a00; /* Darker shade on hover */
 }

@@ -8,7 +8,6 @@ export class FavCitiesService {
         try {
             const response: AxiosResponse<FavCitiesModel> = await axios.get<FavCitiesModel>(API_URL + '/favorites');
             const favCities: FavCitiesModel = response.data;
-            console.log(favCities)
             return favCities;
         } catch (error) {
             console.error('Error fetching feeds:', error);

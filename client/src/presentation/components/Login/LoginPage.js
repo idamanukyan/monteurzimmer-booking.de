@@ -34,7 +34,6 @@ const LoginPage = () => {
             setError(err.message);
         }
 
-        console.log(localStorage.getItem('access_token')); // Check token storage
     };
 
     return (

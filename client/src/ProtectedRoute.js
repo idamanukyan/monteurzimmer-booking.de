@@ -8,7 +8,6 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     const userRole = "ADMIN";
 
     if (!accessToken || userRole !== requiredRole) {
-        console.log("Redirecting to login...");
         return <Navigate to="/login" />;
     }
 
