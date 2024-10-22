@@ -96,3 +96,9 @@
 .modalActions button:active {
     transform: scale(0.95); /* Slight shrinking effect on click */
 }
+
+.error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
