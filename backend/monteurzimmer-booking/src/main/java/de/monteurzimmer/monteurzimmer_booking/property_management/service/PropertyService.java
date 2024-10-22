@@ -4,7 +4,6 @@ import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import de.monteurzimmer.monteurzimmer_booking.city_management.repository.CityRepository;
 import de.monteurzimmer.monteurzimmer_booking.log.LogEntryService;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.Property;
-import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FavoritePropertyDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.repository.PropertyRepository;
@@ -281,9 +280,9 @@ public class PropertyService {
         Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Property not found"));
 
-        if(!property.getIsFavorite()){
+        if (property.getIsFavorite() == null || !property.getIsFavorite()) {
             property.setIsFavorite(true);
-        } else{
+        } else {
             property.setIsFavorite(false);
         }
         Property updatedProperty = propertyRepository.save(property);

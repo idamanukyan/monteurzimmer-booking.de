@@ -326,3 +326,60 @@ input[type="range"]:disabled {
     text-align: left;
     padding: -1px !important;
 }
+
+/* Mobile Styles */
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .heroSlide {
+        background-size: cover; /* Ensure the background covers fully */
+        height: 50vh; /* Reduced height for mobile */
+    }
+
+    .motto > p {
+        font-size: 32px; /* Smaller font size for motto */
+    }
+
+    .headerContainer {
+        padding: 15px 20px; /* Adjust padding for mobile */
+        width: 90vw; /* Maintain width */
+    }
+
+    .searchContainer {
+        width: 90vw; /* Adjust search container width for mobile */
+        padding: 0 20px; /* Adjust padding for mobile */
+    }
+
+    .searchInput,
+    .dropdown {
+        height: 40px; /* Adjust height for inputs on mobile */
+        font-size: 14px; /* Adjust font size for mobile */
+    }
+
+    .searchButton {
+        height: 50px; /* Adjust button height for mobile */
+        font-size: 16px; /* Adjust font size for button */
+    }
+
+    .inputFields {
+        flex-direction: column; /* Stack input fields on mobile */
+        gap: 10px; /* Reduce gap between fields */
+    }
+
+    .datePicker {
+        width: 100%; /* Make date picker responsive */
+    }
+
+    .dividerLine {
+        width: 100%; /* Full width on mobile */
+    }
+
+    .slider {
+        height: 10px; /* Smaller slider for mobile */
+    }
+
+    .slider::-webkit-slider-thumb,
+    .slider::-moz-range-thumb {
+        width: 20px; /* Smaller thumb for mobile */
+        height: 20px; /* Smaller thumb for mobile */
+    }
+}

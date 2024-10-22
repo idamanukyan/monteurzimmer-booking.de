@@ -14,6 +14,9 @@ import TrafficChart from "./presentation/components/Admin/pages/TrafficChart";
 import DocumentsManagement from "./presentation/components/Admin/pages/DocumentsManagement";
 import PropertiesScreen from "./presentation/screen/properties/PropertiesScreen";
 import FormSubmission from "./presentation/components/Admin/pages/FormSubmission";
+import ProtectedRoute from "./ProtectedRoute"; // Ensure this imports your ProtectedRoute correctly
+import NotFound from "./presentation/components/Login/NotFound";
+import LoginPage from "./presentation/components/Login/LoginPage"; // This can be your main Admin landing page
 
 function App() {
     return (
@@ -22,20 +25,27 @@ function App() {
                 <Routes>
                     <Route path={'/'} element={<LandingScreen/>}/>
                     <Route path={'/properties'} element={<PropertiesScreen/>}/>
-                    {/* Dashboard layout for admin */}
-                    <Route path="/admin" element={<Dashboard />}>
+                    <Route path={'/login'} element={<LoginPage/>}/> {/* Add Login route */}
+
+                    {/* Protect the entire /admin path */}
+                    <Route path="/admin" element={
+                        <ProtectedRoute requiredRole="ADMIN">
+                            <Dashboard/>
+                        </ProtectedRoute>
+                    }>
                         {/* Nested routes for the dashboard */}
-                        <Route path="dashboard" element={<MainContainer />} />
-                        <Route path="properties/:propertyId" element={<SingleProperty />} />
-                        <Route path="logs" element={<LogsPage />} />
-                        <Route path="all-properties" element={<AllProperties />} />
-                        <Route path="configure-properties" element={<ConfigureProperties />} />
-                        <Route path="cities" element={<CitiesManagement />} />
-                        <Route path="newsletter" element={<NewsletterManagement />} />
-                        <Route path="form-submission" element={<FormSubmission />} />
-                        <Route path="graphs" element={<TrafficChart />} />
-                        <Route path="documents" element={<DocumentsManagement />} />
+                        <Route path="dashboard" element={<MainContainer/>}/>
+                        <Route path="properties/:propertyId" element={<SingleProperty/>}/>
+                        <Route path="logs" element={<LogsPage/>}/>
+                        <Route path="all-properties" element={<AllProperties/>}/>
+                        <Route path="configure-properties" element={<ConfigureProperties/>}/>
+                        <Route path="cities" element={<CitiesManagement/>}/>
+                        <Route path="newsletter" element={<NewsletterManagement/>}/>
+                        <Route path="form-submission" element={<FormSubmission/>}/>
+                        <Route path="graphs" element={<TrafficChart/>}/>
+                        <Route path="documents" element={<DocumentsManagement/>}/>
                     </Route>
+                    <Route path="*" element={<NotFound/>}/> {/* Create a NotFound component for better UX */}
                 </Routes>
             </BrowserRouter>
         </div>

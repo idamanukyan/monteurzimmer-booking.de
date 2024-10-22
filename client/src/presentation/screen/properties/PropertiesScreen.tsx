@@ -13,6 +13,13 @@ export default function PropertiesScreen() {
         onCheckboxChange
     } = PropertiesScreenModel(new PropertyService());
 
+    const truncateDescription = (description: string, maxLength = 500) => {
+        if (!description) return '';  // Check if description is empty
+        return description.length > maxLength
+            ? description.slice(0, maxLength) + '...'
+            : description;  // Append "..." only if truncated
+    };
+
     const sortProperties = (option: string) => {
         let sortedProperties = [...(state.filteredProperties || [])];
 
@@ -169,10 +176,9 @@ export default function PropertiesScreen() {
                                     <PropertyCellView
                                         key={index}
                                         title={state.propertiesMainFields[index].title}
-                                        description={state.propertiesMainFields[index].description}
-                                        image={state.propertiesMainFields[index].image}
-                                        price={property.price}
-                                        rating={property.rating}
+                                        description={truncateDescription(state.propertiesMainFields[index].description,250)}
+                                        image={state.propertiesMainFields[index].thumbnail}
+                                        price={property.price}                                        rating={property.rating}
                                         link={property.socialMediaLink}
                                         propertyType={property.propertyType}
                                     />

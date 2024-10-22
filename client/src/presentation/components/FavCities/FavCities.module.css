@@ -55,3 +55,88 @@
     color: #ff5904; /* Change text color on hover */
     transform: translateY(50px); /* Move text down by 10px on hover */
 }
+
+.cityName {
+    white-space: nowrap; /* Keeps the city name on one line */
+    font-weight: bold;
+    color: #ffa915;
+    font-size: medium;
+}
+
+.citiesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.cityBox {
+    width: calc(100% / 9 - 20px);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.cityBox:hover {
+    background-color: #ffa915; /* Light background color change on hover */
+    transform: scale(1.05); /* Slight scaling effect on hover */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.cityBox:active {
+    transform: scale(0.98); /* Scale down slightly on click for feedback */
+    background-color: #ffa915; /* Background color change on click */
+}
+
+.cityName {
+    white-space: nowrap;
+    font-weight: bold;
+    color: #333; /* Adjusted color for better readability */
+}
+
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 768px) {
+    .citiesGrid {
+        padding: 10px; /* Reduced padding for smaller screens */
+    }
+
+    .cityCard {
+        height: 150px; /* Reduced height for mobile view */
+    }
+
+    .cityName {
+        font-size: 1.2rem; /* Smaller font size for mobile */
+    }
+
+    .citiesContainer {
+        gap: 15px; /* Reduced gap for mobile */
+    }
+
+    .cityBox {
+        width: calc(100% / 3 - 15px); /* 3 items per row on mobile */
+        padding: 10px; /* Reduced padding */
+    }
+}
+
+@media (max-width: 480px) {
+    .cityName {
+        font-size: 1rem; /* Further reduced font size */
+    }
+
+    .cityBox {
+        width: calc(100% / 2 - 10px); /* 2 items per row on smaller mobile screens */
+        padding: 5px; /* Reduced padding */
+    }
+
+    .citiesContainer {
+        gap: 10px; /* Further reduced gap for smaller mobile */
+    }
+}

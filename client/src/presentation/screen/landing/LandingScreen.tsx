@@ -1,5 +1,5 @@
 import Header from "../../components/Header";
-import LandingScreenModel from "./LandingScreenModel"
+import LandingScreenModel from "./LandingScreenModel";
 import HeroSlide from "../../components/HeroSlide";
 import styles from './LandingScreen.module.css';
 import CheapestProducts from "../../components/CheapestProducts/CheapestProducts";
@@ -20,8 +20,6 @@ export default function LandingScreen() {
         onKeyPress
     } = LandingScreenModel(new FavCitiesService(), new PropertyService());
 
-    console.log('Fav: ' + state.favCities)
-
     return (
         <div>
             <div className={styles.heroSlideContainer}>
@@ -33,12 +31,12 @@ export default function LandingScreen() {
 
             <div className={styles.favCitiesContainer}>
                 <div className={styles.favTitle2}>Beliebte Städte</div>
-                <hr className={styles.dividerLineFavortieCities}/>
+                <hr className={styles.dividerLineFavoriteCities}/> {/* Corrected "Favortie" to "Favorite" */}
                 <FavCities favCities={state.favCities}/>
             </div>
 
             <div className={styles.favProdsContainer}>
-                <div className={styles.favTitle2}>Beliebte Unterkunfte</div>
+                <div className={styles.favTitle2}>Beliebte Unterkünfte</div> {/* Corrected "Unterkunfte" to "Unterkünfte" */}
                 <hr className={styles.dividerLineFavoriteProperties}/>
                 <FavoriteProperties favoriteProperties={state.favoriteProperties}/>
             </div>
@@ -48,16 +46,7 @@ export default function LandingScreen() {
                 <hr className={styles.dividerLineCheapestProperties}/>
                 <CheapestProducts cheapestProperties={state.cheapestProperties}/>
             </div>
-           {/* <div className={styles.favProdsContainer}>
-                <div className={styles.favTitle2}>Beliebte Eigenschaften</div>
-                <hr className={styles.dividerLineFavoriteProperties}/>
-                <FavoriteProperties favoriteProperties={state.favoriteProperties}/>
-            </div>*/}
-           {/* <div className={styles.favCitiesContainer}>
-                <div className={styles.favTitle2}>Beliebte Städte</div>
-                <hr className={styles.dividerLineFavortieCities}/>
-                <FavCities favCities={state.favCities}/>
-            </div>*/}
+
             <div className={styles.aboutUsContainer}>
                 <div className={styles.aboutUsTitle}>CHECK-MONTEURZIMMER - Dein Partner für den besten Preis</div>
                 <AboutUs/>
@@ -66,5 +55,5 @@ export default function LandingScreen() {
                 <Footer/>
             </div>
         </div>
-    )
+    );
 }

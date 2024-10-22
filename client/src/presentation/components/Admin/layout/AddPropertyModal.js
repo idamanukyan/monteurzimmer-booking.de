@@ -25,7 +25,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
     }, []);
 
     useEffect(() => {
-        console.log('Filters ' + filters)
     }, [filters]);
 
     if (!isOpen) return null;
@@ -83,7 +82,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                 socialMediaLink: formData.socialMediaLink || ""
             };
 
-            console.log(dataToSend);
 
             await axios.post('http://localhost:8080/api/properties', dataToSend);
             resetForm();

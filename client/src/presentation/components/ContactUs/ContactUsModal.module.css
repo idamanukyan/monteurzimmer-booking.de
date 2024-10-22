@@ -1,65 +1,160 @@
-/* SubscribeModal.module.css */
-
-.modalOverlay {
+.uniqueModalOverlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Dark background overlay */
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999; /* Ensure it's on top of everything */
-    backdrop-filter: blur(10px); /* Blur the background */
+    z-index: 9999;
+    backdrop-filter: blur(10px);
 }
 
-.modalContent {
+.uniqueModalContent {
     background-color: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 10px;
     width: 400px;
     max-width: 90%;
-    box-shadow: 0 4px 15px rgba(255, 106, 0, 0.5); /* Orange shadow */
+    box-shadow: 0 4px 15px rgba(255, 106, 0, 0.5);
+    animation: fadeIn 0.3s;
 }
 
-.modalContent h2 {
-    margin-bottom: 20px;
-}
-
-.modalContent form label {
-    margin-bottom: 10px;
-    align-items: flex-start;
+.uniqueInputGroup {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Change to column for better stacking */
+    margin-bottom: 10px; /* Space between input groups */
 }
 
-.modalContent form input,
-.modalContent form textarea {
-    width: -webkit-fill-available;;
-    padding: 8px;
-    height: 20px;
-    margin-top: 5px;
+.uniqueInputGroup label {
+    margin-bottom: 5px; /* Space below each label */
+}
+
+.uniqueTextareaField {
+    width: 100%; /* Full width */
+    padding: 10px; /* Uniform padding */
+    border-radius: 10px; /* Consistent border radius */
+    border: 1px solid #ccc; /* Same border style */
+    height: 80px; /* Fixed height for textarea */
+    transition: border-color 0.3s; /* Smooth transition on focus */
+}
+
+.uniqueInputGroup textarea {
+    margin-top: 5px; /* Margin above textarea */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.uniqueModalContent h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.uniqueModalContent p {
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 14px;
+}
+
+.uniqueInputGroup {
+    display: flex;
+    flex-direction: column; /* Stack inputs vertically on small screens */
+    margin-bottom: 10px;
+}
+
+.uniqueInputGroup label {
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+.uniqueInputField,
+.uniqueTextareaField {
+    width: 100%;
+    padding: 10px;
     border-radius: 10px;
     border: 1px solid #ccc;
+    margin-top: 5px;
+    font-size: 14px;
+    box-shadow: none;
+    transition: border-color 0.3s;
 }
 
-.modalActions {
-    margin-top: 20px;
+.uniqueTextareaField {
+    height: 80px;
+}
+
+.uniqueInputField:focus,
+.uniqueTextareaField:focus {
+    border-color: #ff6200;
+    outline: none;
+}
+
+.uniqueModalActions {
+    margin-top: 15px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column; /* Stack buttons vertically on small screens */
+    gap: 10px;
 }
 
-.modalActions button {
-    padding: 10px 20px;
+.uniqueModalActions button {
+    padding: 8px 16px;
     background-color: #ff6200;
     border: none;
     border-radius: 10px;
     color: white;
     cursor: pointer;
-    width: 200px !important;
+    transition: background-color 0.3s;
 }
 
-.modalActions button[type="button"] {
+.uniqueModalActions button[type="button"] {
     background-color: #afafaf;
+}
+
+.uniqueModalActions button:hover {
+    background-color: #e55a00;
+}
+
+.error {
+    color: #d9534f;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    padding: 5px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}
+
+/* Responsive styles */
+@media (min-width: 768px) {
+    .uniqueInputGroup {
+        flex-direction: row; /* Switch back to horizontal layout for larger screens */
+        justify-content: space-between; /* Space out inputs */
+    }
+
+    .uniqueInputGroup label {
+        flex: 1; /* Allow labels to take equal space */
+        margin-right: 10px; /* Space between labels */
+    }
+
+    .uniqueInputGroup label:last-child {
+        margin-right: 0; /* Remove right margin from the last label */
+    }
+
+    .uniqueModalActions {
+        flex-direction: row; /* Horizontal button layout on larger screens */
+    }
+
+    .uniqueModalActions button {
+        flex-grow: 1; /* Makes buttons take equal space */
+    }
 }

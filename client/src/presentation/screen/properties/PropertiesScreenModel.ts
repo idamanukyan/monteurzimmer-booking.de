@@ -71,10 +71,7 @@ export default function PropertiesScreenModel(propertyService: PropertyService) 
         if (link) {
             try {
                 const propertyMainFields = await propertyService.getPropertyMainFields(link)
-                // console.log("Property: " + propertyMainFields)
-                // console.log("Property Fields: " + propertyMainFields?.description)
-                // console.log("Property Fields: " + propertyMainFields?.title)
-                // console.log("Property Fields: " + propertyMainFields?.image)
+
                 if (propertyMainFields) {
                     setState((prevState) => ({
                         ...prevState,
@@ -85,7 +82,6 @@ export default function PropertiesScreenModel(propertyService: PropertyService) 
                     }));
                 }
                 // @ts-ignore
-                // console.log("Property: " + state.propertiesMainFields[0])
 
             } catch (error) {
                 console.error('Error fetching properties:', error);
@@ -134,13 +130,10 @@ export default function PropertiesScreenModel(propertyService: PropertyService) 
 
     useEffect(() => {
         if (state.propertiesMainFields?.length) {
-            console.log("Updated propertiesMainFields: ", state.propertiesMainFields);
-            console.log("First field: ", state.propertiesMainFields[0]);
         }
     }, [state.propertiesMainFields]);
 
     useEffect(() => {
-        console.log(state)
         window.scrollTo(0, 0);
     }, [state]);
 

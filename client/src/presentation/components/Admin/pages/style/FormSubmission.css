@@ -1,55 +1,72 @@
-.form-submission-container {
-    background-color: #fff;
+.forms-page {
     padding: 20px;
+    background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    color: #343a40;
+.forms-title {
+    font-size: 24px;
+    color: #333;
     margin-bottom: 20px;
-    text-align: center;
 }
 
-input[type="text"],
-input[type="email"],
-textarea {
-    border: 1px solid #ced4da;
+.forms-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-item {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
     border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 15px;
-    width: 100%;
-    box-sizing: border-box;
+    padding: 15px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
 }
 
-textarea {
-    resize: vertical; /* Allow vertical resizing */
-    height: 100px; /* Set a default height */
+.form-item:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-button {
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-date {
+    font-size: 14px;
+    color: #999;
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination-button {
     padding: 10px 15px;
+    border: none;
+    background-color: #007bff;
+    color: white;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%; /* Full width for button */
+    transition: background-color 0.3s;
 }
 
-button:hover {
+.pagination-button:hover:not(:disabled) {
     background-color: #0056b3;
 }
 
-.error-message {
-    color: red;
-    text-align: center;
+.pagination-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }
 
-.success-message {
-    color: green;
-    text-align: center;
+.pagination-info {
+    font-size: 16px;
 }

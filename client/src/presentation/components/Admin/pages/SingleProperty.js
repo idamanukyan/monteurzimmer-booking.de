@@ -32,6 +32,14 @@ const SingleProperty = () => {
     const [error, setError] = useState(null); // State for error handling
     const [isFavorite, setIsFavorite] = useState(false);
 
+    const truncateDescription = (description, maxLength = 50) => {
+        if (!description) return '';  // Check if description is empty
+        return description.length > maxLength
+            ? description.slice(0, maxLength) + '...'
+            : description;  // Append "..." only if truncated
+    };
+
+
     useEffect(() => {
         const fetchProperty = async () => {
             try {
@@ -53,21 +61,31 @@ const SingleProperty = () => {
     // Function to fetch link preview data from LinkPreview API
     const fetchLinkPreview = async (link) => {
         try {
-            const apiKey = '447b14b374c440e2dad14c10a0e6f513'; // Your LinkPreview API key
-            const response = await axios.get(`https://api.linkpreview.net/?key=${apiKey}&q=${link}`);
+            const apiKey = '4a7bef5d-e98c-4d24-9f8b-e3c1a6970c25';
+            const response = await axios.get(`https://link-scrapper.vercel.app/get-link-info?api_key=${apiKey}&url=${link}`);
 
-            // Set the link preview state
-            setLinkPreview({
-                title: response.data.title || 'No title found',
-                description: response.data.description || 'No description found',
-                image: response.data.image || 'default-image-url.jpg',
-            });
+            // Check if response data exists
+            if (response.data) {
+                // Set the link preview state using the correct keys from the response
+                setLinkPreview({
+                    title: response.data.title || 'No title found',
+                    description: response.data.description || 'No description found',
+                    image: response.data.thumbnail ? `https:${response.data.thumbnail}` : 'default-image-url.jpg', // Ensure the thumbnail URL is absolute
+                    price: response.data.price || 'No price available', // Include price if needed
+                    subtitle: response.data.subtitle || 'No subtitle available' // Include subtitle if needed
+                });
+            } else {
+                // Handle the case where there is no response data
+                throw new Error('No data returned from the API');
+            }
         } catch (error) {
             console.error('Error fetching link preview:', error.response ? error.response.data : error.message);
             setLinkPreview({
                 title: 'Link Preview Unavailable',
                 description: 'Could not retrieve link preview.',
                 image: 'default-image-url.jpg',
+                price: 'No price available',
+                subtitle: 'No subtitle available'
             });
         }
     };
@@ -80,11 +98,9 @@ const SingleProperty = () => {
                     isFavorite: !isFavorite
                 });
 
-            console.log('Updated favorite response:', response.data); // Log the response from the update
 
             // Fetch the property again to get the updated status
             const updatedPropertyResponse = await axios.get(`http://localhost:8080/api/properties/${propertyId}`);
-            console.log('Updated property:', updatedPropertyResponse.data); // Log the updated property
 
             setProperty(updatedPropertyResponse.data);
             setIsFavorite(updatedPropertyResponse.data.isFavorite); // Update local favorite state
@@ -95,7 +111,6 @@ const SingleProperty = () => {
     };
 
     useEffect(() => {
-        console.log("Favorite: " + isFavorite)
     }, [isFavorite]);
 
 
@@ -126,7 +141,7 @@ const SingleProperty = () => {
                                     <img src={linkPreview.image} alt="Link Preview" className="preview-image"/>
                                     <div className="preview-details">
                                         <h4>{linkPreview.title}</h4>
-                                        <p>{linkPreview.description}</p>
+                                        <p>{truncateDescription(property.description, 90)}</p> {/* Use the truncate function here */}
                                     </div>
                                 </a>
                             </div>

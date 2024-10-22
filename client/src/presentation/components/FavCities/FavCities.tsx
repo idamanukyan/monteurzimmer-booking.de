@@ -8,7 +8,7 @@ interface FavCitiesProps {
     favCities: FavCitiesModel
 }
 
-const FavCities: React.FC<FavCitiesProps> = ({ favCities }) => {
+const FavCities: React.FC<FavCitiesProps> = ({favCities}) => {
     const navigate = useNavigate()
 
     const getPhotoUrl = (cityName: string) => {
@@ -22,19 +22,34 @@ const FavCities: React.FC<FavCitiesProps> = ({ favCities }) => {
 
 
     return (
-        <div className={styles.citiesGrid}>
-            {favCities.map((city, index) => (
-                <div className={styles.cityCard}
-                     key={city.id}
-                     style={{ backgroundImage: `url(${getPhotoUrl(city.name)})` }} // Use city.name here
-                     onClick={() => navigate('/properties', { state: { searchInput: city.name } })}
+        /*   <div className={styles.citiesGrid}>
+               {favCities.map((city, index) => (
+                   <div className={styles.cityCard}
+                        key={city.id}
+                        style={{ backgroundImage: `url(${getPhotoUrl(city.name)})` }} // Use city.name here
+                        onClick={() => navigate('/properties', { state: { searchInput: city.name } })}
+                   >
+                       <div className={styles.overlay}>
+                           <span className={styles.cityName}>{city.name}</span>
+                       </div>
+                   </div>
+               ))}
+           </div>*/
+
+        <div className={styles.citiesContainer}>
+            {favCities.map((city) => (
+                <div
+                    key={city.id}
+                    className={styles.cityBox}
+                    onClick={() => navigate('/properties', { state: { searchInput: city.name } })}
                 >
-                    <div className={styles.overlay}>
-                        <span className={styles.cityName}>{city.name}</span>
-                    </div>
+            <span className={styles.cityName}>
+                {city.name}
+            </span>
                 </div>
             ))}
         </div>
+
     );
 };
 
