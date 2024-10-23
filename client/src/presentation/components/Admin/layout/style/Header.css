@@ -29,7 +29,7 @@
 }
 
 .logout-button {
-    display: flex;
+    display: inline-flex; /* Inline-flex to prevent button from stretching */
     align-items: center; /* Center the icon and text vertically */
     padding: 10px 15px;
     background-color: #f1f1f1; /* Button background color */
@@ -40,6 +40,8 @@
     font-size: 1rem; /* Font size */
     cursor: pointer; /* Pointer on hover */
     margin-left: auto; /* Pushes the button to the right */
+    white-space: nowrap; /* Prevents text wrapping */
+    max-width: fit-content; /* Prevents the button from becoming too wide */
 }
 
 .logout-button:hover {
@@ -51,6 +53,7 @@
     height: 20px; /* Set icon size */
     margin-right: 5px; /* Space between icon and text */
 }
+
 
 /* Responsive Styles */
 @media (max-width: 768px) {
