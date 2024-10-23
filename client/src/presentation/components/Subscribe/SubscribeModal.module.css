@@ -41,9 +41,9 @@
 }
 
 .modalContent form label {
-    margin-bottom: 15px; /* More space between fields */
     display: flex;
     flex-direction: column;
+    text-align: left;
 }
 
 .inputField,
@@ -82,11 +82,15 @@
 }
 
 .submitButton {
-    background-color: #ff6200; /* Primary button color */
+    background-color: #ff6200 !important; /* Primary button color */
+}
+
+.submitButton:hover {
+    background-color: #e75800 !important; /* Primary button color */
 }
 
 .cancelButton {
-    background-color: #afafaf; /* Secondary button color */
+    background-color: #afafaf !important; /* Secondary button color */
 }
 
 .modalActions button:hover {

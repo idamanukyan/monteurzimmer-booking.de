@@ -29,13 +29,11 @@ h2 {
 input[type="email"], input[type="password"]{
     width: 100%;
     padding: 12px;
-    margin: 0.5rem 0;
     border: 1px solid #ced4da;
-    border-radius: 5px;
+    border-radius: 10px;
     transition: border-color 0.3s ease;
     justify-content: center;
     align-items: center;
-
 }
 
 /* Input focus effect */
