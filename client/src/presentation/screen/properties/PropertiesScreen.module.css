@@ -241,3 +241,9 @@ h3 {
     font-size: 14px; /* Font size for label */
     color: #333; /* Color for label */
 }
+
+.logo {
+    width: 100px; /* Adjust as necessary */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px; /* Space between logo and other content */
+}

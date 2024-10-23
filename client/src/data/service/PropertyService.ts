@@ -2,15 +2,9 @@ import axios, { AxiosResponse } from "../../../node_modules/axios/index"
 import {PropertiesModel, PropertyMainFields} from "../model/PropertiesModel";
 
 const api_url_main = 'http://localhost:8080/api/properties';
-//const api_url_link_preview = 'https://api.linkpreview.net/?key='
-//const apiKey = '8896ff78dcac79066cbd0bebc5dc2645';
-//const apiKey = '41ef05896abe124c64fce7d10447a2a5';
-//const apiKey = '3d1b63b63ac0aee4fefe3a828b181a9f';
-//const apiKey = '1c285900f108b0c13f2ca9cc99c99ff0';
-//const apiKey = 'd4ab2b77250129d32f65e75989eb6066';
 
-const api_url_link_preview = 'https://link-scrapper.vercel.app/get-link-info?api_key='
-const apiKey = '4a7bef5d-e98c-4d24-9f8b-e3c1a6970c25';
+const api_url_link_preview = 'https://fetchlinkapi-production.up.railway.app/link-preview?api_key='; // Use the new URL for the link preview API
+const apiKey = '8c3ede4e-66c1-4da7-841f-795b75bb5e2c'; // Updated API key
 
 export class PropertyService {
     getProperties = async (city: string) : Promise<PropertiesModel | null> => {
@@ -26,7 +20,7 @@ export class PropertyService {
 
     getPropertyMainFields = async (link: string) : Promise<PropertyMainFields | null> => {
         try {
-            const response : AxiosResponse = await axios.get(api_url_link_preview + apiKey + '&url=' + link)
+            const response: AxiosResponse = await axios.get(`${api_url_link_preview}${apiKey}&url=${encodeURIComponent(link)}`);
             const propertyMainFields: PropertyMainFields = response.data
             return propertyMainFields
         } catch (error) {

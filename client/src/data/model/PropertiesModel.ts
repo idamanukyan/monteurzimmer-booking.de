@@ -61,8 +61,10 @@ export interface City {
 }
 
 export interface PropertyMainFields {
+    url: string
     title: string
-    description: string
-    thumbnail: string
+    mainPhoto: string
     price: number
+    logo: string
+    description: string
 }

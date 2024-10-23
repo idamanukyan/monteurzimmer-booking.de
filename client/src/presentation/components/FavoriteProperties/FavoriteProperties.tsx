@@ -41,12 +41,17 @@ const FavoriteProperties: React.FC<FavoritePropertiesProps> = ({favoriteProperti
     return (
         <div className="carousel-container" ref={carouselRef}>
             {favoriteProperties.map((property, index) => (
-                <a key={index} href="facebook.com" target="_blank" rel="noopener noreferrer"
-                   className={styles.link}
-                   style={{textDecoration: 'none', color: 'inherit'}}>
+                <a
+                    key={index}
+                    href={property.url} // Set the href to property.url
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.link}
+                    style={{textDecoration: 'none', color: 'inherit'}}
+                >
                     <div className="carousel-cell" key={index}>
                         <div className={styles.carouselCellContainer}>
-                            <img src={property.thumbnail} alt={''}/>
+                            <img src={property.mainPhoto} alt={''} />
                             <div>
                                 <h3>{property.title}</h3>
                                 <h5>{truncateDescription(property.description, 350) || "No description available"}</h5>

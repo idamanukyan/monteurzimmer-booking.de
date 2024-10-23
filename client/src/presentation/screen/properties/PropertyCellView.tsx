@@ -12,9 +12,13 @@ interface PropertyCellProps {
     rating: number
     link: string
     propertyType: string
+    logo: string
 }
 
-const PropertyCellView: React.FC<PropertyCellProps> = ({title, description, image, price, rating, link, propertyType
+const PropertyCellView: React.FC<PropertyCellProps> = ({title, description,
+                                                           image, price,
+                                                           rating, link,
+                                                           propertyType, logo
 }) => {
     const navigate = useNavigate()
 
@@ -28,7 +32,7 @@ const PropertyCellView: React.FC<PropertyCellProps> = ({title, description, imag
             </div>
             <div className={styles.propertyCellRating}>
                 <div>
-                    <p>Rating: {rating}</p>
+                    <img src={logo} alt="Property Logo" className={styles.logo} />
                     <Button
                         variant="contained"
                         onClick={() => window.open(link, '_blank')}

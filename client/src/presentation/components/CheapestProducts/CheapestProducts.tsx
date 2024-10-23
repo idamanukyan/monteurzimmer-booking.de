@@ -41,11 +41,16 @@ const CheapestProducts: React.FC<CheapestPropertiesProps> = ({cheapestProperties
     return (
         <div className="carousel-container" ref={carouselRef}>
             {cheapestProperties.map((property, index) => (
-                <a key={index} href="facebook.com" target="_blank" rel="noopener noreferrer"
-                   className={styles.link}
-                   style={{textDecoration: 'none', color: 'inherit'}}>
+                <a
+                    key={index}
+                    href={property.url} // Set the href to property.url
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.link}
+                    style={{textDecoration: 'none', color: 'inherit'}}
+                >
                     <div className={styles.carouselCellContainer}>
-                        <img src={property.thumbnail} alt={property.title || 'Property Image'}/>
+                        <img src={property.mainPhoto} alt={property.title || 'Property Image'}/>
                         <div>
                             <h3>{property.title}</h3>
                             <h5>{truncateDescription(property.description, 350) || "No description available"}</h5>

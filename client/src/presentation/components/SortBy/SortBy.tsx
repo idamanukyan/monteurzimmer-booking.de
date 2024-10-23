@@ -22,23 +22,23 @@ const SortBy: React.FC<SortByProps> = ({ onSort }) => {
     return (
         <div className={styles.sortByContainer}>
             <button className={styles.sortByButton} onClick={toggleDropdown}>
-                Sort By {selectedOption ? `: ${selectedOption}` : ""}
+                Sortieren nach {selectedOption ? `: ${selectedOption}` : ""}
                 <span className={`arrow ${isOpen ? "open" : ""}`}>&#9660;</span>
             </button>
 
             {isOpen && (
                 <div className={styles.sortOptions}>
-                    <div onClick={() => handleSortOptionClick("Price: Low to High")}>
-                        Price: Low to High
+                    <div onClick={() => handleSortOptionClick("Preis: Niedrig bis Hoch")}>
+                        Preis: Niedrig bis Hoch
                     </div>
-                    <div onClick={() => handleSortOptionClick("Price: High to Low")}>
-                        Price: High to Low
+                    <div onClick={() => handleSortOptionClick("Preis: Hoch bis Niedrig")}>
+                        Preis: Hoch bis Niedrig
                     </div>
-                    <div onClick={() => handleSortOptionClick("Rating: Low to High")}>
-                        Rating: Low to High
+                    <div onClick={() => handleSortOptionClick("Bewertung: Niedrig bis Hoch")}>
+                        Bewertung: Niedrig bis Hoch
                     </div>
-                    <div onClick={() => handleSortOptionClick("Rating: High to Low")}>
-                        Rating: High to Low
+                    <div onClick={() => handleSortOptionClick("Bewertung: Hoch bis Niedrig")}>
+                        Bewertung: Hoch bis Niedrig
                     </div>
                 </div>
             )}

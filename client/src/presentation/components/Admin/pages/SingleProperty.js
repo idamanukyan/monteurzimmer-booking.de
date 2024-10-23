@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import './style/SingleProperty.css';
 import wifiIcon from '../pages/style/public/searchIcons/wifi.svg';
 import tvIcon from '../pages/style/public/searchIcons/tv.svg';
@@ -32,6 +32,10 @@ const SingleProperty = () => {
     const [error, setError] = useState(null); // State for error handling
     const [isFavorite, setIsFavorite] = useState(false);
 
+
+    const api_url_link_preview = 'https://fetchlinkapi-production.up.railway.app/link-preview?api_key='; // Use the new URL for the link preview API
+    const apiKey = '8c3ede4e-66c1-4da7-841f-795b75bb5e2c'; // Updated API key
+
     const truncateDescription = (description, maxLength = 50) => {
         if (!description) return '';  // Check if description is empty
         return description.length > maxLength
@@ -62,7 +66,7 @@ const SingleProperty = () => {
     const fetchLinkPreview = async (link) => {
         try {
             const apiKey = '4a7bef5d-e98c-4d24-9f8b-e3c1a6970c25';
-            const response = await axios.get(`https://link-scrapper.vercel.app/get-link-info?api_key=${apiKey}&url=${link}`);
+            const response = await axios.get(`${api_url_link_preview}${apiKey}&url=${encodeURIComponent(link)}`);
 
             // Check if response data exists
             if (response.data) {
@@ -70,7 +74,7 @@ const SingleProperty = () => {
                 setLinkPreview({
                     title: response.data.title || 'No title found',
                     description: response.data.description || 'No description found',
-                    image: response.data.thumbnail ? `https:${response.data.thumbnail}` : 'default-image-url.jpg', // Ensure the thumbnail URL is absolute
+                    image: response.data.mainPhoto ? `https:${response.data.mainPhoto}` : 'default-image-url.jpg',
                     price: response.data.price || 'No price available', // Include price if needed
                     subtitle: response.data.subtitle || 'No subtitle available' // Include subtitle if needed
                 });
