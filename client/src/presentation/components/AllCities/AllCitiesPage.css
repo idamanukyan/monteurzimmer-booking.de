@@ -114,6 +114,13 @@
     background-color: #e04300;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
 }
+.searchInput {
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
 /* Media Queries for Mobile Responsiveness */
 @media (max-width: 768px) {
