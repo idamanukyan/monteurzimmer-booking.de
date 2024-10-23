@@ -44,7 +44,6 @@ input:focus {
 
 /* Button styles */
 button {
-    width: 100%;
     padding: 12px;
     background-color: #007bff; /* Bright blue */
     color: whitesmoke;

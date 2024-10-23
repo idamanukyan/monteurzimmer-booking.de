@@ -10,6 +10,7 @@ import {FavCitiesService} from "../../../data/service/FavCitiesService";
 import {PropertyService} from "../../../data/service/PropertyService";
 import React from "react";
 import FavoriteProperties from "../../components/FavoriteProperties/FavoriteProperties";
+import AllCities from "../../components/FavCities/AllCities";
 
 export default function LandingScreen() {
     const {
@@ -45,6 +46,12 @@ export default function LandingScreen() {
                 <div className={styles.favTitle2}>Top 20 der günstigsten Optionen</div>
                 <hr className={styles.dividerLineCheapestProperties}/>
                 <CheapestProducts cheapestProperties={state.cheapestProperties}/>
+            </div>
+
+            <div className={styles.allCitiesContainer}>
+                <div className={styles.favTitle2}>Alle Städte</div>
+                <hr className={styles.dividerLineFavoriteCities}/> {/* Corrected "Favortie" to "Favorite" */}
+                <AllCities favCities={state.allCities}/>
             </div>
 
             <div className={styles.aboutUsContainer}>

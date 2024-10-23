@@ -38,6 +38,18 @@
     margin-top: 20px;
 }
 
+.allCitiesContainer {
+    padding: 20px 50px;
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+.allCitiesContainer > div {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    padding: 15px; /* Padding inside cards */
+    transition: transform 0.2s; /* Smooth scale on hover */
+}
+
 .aboutUsTitle {
     font-weight: bold;
     font-size: 36px;
