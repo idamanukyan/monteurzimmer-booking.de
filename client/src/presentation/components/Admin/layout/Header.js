@@ -2,7 +2,7 @@ import React from 'react';
 import './style/Header.css';
 import adminIcon from '../pages/style/public/admin.svg';
 import logoutIcon from '../pages/style/public/logout.svg';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -12,8 +12,8 @@ const Header = () => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
 
-        // Optionally redirect to login page or another page
-        navigate('/login'); // Redirect to login page
+        // Redirect to login page
+        navigate('/login');
     };
 
     return (
@@ -22,10 +22,10 @@ const Header = () => {
                 <img src={adminIcon} alt="Admin Icon" className="admin-icon" />
                 <h1 className="admin-title">Administrator-Dashboard</h1>
             </a>
-            <a href="/logout" className="logout-button">
+            <button onClick={handleLogout} className="logout-button">
                 <img src={logoutIcon} alt="Logout" className="logout-icon" />
                 Ausloggen
-            </a>
+            </button>
         </header>
     );
 };
