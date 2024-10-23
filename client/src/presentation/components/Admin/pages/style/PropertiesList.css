@@ -14,17 +14,17 @@
 /* Container for properties */
 .properties-list {
     display: flex;
-    flex-wrap: wrap;  /* Allows wrapping of items if needed */
-    justify-content: space-between;  /* Distribute space between items */
+    flex-wrap: wrap; /* Allows wrapping of items if needed */
+    justify-content: space-between; /* Distribute space between items */
     margin-top: 20px;
 }
 
 /* Each property card */
 .property-card {
-    margin: 10px;  /* Space around each card */
-    flex: 1 1 calc(33.333% - 20px);  /* Three cards per row, accounting for margin */
-    max-width: calc(33.333% - 20px);  /* Prevent cards from exceeding width */
-    box-sizing: border-box;  /* Include padding and margin in width calculation */
+    margin: 10px; /* Space around each card */
+    flex: 1 1 calc(20% - 20px); /* Five cards per row, accounting for margin */
+    max-width: calc(20% - 20px); /* Prevent cards from exceeding width */
+    box-sizing: border-box; /* Include padding and margin in width calculation */
 }
 
 /* Pagination controls */
@@ -35,30 +35,32 @@
 }
 
 .pagination-button {
-    margin: 0 10px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
+    margin: 0 8px; /* Slightly reduced margin */
+    padding: 8px 16px; /* Smaller padding for a more compact button */
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
+    font-size: 14px; /* Reduced font size */
+    border-radius: 5px; /* Slight rounding for a modern look */
+    transition: background-color 0.3s ease; /* Smooth transition effect */
 }
 
 .pagination-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+    background-color: #ccc; /* Disabled button color */
+    cursor: not-allowed; /* Not-allowed cursor for disabled state */
 }
 
 .pagination-info {
     align-self: center;
+    font-size: 14px; /* Match font size of buttons for consistency */
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
     .property-card {
-        flex: 1 1 calc(50% - 20px); /* Two cards per row on tablets */
-        max-width: calc(50% - 20px);
+        flex: 1 1 calc(33.333% - 20px); /* Three cards per row on tablets */
+        max-width: calc(33.333% - 20px);
     }
 
     .search-input {
@@ -68,8 +70,8 @@
 
 @media (max-width: 480px) {
     .property-card {
-        flex: 1 1 100%; /* One card per row on mobile */
-        max-width: 100%;
+        flex: 1 1 calc(50% - 20px); /* Two cards per row on mobile */
+        max-width: calc(50% - 20px);
     }
 
     .search-input {

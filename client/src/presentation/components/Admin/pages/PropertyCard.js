@@ -28,12 +28,8 @@ const PropertyCard = ({ property }) => {
                 <h3>{property.propertyName || 'Unnamed Property'}</h3>
                 <p><strong>Typen:</strong> {property.propertyType || 'N/A'}</p>
                 <p><strong>Adresse:</strong> {property.address || 'N/A'}</p>
-                <p><strong>Standort:</strong> {property.city?.name || 'N/A'}, {property.country || 'N/A'}</p>
+                <p><strong>Standort:</strong> {property.city?.name || 'N/A'}</p>
                 <p><strong>Preis:</strong> €{property.price || 'N/A'}</p>
-                <p><strong>Bewertungen:</strong> {property.rating || 'No ratings'}</p>
-                <p><strong>Maximale Gästezahl:</strong> {property.numberOfGuests || 'N/A'}</p>
-                <p><strong>Anzahl der Zimmer:</strong> {property.roomCount || 'N/A'}</p>
-                <p><strong>Anzahl der Badezimmer:</strong> {property.bathrooms || 'N/A'}</p>
                 <p>Erstellt am: {property.createdAt ? new Date(property.createdAt).toLocaleDateString() : 'Unknown date'}</p>
                 <button onClick={handleSeeMoreClick} className="see-more-button">
                     Mehr anzeigen

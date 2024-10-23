@@ -6,7 +6,7 @@ import PropertyCard from './PropertyCard';
 const PropertiesList = () => {
     const [properties, setProperties] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 9; // Number of properties per page
+    const pageSize = 12; // Number of properties per page
     const [searchTerm, setSearchTerm] = useState(''); // State for search input
     const [filteredProperties, setFilteredProperties] = useState([]); // State for filtered properties
 
@@ -60,7 +60,7 @@ const PropertiesList = () => {
             {/* Search Input */}
             <input
                 type="text"
-                placeholder="Suche nach Monteurzimmernamen..."
+                placeholder="Nach Monteurzimmern suchen..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="search-input"
@@ -95,7 +95,7 @@ const PropertiesList = () => {
 
             {/* Message if no properties found */}
             {filteredProperties.length === 0 && (
-                <p className="no-properties-message">Keine Immobilien gefunden.</p>
+                <p className="no-properties-message">Keine Monteurzimmer gefunden.</p>
             )}
         </div>
     );

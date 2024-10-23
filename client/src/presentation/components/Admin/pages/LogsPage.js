@@ -21,7 +21,7 @@ const LogsPage = () => {
     }, [currentPage]);
 
     if (!logs || logs.length === 0) {
-        return <p>No logs available</p>;
+        return <p>Keine Protokolle verfügbar</p>;
     }
 
     const totalPages = Math.ceil(logs.length / pageSize);
@@ -74,7 +74,7 @@ const LogsPage = () => {
                         </div>
                     ))
                 ) : (
-                    <p>No logs available.</p>
+                    <p>Keine Protokolle verfügbar.</p>
                 )}
             </div>
             {/* Pagination controls */}
@@ -87,7 +87,7 @@ const LogsPage = () => {
                     Zurück
                 </button>
                 <span className="pagination-info">
-                    Seite {currentPage} von {totalPages}
+                    Seite {currentPage} von {totalPages} Seiten
                 </span>
                 <button
                     onClick={handleNextPage}
