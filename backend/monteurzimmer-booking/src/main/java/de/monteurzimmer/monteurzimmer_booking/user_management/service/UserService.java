@@ -42,21 +42,18 @@ public class UserService {
     }
 
     public List<UserDTO> getAllUsers() {
-        log.info("User has tried to get all information about customers");
         return userRepository.findAll().stream()
                 .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
     }
 
     public UserDTO getUserById(Long id) {
-        log.info("User has tried to get information about a user");
         return modelMapper
                 .map((userRepository.findById(id)
                         .orElseThrow(() -> new ResourceNotFoundException(String.valueOf(id)))), UserDTO.class);
     }
 
     public CreateUserDTO createUser(CreateUserDTO userDto) {
-        log.info("User creation started.");
         if (userRepository.existsByEmail(userDto.getEmail())) {
             log.error("User has tried to add a user with already registered email.");
             throw new ApplicationException(HttpStatus.BAD_REQUEST, "User already exists.");
@@ -75,7 +72,6 @@ public class UserService {
     }
 
     public UserDTO updateUser(Long id, UpdateUserDTO userDetails) {
-        log.info("User has tried to update information about a user");
 
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User with id : {%s} not found", id.toString())));
@@ -91,7 +87,6 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        log.info("User has tried to delete information about a user");
         User user = userRepository.findById(id).get();
         if (user.getDeleted()) {
             log.error("User has tried to delete already deleted customer");

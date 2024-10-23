@@ -9,7 +9,6 @@
     flex-wrap: nowrap;
     gap: 15px;
     margin-bottom: 15px;
-
 }
 
 .input-group {
@@ -29,30 +28,23 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: border-color 0.3s;
     font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .small-input {
     min-width: 80px;
 }
 
-.filter-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #007bff;
-    border: none;
-    border-radius: 10px;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 30px;
-}
-
+.filter-button-container,
 .apply-button-container {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
+    margin-left: auto; /* Ensures buttons are aligned to the right */
 }
 
+.filter-button,
 .apply-button {
     display: flex;
     align-items: center;
@@ -64,9 +56,21 @@
     cursor: pointer;
     font-size: 16px;
     margin-top: 30px;
+    color: white;
+    transition: background-color 0.3s;
+}
+
+.filter-button:hover,
+.apply-button:hover {
+    background-color: #0056b3;
 }
 
 .filter-icon {
     width: 24px;
     height: 24px;
+    margin-right: 8px;
+}
+
+.filter-text {
+    font-size: 16px;
 }

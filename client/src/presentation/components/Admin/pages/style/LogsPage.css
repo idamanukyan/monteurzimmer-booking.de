@@ -43,36 +43,6 @@
     color: #666; /* Lighter color for the timestamp */
 }
 
-.pagination-controls {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between; /* Space between buttons */
-    align-items: center;
-}
-
-.pagination-controls button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #007bff; /* Primary button color */
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.pagination-controls button:disabled {
-    background-color: #ccc; /* Disabled button color */
-    cursor: not-allowed;
-}
-
-.pagination-controls button:hover:not(:disabled) {
-    background-color: #0056b3; /* Darker shade on hover */
-}
-
-.pagination-controls span {
-    font-size: 16px;
-}
-
 /* Log Level Color Styles */
 .log-level.INFO {
     color: green; /* Green for info */

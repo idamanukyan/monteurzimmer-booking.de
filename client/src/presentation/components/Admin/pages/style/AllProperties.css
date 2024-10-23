@@ -1,52 +1,31 @@
 .all-properties {
     padding: 20px;
+    max-width: 1200px; /* Limit overall width for better layout on large screens */
+    margin: 0 auto; /* Center the entire container */
+    text-align: center; /* Center-align content */
 }
 
 .properties-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px; /* Space between cards */
+    gap: 20px; /* Increase space between cards for better symmetry */
+    margin-top: 20px;
 }
 
 .url-input {
     width: 100%;
-    max-width: 300px; /* Limit input width */
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc; /* Add a border for input */
+    max-width: 400px; /* Increase max width for better visibility */
+    padding: 12px;
+    margin: 10px auto; /* Center-align the input */
+    border: 1px solid #ccc;
     border-radius: 5px;
-}
-
-.pagination-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.pagination-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.pagination-button:hover:not(:disabled) {
-    background-color: #0056b3;
-}
-
-.pagination-button:disabled {
-    background-color: #b0c4de;
-    cursor: not-allowed;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow for depth */
 }
 
 .configure-properties-button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 12px 24px;
     margin: 10px 0;
     background-color: #007bff;
     color: white;
@@ -63,7 +42,7 @@
 }
 
 .find-property-button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     margin: 10px 0;
     background-color: #007bff;
     color: white;
@@ -72,6 +51,8 @@
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%; /* Full width for the button */
+    max-width: 400px; /* Align with input field width */
+    margin: 10px auto; /* Center the button */
 }
 
 .find-property-button:disabled {
@@ -79,5 +60,9 @@
     cursor: not-allowed;
 }
 
-
-
+.search-container {
+    display: flex;
+    justify-content: center; /* Center align both input and button */
+    gap: 15px; /* Add space between input and button */
+    margin-bottom: 20px; /* Add margin below the container for better spacing */
+}

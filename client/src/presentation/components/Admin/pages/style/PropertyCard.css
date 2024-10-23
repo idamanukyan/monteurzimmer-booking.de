@@ -2,56 +2,65 @@
     background-size: cover;
     background-position: center;
     width: 100%; /* Full width */
-    max-width: 300px; /* Max width for larger screens */
-    height: 450px; /* Fixed height */
+    max-width: 300px; /* Reduced max width for larger screens */
+    height: 300px; /* Fixed height */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 15px;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    padding: 15px; /* Slightly increased padding */
     color: white;
     border-radius: 8px;
     position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transition effects */
     overflow: hidden; /* Prevent content from overflowing */
 }
 
 .property-card:hover {
     transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Deeper shadow on hover */
 }
 
 .property-card h3 {
-    margin: 0;
-    font-size: 1.4em; /* Adjusted font size */
+    margin: 0 0 5px; /* Adjusted margin for better spacing */
+    font-size: 1.1em; /* Reduced font size for the title */
     color: #FFD700; /* Bright color for better visibility (e.g., gold) */
+    font-weight: bold; /* Bold font for emphasis */
+    text-align: center; /* Center the text */
 }
 
 .property-card p {
-    margin: 5px 0;
-    font-size: 0.9em; /* Adjusted font size for better fit */
+    margin: 2px 0; /* Reduced margin for compactness */
+    font-size: 0.8em; /* Reduced font size for readability */
+    line-height: 1.2; /* Increased line height for better spacing */
+    text-align: center; /* Center the text */
 }
 
 .property-card-content {
-    background-color: rgba(0, 0, 0, 0.7); /* Darker background for better contrast */
-    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.8); /* Darker background for better contrast */
+    padding: 15px; /* Adjusted padding */
     border-radius: 8px;
-    height: 100%;
+    height: auto; /* Allow height to adjust based on content */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start; /* Align items to the start */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+    width: 100%; /* Ensure full width */
 }
 
 .see-more-button {
     background-color: #28a745;
     border: none;
     color: white;
-    padding: 8px; /* Reduced padding for smaller screens */
+    padding: 8px; /* Slightly increased padding for better touch area */
     text-align: center;
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 10px; /* Increased margin for better separation */
     width: 100%; /* Full width */
+    font-size: 0.9em; /* Increased font size for better readability */
+    transition: background-color 0.3s; /* Smooth transition for hover */
 }
 
 .see-more-button:hover {
@@ -61,7 +70,7 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
     .property-card {
-        max-width: 95%; /* Allow more space on smaller screens */
+        max-width: 90%; /* Allow more space on smaller screens */
         height: auto; /* Let height adjust based on content */
     }
 

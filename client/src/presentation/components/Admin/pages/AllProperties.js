@@ -84,10 +84,10 @@ const AllProperties = () => {
 
     return (
         <div className="all-properties">
-            <h2>Alle Eigenschaften</h2>
+            <h2>Alle Immobilien</h2>
 
             <a href="/admin/configure-properties" className="configure-properties-button">
-                Konfigurieren von Eigenschaften
+                Immobilien konfigurieren
             </a>
 
             <SearchBox
@@ -96,20 +96,23 @@ const AllProperties = () => {
                 fetchFilteredProperties={fetchFilteredProperties}
             />
 
-            <input
-                type="text"
-                placeholder="Geben Sie die URL der Immobilie ein"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                className="url-input" // Added class for styling
-            />
-            <button
-                onClick={handleFindByLink}
-                disabled={!url}
-                className="find-property-button"
-            >
-                Objekt per URL finden
-            </button>
+            <div className="search-container">
+                <input
+                    type="text"
+                    placeholder="Geben Sie die URL der Immobilie ein"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    className="url-input"
+                />
+                <button
+                    onClick={handleFindByLink}
+                    disabled={!url}
+                    className="find-property-button"
+                >
+                    Objekt per URL finden
+                </button>
+            </div>
+
 
             {properties.length > 0 ? (
                 <div className="properties-list">
@@ -130,7 +133,7 @@ const AllProperties = () => {
                     Zurück
                 </button>
                 <span className="pagination-info">
-                    Seite {currentPage} von {totalPages}
+                    Seite {currentPage} von {totalPages} Seiten
                 </span>
                 <button
                     onClick={handleNextPage}
