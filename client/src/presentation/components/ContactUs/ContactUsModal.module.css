@@ -14,7 +14,7 @@
 
 .uniqueModalContent {
     background-color: white;
-    padding: 20px;
+    padding: 40px;
     border-radius: 10px;
     width: 400px;
     max-width: 90%;
@@ -75,6 +75,7 @@
 
 .uniqueInputGroup label {
     margin-bottom: 5px; /* Space between label and input */
+    text-align: left;
 }
 
 .uniqueInputField,
@@ -83,14 +84,15 @@
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    margin-top: 5px;
     font-size: 14px;
     box-shadow: none;
     transition: border-color 0.3s;
 }
 
 .uniqueTextareaField {
+    resize: none;
     height: 80px;
+    width: -webkit-fill-available;
 }
 
 .uniqueInputField:focus,
@@ -106,22 +108,30 @@
     gap: 10px;
 }
 
-.uniqueModalActions button {
-    padding: 8px 16px;
+/*.uniqueModalActions button {*/
+/*    padding: 8px 16px;*/
+/*    background-color: #ff6200;*/
+/*    border: none;*/
+/*    border-radius: 10px;*/
+/*    color: white;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s;*/
+/*}*/
+
+.uniqueCancelButton {
+    background-color: #afafaf !important;
+}
+
+.uniqueCancelButton:hover {
+    background-color: #757575 !important;
+}
+
+.uniqueSubmitButton {
     background-color: #ff6200;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-.uniqueModalActions button[type="button"] {
-    background-color: #afafaf;
-}
-
-.uniqueModalActions button:hover {
-    background-color: #e55a00;
+.uniqueSubmitButton:hover {
+    background-color: #e03c00;
 }
 
 .error {
@@ -144,6 +154,7 @@
     .uniqueInputGroup label {
         flex: 1; /* Allow labels to take equal space */
         margin-right: 10px; /* Space between labels */
+        text-align: left;
     }
 
     .uniqueInputGroup label:last-child {
