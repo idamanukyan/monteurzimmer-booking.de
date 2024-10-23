@@ -4,6 +4,7 @@ import de.monteurzimmer.monteurzimmer_booking.user_management.entity.Role;
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.User;
 import de.monteurzimmer.monteurzimmer_booking.user_management.repository.RoleRepository;
 import de.monteurzimmer.monteurzimmer_booking.user_management.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -30,7 +31,10 @@ public class CreateAdmin {
             user.setName("admin");
             user.setSurname("admin");
             user.setEmail("idamyan01@gmail.com");
-            user.setPassword("hgyhno776nok");
+            String rawPassword = "test";
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String encodedPassword = passwordEncoder.encode(rawPassword);
+            user.setPassword(encodedPassword);
             Role role = roleRepository.findAdminRole().get();
             user.setRoles(Set.of(role));
             user.setCreated(LocalDateTime.now());
