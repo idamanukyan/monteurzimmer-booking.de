@@ -48,7 +48,7 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/sign-in")
+    @PostMapping("/sign-in/old")
     public ResponseEntity<?> signIn(@RequestBody UserDTO request) {
         return userService.signIn(request.getEmail(), request.getPassword());
     }

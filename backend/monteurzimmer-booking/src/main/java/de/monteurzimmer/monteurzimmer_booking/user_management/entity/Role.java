@@ -1,12 +1,13 @@
 package de.monteurzimmer.monteurzimmer_booking.user_management.entity;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,11 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
     private Set<Permission> permissions;
+
+    @Override
+    public String getAuthority() {
+        return name; // Return the role name as the authority
+    }
 
     public Long getId() {
         return id;

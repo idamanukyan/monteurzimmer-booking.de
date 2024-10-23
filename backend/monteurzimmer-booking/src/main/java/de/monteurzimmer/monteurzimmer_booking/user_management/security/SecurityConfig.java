@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,9 +17,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtRequestFilter jwtRequestFilter;
-    private final UserDetailsService userDetailsService;
+    private final MyUserDetailsService userDetailsService;
 
-    public SecurityConfig(JwtRequestFilter jwtRequestFilter, UserDetailsService userDetailsService) {
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter, MyUserDetailsService userDetailsService) {
         this.jwtRequestFilter = jwtRequestFilter;
         this.userDetailsService = userDetailsService;
     }
@@ -30,8 +29,13 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for API-based applications
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/sign-in").permitAll() // Allow public access to login
-                        .anyRequest().authenticated() // Protect other endpoints
+                        .requestMatchers("/api/users/sign-in").permitAll()
+                        .requestMatchers("/api/properties/cheapest").permitAll()
+                        .requestMatchers("/api/properties/favorites").permitAll()
+                        .requestMatchers("/api/cities/favorites").permitAll()
+                        .requestMatchers("/api/cities/all").permitAll()
+                        .requestMatchers("api/properties/city/{city}").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Set session policy to stateless (JWT)
