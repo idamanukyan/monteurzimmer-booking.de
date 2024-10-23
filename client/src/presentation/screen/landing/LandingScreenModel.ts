@@ -11,6 +11,7 @@ interface LandingState {
     readonly cheapestProperties: PropertyMainFields[]
     readonly favoriteProperties: PropertyMainFields[]
     readonly favCities: FavCitiesModel
+    readonly allCities: FavCitiesModel
 }
 
 export default function LandingScreenModel(
@@ -22,7 +23,8 @@ export default function LandingScreenModel(
         radius: 0,
         cheapestProperties: [],
         favoriteProperties: [],
-        favCities: []
+        favCities: [],
+        allCities: []
     })
     const navigate = useNavigate();
 
@@ -30,6 +32,7 @@ export default function LandingScreenModel(
         getCheapestProperties();
         getFavoriteProperties();
         getFavCities();
+        getAllCities();
     }, []);
 
     function onSearchTextChange(changeEvent: React.ChangeEvent<HTMLInputElement>) {
@@ -72,6 +75,24 @@ export default function LandingScreenModel(
             setState((prevState) => ({
                 ...prevState,
                 favCities: []
+            }));
+        }
+    };
+
+    const getAllCities = async () => {
+        try {
+            const allCities = await favCitiesService.getAllCities();
+            if (allCities) {
+                setState((prevState) => ({
+                    ...prevState,
+                    allCities
+                }));
+            }
+        } catch (error) {
+            console.error('Error fetching cities:', error);
+            setState((prevState) => ({
+                ...prevState,
+                allCities: []
             }));
         }
     };

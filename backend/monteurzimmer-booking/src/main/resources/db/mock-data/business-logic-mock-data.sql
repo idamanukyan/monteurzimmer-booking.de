@@ -78,25 +78,3 @@ VALUES ('Cosy Apartment', 'Wohnung', 'A quiet apartment in the city center.', 'M
         FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, TRUE, TRUE,
         TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE,
         'Altona', 4, 53.5511, 9.9937, NOW(), false);
-
-
-INSERT INTO property_photos (id, property_id, photo_url, uploaded_at, is_primary)
-VALUES (1, 1, 'client/storage/upload/icons/city/photo1.jpg', '2024-10-04 10:30:00', true),
-       (2, 2, 'client/storage/upload/icons/city/photo2.jpg', '2024-10-04 10:35:00', false),
-       (3, 3, 'client/storage/upload/icons/city/photo3.jpg', '2024-10-03 11:00:00', true),
-       (4, 4, 'client/storage/upload/icons/city/photo4.jpg', '2024-10-01 12:45:00', true),
-       (5, 5, 'client/storage/upload/icons/city/photo5.jpg', '2024-09-30 09:00:00', false),
-       (6, 6, 'client/storage/upload/icons/city/photo6.jpg', '2024-09-30 09:00:00', false),
-       (7, 7, 'client/storage/upload/icons/city/photo7.jpg', '2024-09-30 09:00:00', false);
-
-INSERT INTO cities (name, is_favorite, photo_url)
-VALUES ('Berlin', TRUE, 'client/storage/upload/icons/city/berlin.jpg'),
-       ('Hamburg', TRUE, 'client/storage/upload/icons/city/hamburg.jpg'),
-       ('Munich', TRUE, 'client/storage/upload/icons/city/munich.jpg'),
-       ('Cologne', TRUE, 'client/storage/upload/icons/city/cologne.jpg'),
-       ('Stuttgart', TRUE, 'client/storage/upload/icons/city/stuttgart.jpg'),
-       ('Dortmund', TRUE, 'client/storage/upload/icons/city/dortmund.jpg'),
-       ('Lepizig', TRUE, 'client/storage/upload/icons/city/leipzig.jpg'),
-       ('Essen', TRUE, 'client/storage/upload/icons/city/essen.jpg'),
-       ('Hannover', TRUE, 'client/storage/upload/icons/city/hannover.jpg'),
-       ('Nuremberg', FALSE, 'client/storage/upload/icons/city/nuremberg.jpg');

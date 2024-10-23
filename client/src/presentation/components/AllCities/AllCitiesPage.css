@@ -1,5 +1,10 @@
-/* FavCities.css */
+.container {
+    padding: 20px; /* Adjust as needed for spacing */
+}
 
+.title {
+    margin-bottom: 20px; /* Space below the title */
+}
 .citiesGrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
@@ -41,6 +46,9 @@
     font-size: 1.5rem; /* Font size */
     transform: translateY(0); /* Initial position (no translation) */
     transition: transform 0.3s ease, color 0.3s ease; /* Smooth transition for position and color */
+    text-overflow: ellipsis;
+    max-width: 100%; /* Ensure it fits within the box */
+    overflow: hidden; /* Hide overflow */
 }
 
 .cityCard:hover .overlay {
@@ -66,10 +74,10 @@
 .citiesContainer {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 20px; /* Space between city boxes */
     justify-content: flex-start;
+    padding: 10px; /* Optional: Additional padding inside the container */
 }
-
 .cityBox {
     width: calc(100% / 9 - 20px);
     padding: 20px;
@@ -100,29 +108,6 @@
     white-space: nowrap;
     font-weight: bold;
     color: #333; /* Adjusted color for better readability */
-}
-
-.seeMoreButton {
-    display: inline-flex;
-    align-items: center;
-    background-color: #ff4812;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    box-shadow: none;
-    height: auto; /* Allow height to adjust based on padding */
-    margin: 20px auto; /* Center button horizontally and add vertical margin */
-}
-
-.seeMoreButton .arrowIcon {
-    margin-left: 10px;
-    font-size: 18px;
-    transition: transform 0.3s ease;
 }
 
 .seeMoreButton:hover {
@@ -166,5 +151,34 @@
 
     .citiesContainer {
         gap: 10px; /* Further reduced gap for smaller mobile */
+    }
+}
+
+/* Optionally, adjust the cityBox style to add margins */
+.cityBox {
+    margin: 10px; /* Add margins around each city box for extra spacing */
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Responsive font size adjustments */
+@media (max-width: 768px) {
+    .cityName {
+        font-size: 1rem; /* Smaller font size for mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .cityName {
+        font-size: 0.9rem; /* Further reduced font size for very small screens */
     }
 }

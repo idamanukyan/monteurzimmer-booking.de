@@ -16,7 +16,8 @@ import PropertiesScreen from "./presentation/screen/properties/PropertiesScreen"
 import FormSubmission from "./presentation/components/Admin/pages/FormSubmission";
 import ProtectedRoute from "./ProtectedRoute"; // Ensure this imports your ProtectedRoute correctly
 import NotFound from "./presentation/components/Login/NotFound";
-import LoginPage from "./presentation/components/Login/LoginPage"; // This can be your main Admin landing page
+import LoginPage from "./presentation/components/Login/LoginPage";
+import AllCitiesPage from "./presentation/components/AllCities/AllCitiesPage";
 
 function App() {
     return (
@@ -25,8 +26,8 @@ function App() {
                 <Routes>
                     <Route path={'/'} element={<LandingScreen/>}/>
                     <Route path={'/properties'} element={<PropertiesScreen/>}/>
-                    <Route path={'/login'} element={<LoginPage/>}/> {/* Add Login route */}
-
+                    <Route path={'/login'} element={<LoginPage/>}/>
+                    <Route path="/all-cities" element={<AllCitiesPage/>} />
                     {/* Protect the entire /admin path */}
                     <Route path="/admin" element={
                         <ProtectedRoute requiredRole="ADMIN">
