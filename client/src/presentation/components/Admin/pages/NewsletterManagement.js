@@ -2,166 +2,213 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './style/NewsletterManagement.css';
 
-const NewsletterManagement = () => {
-    const [subscribers, setSubscribers] = useState([]);
-    const [activeSubscriptions, setActiveSubscriptions] = useState([]);
-    const [searchEmail, setSearchEmail] = useState('');
-    const [filteredSubscriptions, setFilteredSubscriptions] = useState([]);
-    const [formData, setFormData] = useState({
+const NewsletterControlPanel = () => {
+    const [subscriberList, setSubscriberList] = useState([]);
+    const [activeSubscriberList, setActiveSubscriberList] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredActiveSubscribers, setFilteredActiveSubscribers] = useState([]);
+    const [subscriptionData, setSubscriptionData] = useState({
         email: '',
         name: '',
         surname: '',
         birthDate: '',
     });
-    const [errorMessage, setErrorMessage] = useState('');
+    const [notificationMessage, setNotificationMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const authToken = localStorage.getItem('access_token');
 
     useEffect(() => {
-        fetchSubscribers();
-        fetchActiveSubscriptions();
+        fetchAllSubscribers();
+        fetchActiveSubscriberList();
     }, []);
 
     useEffect(() => {
-        setFilteredSubscriptions(
-            activeSubscriptions.filter(subscription =>
-                subscription.toLowerCase().includes(searchEmail.toLowerCase())
+        setFilteredActiveSubscribers(
+            activeSubscriberList.filter(subscriber =>
+                subscriber.toLowerCase().includes(searchTerm.toLowerCase())
             )
         );
-    }, [searchEmail, activeSubscriptions]);
+    }, [searchTerm, activeSubscriberList]);
 
-    const fetchSubscribers = async () => {
+    const fetchAllSubscribers = async () => {
+        setIsLoading(true);
         try {
-            const response = await axios.get('http://localhost:8080/api/newsletter/all-subscriptions');
-            setSubscribers(response.data);
+            const response = await axios.get('http://localhost:8080/api/newsletter/all-subscriptions', {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            setSubscriberList(response.data);
         } catch (error) {
-            console.error('Fehler beim Abrufen der Abonnenten:', error);
+            console.error('Error fetching subscribers:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
-    const fetchActiveSubscriptions = async () => {
+    const fetchActiveSubscriberList = async () => {
+        setIsLoading(true);
         try {
-            const response = await axios.get('http://localhost:8080/api/newsletter/active-subscriptions');
-            setActiveSubscriptions(response.data);
-            setFilteredSubscriptions(response.data); // Setze gefilterte Abonnements initial
+            const response = await axios.get('http://localhost:8080/api/newsletter/active-subscriptions', {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            setActiveSubscriberList(response.data);
+            setFilteredActiveSubscribers(response.data);
         } catch (error) {
-            console.error('Fehler beim Abrufen der aktiven Abonnements:', error);
+            console.error('Error fetching active subscriptions:', error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
-    const handleRemoveSubscriber = async (email) => {
+    const handleUnsubscribe = async (email) => {
         try {
             await axios.post('http://localhost:8080/api/newsletter/unsubscribe', null, {
-                params: { email }
+                params: { email },
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
             });
-            fetchSubscribers();
-            fetchActiveSubscriptions();
+            fetchAllSubscribers();
+            fetchActiveSubscriberList();
         } catch (error) {
-            console.error('Fehler beim Abmelden des Abonnenten:', error);
+            console.error('Error unsubscribing the user:', error);
         }
     };
 
     const handleSubscribe = async () => {
-        setErrorMessage(''); // Vorherige Fehlermeldung löschen
+        setNotificationMessage('');
+
+        // Log subscription data to debug
+        console.log('Subscription Data:', subscriptionData);
+
+        if (!/\S+@\S+\.\S+/.test(subscriptionData.email)) {
+            setNotificationMessage('Please enter a valid email address.');
+            return;
+        }
+
         try {
-            const { email, name, surname, birthDate } = formData;
-            await axios.post('http://localhost:8080/api/newsletter/subscribe', { email, name, surname, birthDate });
-            fetchSubscribers(); // Abonnentenliste aktualisieren
-            fetchActiveSubscriptions(); // Aktive Abonnementsliste aktualisieren
-            setFormData({ email: '', name: '', surname: '', birthDate: '' }); // Formulardaten zurücksetzen
+            const { email, name, surname, birthDate } = subscriptionData;
+            await axios.post('http://localhost:8080/api/newsletter/subscribe', {
+                email: email,
+                name: name,
+                surname: surname,
+                birthDate: birthDate
+            }, {
+                headers: {
+                    Authorization: `Bearer ${authToken}`
+                }
+            });
+            fetchAllSubscribers();
+            fetchActiveSubscriberList();
+            setSubscriptionData({ email: '', name: '', surname: '', birthDate: '' });
         } catch (error) {
-            console.error('Fehler beim Abonnieren:', error);
-            setErrorMessage('Abonnement fehlgeschlagen. Bitte überprüfen Sie Ihre Eingaben.');
+            console.error('Error during subscription:', error);
+            setNotificationMessage('Subscription failed. Please check your input.');
         }
     };
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setSubscriptionData((prevData) => ({ ...prevData, [name]: value }));
     };
 
     return (
-        <div>
-            <h2>Newsletter-Verwaltung</h2>
-
-            {/* Abonnement-Formular */}
+        <div className="newsletter-control-panel">
+            <h2>Newsletter Control Panel</h2>
             <div>
-                <h3>Abonnieren</h3>
-                <div className="form-container">
+                <h3>Subscribe</h3>
+                <div className="newsletter-form-container">
                     <input
                         type="email"
                         name="email"
-                        placeholder="E-Mail"
-                        value={formData.email}
-                        onChange={handleChange}
+                        placeholder="Email (e.g., max@example.com)"
+                        value={subscriptionData.email}
+                        onChange={handleInputChange}
                         required
+                        className="newsletter-input newsletter-input-email"
                     />
                     <input
                         type="text"
                         name="name"
-                        placeholder="Vorname"
-                        value={formData.name}
-                        onChange={handleChange}
+                        placeholder="First Name"
+                        value={subscriptionData.name}
+                        onChange={handleInputChange}
                         required
+                        className="newsletter-input newsletter-input-text"
                     />
                     <input
                         type="text"
                         name="surname"
-                        placeholder="Nachname"
-                        value={formData.surname}
-                        onChange={handleChange}
+                        placeholder="Last Name"
+                        value={subscriptionData.surname}
+                        onChange={handleInputChange}
                         required
+                        className="newsletter-input newsletter-input-text"
                     />
                     <input
                         type="date"
                         name="birthDate"
-                        value={formData.birthDate}
-                        onChange={handleChange}
+                        value={subscriptionData.birthDate}
+                        onChange={handleInputChange}
                         required
+                        className="newsletter-input newsletter-input-date"
                     />
-                    <button onClick={handleSubscribe}>Abonnieren</button>
+                    <button onClick={handleSubscribe} className="newsletter-button">Subscribe</button>
                 </div>
-                {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+                {notificationMessage && <p style={{ color: 'red' }}>{notificationMessage}</p>}
             </div>
 
-            {/* Liste der Abonnenten */}
-            <h3>Bestehende Abonnenten</h3>
-            <div className="newsletter-management-container">
-                <div className="subscribers-list">
-                    {subscribers.map((subscriber) => (
-                        <div key={subscriber.id} className="subscriber-card">
+            <h3>Existing Subscribers</h3>
+            <div className="newsletter-subscribers-list">
+                {isLoading ? (
+                    <p>Loading subscribers...</p>
+                ) : (
+                    subscriberList.map((subscriber) => (
+                        <div key={subscriber.id} className="newsletter-subscriber-card">
                             <h4>{subscriber.name} {subscriber.surname}</h4>
-                            <p>E-Mail: {subscriber.email}</p>
-                            <p>Geburtsdatum: {subscriber.birthDate}</p>
-                            <p>Status: {subscriber.active ? 'Aktiv' : 'Inaktiv'}</p>
+                            <p>Email: {subscriber.email}</p>
+                            <p>Birth Date: {subscriber.birthDate}</p>
+                            <p>Status: {subscriber.active ? 'Active' : 'Inactive'}</p>
                         </div>
-                    ))}
-                </div>
+                    ))
+                )}
             </div>
 
-            {/* Liste der aktiven Abonnements */}
-            <h3>Aktive Abonnements</h3>
+            <h3>Active Subscriptions</h3>
             <input
                 type="text"
-                placeholder="E-Mail suchen"
-                value={searchEmail}
-                onChange={(e) => setSearchEmail(e.target.value)}
-                className="search-input"
+                placeholder="Search Email"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="newsletter-search-input"
             />
-            <div className="active-subscriptions-list">
+            <div className="newsletter-active-subscriptions-list">
                 <table>
                     <thead>
                     <tr>
-                        <th>E-Mail</th>
-                        <th>Aktionen</th>
+                        <th>Email</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {filteredSubscriptions.map((email, index) => (
-                        <tr key={index}>
-                            <td>{email}</td>
-                            <td>
-                                <button onClick={() => handleRemoveSubscriber(email)}>Abmelden</button>
-                            </td>
+                    {isLoading ? (
+                        <tr>
+                            <td colSpan="2">Loading active subscriptions...</td>
                         </tr>
-                    ))}
+                    ) : (
+                        filteredActiveSubscribers.map((email) => (
+                            <tr key={email}>
+                                <td>{email}</td>
+                                <td>
+                                    <button onClick={() => handleUnsubscribe(email)} className="newsletter-unsubscribe-button">Unsubscribe</button>
+                                </td>
+                            </tr>
+                        ))
+                    )}
                     </tbody>
                 </table>
             </div>
@@ -169,4 +216,4 @@ const NewsletterManagement = () => {
     );
 };
 
-export default NewsletterManagement;
+export default NewsletterControlPanel;

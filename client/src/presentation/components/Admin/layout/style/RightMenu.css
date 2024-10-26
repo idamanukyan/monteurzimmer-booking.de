@@ -1,15 +1,15 @@
 .right-menu {
-    width: 300px; /* Fixed width for right menu */
-    background-color: #f9f9f9; /* Light background color */
-    border: 1px solid #ccc; /* Light border */
-    border-radius: 8px; /* Rounded edges */
-    padding: 20px; /* Padding around the content */
-    margin-right: 20px; /* Space between menu and main content */
+    width: 300px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-right: 20px;
 }
 
 .right-menu h2 {
-    margin-bottom: 15px; /* Space below the header */
-    font-size: 18px; /* Font size for the header */
+    margin-bottom: 15px;
+    font-size: 18px;
 }
 
 .right-menu ul {
@@ -22,52 +22,51 @@
 }
 
 .right-menu a {
-    display: flex; /* Use flexbox for better alignment */
-    align-items: center; /* Center icon and text vertically */
-    color: black; /* Change link color to black */
-    text-decoration: none; /* Remove underline */
-    padding: 10px; /* Padding inside each link */
-    border-radius: 5px; /* Rounded edges for the links */
-    margin-bottom: 10px; /* Space between links */
-    transition: background-color 0.3s; /* Transition for hover effect */
-    font-size: 1.2rem; /* Set a consistent font size */
+    display: flex;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+    font-size: 1.2rem;
 }
 
 .right-menu a:hover {
-    background-color: #e0e0e0; /* Change background color on hover */
-    color: #007BFF; /* Change color on hover for better UX */
+    background-color: #e0e0e0;
+    color: #007BFF;
 }
 
 .menu-icon {
-    width: 20px; /* Set icon width */
-    height: 20px; /* Set icon height */
-    margin-right: 10px; /* Space between icon and text */
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
     .right-menu {
-        width: 100%; /* Full width for mobile devices */
-        margin-right: 0; /* Remove margin on mobile */
-        padding: 15px; /* Adjust padding for smaller screens */
+        width: 100%;
+        margin-right: 0;
+        padding: 15px;
     }
 
     .right-menu a {
-        font-size: 1rem; /* Smaller font size for mobile */
+        font-size: 1rem;
     }
 }
 
 @media (max-width: 480px) {
     .right-menu {
-        padding: 10px; /* Less padding on very small screens */
+        padding: 10px;
     }
 
     .right-menu a {
-        font-size: 0.9rem; /* Further reduce font size */
+        font-size: 0.9rem;
     }
 
     .menu-icon {
-        width: 18px; /* Adjust icon size for very small screens */
+        width: 18px;
         height: 18px;
     }
 }

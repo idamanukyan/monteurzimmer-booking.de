@@ -5,7 +5,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7); /* Slightly darker overlay for better contrast */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,7 +16,8 @@
     background-color: #fff;
     border-radius: 20px;
     padding: 40px;
-    width: 50%;
+    width: 90%; /* Full width on mobile */
+    max-width: 600px; /* Set max width for larger screens */
     max-height: 80%;
     overflow-y: auto;
     display: flex;
@@ -36,18 +37,27 @@ form {
 
 input, select, textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px; /* Increased padding for better touch targets */
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    /*margin-left: 10px; !* Space between buttons *!*/
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #007bff; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
 }
 
 .input-row {
     display: flex;
+    flex-wrap: wrap; /* Wrap items on smaller screens */
     gap: 10px;
+}
+
+.input-row input {
+    flex: 1 1 45%; /* Allow inputs to grow and shrink; take up to 45% width */
+    min-width: 200px; /* Ensure minimum width for usability */
 }
 
 .modal-buttons {
@@ -58,7 +68,7 @@ input, select, textarea {
 }
 
 .modal-buttons button {
-    padding: 10px 15px;
+    padding: 12px 20px; /* Increased padding for better touch targets */
     border: none;
     border-radius: 5px;
     background-color: #007bff;
@@ -75,3 +85,23 @@ input, select, textarea {
     background-color: #00448a;
 }
 
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 20px; /* Reduced padding on mobile */
+    }
+
+    .modal-buttons {
+        flex-direction: column; /* Stack buttons on mobile */
+        gap: 10px;
+    }
+
+    .input-row {
+        flex-direction: column; /* Stack inputs on mobile */
+    }
+
+    .input-row input {
+        flex: none; /* Remove flex-grow/shrink on mobile */
+        width: 100%; /* Full width on mobile */
+    }
+}

@@ -2,18 +2,16 @@ import React from 'react';
 import './style/DocumentsManagement.css';
 
 const DocumentsManagement = () => {
-    // List of document file names
     const documents = [
         'Technical-Document.pdf',
         'Admin-Guide.pdf',
         'User-Guide.pdf',
-        // Add other document names as needed
     ];
 
     return (
-        <div className="documents-management-container">
-            <h2>Dokumentenverwaltung</h2>
-            <div className="documents-list">
+        <div className="documents-management-page">
+            <h2 className="documents-management-title">Dokumentenverwaltung</h2>
+            <div className="documents-management-list">
                 {documents.map((document) => (
                     <DocumentCard key={document} document={document} />
                 ))}
@@ -24,9 +22,9 @@ const DocumentsManagement = () => {
 
 const DocumentCard = ({ document }) => (
     <div className="document-card">
-        <h3>{document}</h3>
+        <h3 className="document-card-title">{document}</h3>
         <iframe
-            src={`/docs/${document}`} // Directly reference the document path
+            src={`/docs/${document}`}
             width="100%"
             height="400"
             title={document}

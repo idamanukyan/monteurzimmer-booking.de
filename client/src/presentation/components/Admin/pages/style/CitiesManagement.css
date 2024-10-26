@@ -1,250 +1,84 @@
-/* Global Styles */
-body {
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
-    font-size: 16px; /* Use relative font size */
-}
-
-h2 {
-    color: #343a40;
-    font-size: 2em;
-    text-align: center;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-/* Button Styles */
-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 1em;
-}
-
-button:hover {
-    background-color: #218838;
-    transform: translateY(-3px);
-}
-
-button:active {
-    background-color: #1e7e34;
-    transform: translateY(0);
-}
-
-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.4);
-}
-
-/* Modal Styles */
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    width: 90%; /* Make modal responsive */
-    max-width: 350px;
-}
-
-.modal h3 {
-    margin-top: 0;
-    font-size: 1.5em;
-    color: #343a40;
-}
-
-.modal input[type="text"],
-.modal input[type="number"],
-.modal label {
+/* Cities Management Table Styles */
+.cities-table {
     width: 100%;
-    margin-bottom: 10px;
-}
-
-.modal input[type="text"],
-.modal input[type="number"] {
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 1em;
-    margin-bottom: 15px;
-}
-
-.modal button {
-    margin-top: 10px;
-    width: 48%;
-}
-
-.modal button[type="button"] {
-    background-color: #dc3545;
-}
-
-.modal button[type="button"]:hover {
-    background-color: #c82333;
-}
-
-/* City Cards List */
-.cities-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    border-collapse: collapse;
     margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Prevents border-radius from affecting cells */
 }
 
-/* City Card Styles */
-.city-card {
-    width: 100%;
-    max-width: 300px;
-    height: 200px;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
+.cities-table th, .cities-table td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+.cities-table th {
+    background-color: #343a40;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em; /* Slightly larger font size for headers */
+}
+
+.cities-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for better contrast */
+}
+
+.cities-table tr:hover {
+    background-color: #e2e6ea; /* Lighter shade for hover effect */
+}
+
+.cities-table .action-buttons {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    background-size: cover;
-    background-position: center;
-    color: white;
-    padding: 20px;
-    margin: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    gap: 10px; /* Increased gap between buttons for better spacing */
 }
 
-.city-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+.cities-table .action-buttons button {
+    padding: 10px 15px; /* More padding for a button-like appearance */
+    font-size: 0.95em; /* Slightly larger font size for better readability */
+    background-color: #28a745; /* Green background for primary actions */
+    color: white; /* White text for contrast */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners for buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
 }
 
-.city-card h4 {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 1.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+.cities-table .action-buttons button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-2px); /* Subtle lift effect on hover */
 }
 
-.city-card p {
-    margin: 5px 0;
-    color: #ddd;
-    z-index: 1;
-    font-size: 0.9em;
+.cities-table .action-buttons button:active {
+    background-color: #1e7e34; /* Even darker on active state */
+    transform: translateY(0); /* Reset lift effect */
 }
 
-/* Overlay for background image */
-.city-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 0;
-}
-
-.city-card button {
-    margin-top: 10px;
-    width: 48%;
-    z-index: 1;
-    background-color: rgba(40, 167, 69, 0.85);
-    transition: background-color 0.3s;
-}
-
-.city-card button:hover {
-    background-color: rgba(40, 167, 69, 1);
-}
-
-.city-card .city-details {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    gap: 8px;
-    display: flex;
-    align-items: center;
-    color: white;
-    font-size: 14px;
-}
-
-.city-card .city-details label {
-    color: white;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-}
-
-.city-card .city-details label input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    appearance: none;
-    border-radius: 50%;
-    border: 2px solid white;
-    background-color: transparent;
-    cursor: pointer;
-    position: relative;
-}
-
-.city-card .city-details label input[type="checkbox"]:checked {
-    background-color: #28a745;
-    border-color: #28a745;
-}
-
-.city-card .city-details label input[type="checkbox"]:checked::after {
-    content: "✓";
-    color: white;
-    font-size: 14px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Responsive Styles */
+/* Mobile Responsive Styles */
 @media (max-width: 768px) {
-    h2 {
-        font-size: 1.8em;
+    .cities-table th, .cities-table td {
+        padding: 10px; /* Reduced padding for smaller screens */
+        font-size: 0.9em; /* Smaller font size for better fit */
     }
 
-    .modal {
-        width: 80%;
+    .cities-table th {
+        font-size: 1em; /* Smaller header font size */
     }
 
-    .city-card {
-        width: 100%;
-        max-width: 90%;
+    .cities-table .action-buttons {
+        flex-direction: column; /* Stack buttons vertically on small screens */
     }
 
-    button {
-        font-size: 0.9em;
-        padding: 8px 16px;
-    }
-}
-
-@media (max-width: 576px) {
-    h2 {
-        font-size: 1.6em;
+    .cities-table .action-buttons button {
+        width: 100%; /* Full width for buttons */
+        padding: 8px; /* Smaller padding */
+        margin: 5px 0; /* Margin between stacked buttons */
     }
 
-    .city-card {
-        width: 100%;
-    }
-
-    button {
-        font-size: 0.8em;
-        padding: 6px 12px;
-    }
-
-    .city-card h4 {
-        font-size: 1.2rem;
+    .cities-table {
+        display: block; /* Allow scrolling for narrow screens */
+        overflow-x: auto; /* Horizontal scroll for table */
+        white-space: nowrap; /* Prevent text wrapping */
     }
 }

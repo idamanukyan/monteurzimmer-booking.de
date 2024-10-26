@@ -3,13 +3,12 @@ import axios from 'axios';
 import './style/AddPropertyModal.css';
 import FilterModal from './FilterModal';
 
-const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleFilterResults, resetForm}) => {
+const AddPropertyModal = ({ isOpen, onClose, formData, handleInputChange, resetForm }) => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [filters, setFilters] = useState({});
     const [cities, setCities] = useState([]);
     const [loadingCities, setLoadingCities] = useState(true);
 
-    // Fetch the list of cities on component mount
     useEffect(() => {
         const fetchCities = async () => {
             try {
@@ -24,33 +23,21 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
         fetchCities();
     }, []);
 
-    useEffect(() => {
-    }, [filters]);
-
-    if (!isOpen) return null;
-
     const handleClickOutside = (e) => {
         if (e.target.className === 'modal') {
             onClose();
         }
     };
 
-    // Handlers for opening/closing filter modal and applying filters
     const handleOpenFilterModal = () => setIsFilterModalOpen(true);
     const handleCloseFilterModal = () => setIsFilterModalOpen(false);
+
     const handleApplyFilters = (appliedFilters) => {
         setFilters(appliedFilters);
         setIsFilterModalOpen(false);
     };
 
-    // Return null if modal is not open
     if (!isOpen) return null;
-
-
-  /*  const handleApplyFilters = (appliedFilters) => {
-        setFilters(appliedFilters); // Update filters with applied filters
-        setIsFilterModalOpen(false); // Close the filter modal
-    };*/
 
     const handleAddProperty = async (e) => {
         e.preventDefault();
@@ -82,7 +69,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                 socialMediaLink: formData.socialMediaLink || ""
             };
 
-
             await axios.post('http://localhost:8080/api/properties', dataToSend);
             resetForm();
         } catch (error) {
@@ -90,13 +76,11 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
         }
     };
 
-
     return (
         <div className="modal-overlay" onClick={handleClickOutside}>
             <div className="modal-content">
                 <h2>Eigenschaft Hinzufügen</h2>
                 <form onSubmit={handleAddProperty}>
-                    {/* Social Media Link Input */}
                     <input
                         type="text"
                         name="socialMediaLink"
@@ -105,8 +89,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                         onChange={handleInputChange}
                         required
                     />
-
-                    {/* Property Name Input */}
                     <input
                         type="text"
                         name="propertyName"
@@ -115,8 +97,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                         onChange={handleInputChange}
                         required
                     />
-
-                    {/* Property Type Select */}
                     <select
                         name="propertyType"
                         value={formData.propertyType}
@@ -132,8 +112,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                         <option value="Hotel">Hotel</option>
                         <option value="Andere">Andere</option>
                     </select>
-
-                    {/* Description Textarea */}
                     <textarea
                         name="description"
                         placeholder="Beschreibung"
@@ -141,8 +119,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                         onChange={handleInputChange}
                         required
                     />
-
-                    {/* Row for Price, Rating, Room Count, Guests, Bathrooms */}
                     <div className="input-row">
                         <input
                             type="number"
@@ -185,8 +161,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                             required
                         />
                     </div>
-
-                    {/* Row for City and Address */}
                     <div className="input-row">
                         <select
                             name="city"
@@ -213,11 +187,7 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                             required
                         />
                     </div>
-
-                    {/* Button to open the Filter Modal */}
                     <button type="button" onClick={handleOpenFilterModal}>Filter öffnen</button>
-
-                    {/* Filter Modal Component */}
                     <FilterModal
                         filters={filters}
                         setFilters={setFilters}
@@ -225,8 +195,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
                         onClose={handleCloseFilterModal}
                         onApply={handleApplyFilters}
                     />
-
-                    {/* Modal buttons for submission and close */}
                     <div className="modal-buttons">
                         <button type="submit">Eigenschaft hinzufügen</button>
                         <button type="button" onClick={onClose}>Schließen</button>
@@ -235,7 +203,6 @@ const AddPropertyModal = ({isOpen, onClose, formData, handleInputChange, handleF
             </div>
         </div>
     );
-
 };
 
 export default AddPropertyModal;

@@ -12,40 +12,40 @@ import documentIcon from "../pages/style/public/document.svg";
 const RightMenu = () => {
     return (
         <div className="main-container">
-            <div className="right-menu">
-                <a href="/admin/dashboard">
-                    <img src={adminIcon} alt="Dashboard Icon" className="menu-icon" />
+            <nav className="right-menu">
+                <a href="/admin/dashboard" className="menu-item">
+                    <img src={adminIcon} alt="Haupt-Dashboard Icon" className="menu-icon" />
                     Haupt-Dashboard
                 </a>
-                <a href="/admin/logs">
-                    <img src={logsIcon} alt="Logs Icon" className="menu-icon" />
+                <a href="/admin/logs" className="menu-item">
+                    <img src={logsIcon} alt="Protokolle Icon" className="menu-icon" />
                     Protokolle
                 </a>
-                <a href="/admin/all-properties">
-                    <img src={housesIcon} alt="Properties Icon" className="menu-icon" />
+                <a href="/admin/all-properties" className="menu-item">
+                    <img src={housesIcon} alt="Eigenschaften Icon" className="menu-icon" />
                     Eigenschaften
                 </a>
-                <a href="/admin/cities">
-                    <img src={cityIcon} alt="Cities Icon" className="menu-icon" />
+                <a href="/admin/cities" className="menu-item">
+                    <img src={cityIcon} alt="Städte Icon" className="menu-icon" />
                     Städte
                 </a>
-                <a href="/admin/newsletter">
-                    <img src={newsletterIcon} alt="Newsletter Icon" className="menu-icon" />
+                <a href="/admin/newsletter" className="menu-item">
+                    <img src={newsletterIcon} alt="Newsletter-Abonnement Icon" className="menu-icon" />
                     Newsletter-Abonnement
                 </a>
-                <a href="/admin/form-submission">
-                    <img src={formIcon} alt="Form Submission Icon" className="menu-icon" />
+                <a href="/admin/form-submission" className="menu-item">
+                    <img src={formIcon} alt="Formular-Übermittlungsseite Icon" className="menu-icon" />
                     Formular-Übermittlungsseite
                 </a>
-                <a href="/admin/graphs">
-                    <img src={graphIcon} alt="Graphs" className="menu-icon" />
+                <a href="/admin/graphs" className="menu-item">
+                    <img src={graphIcon} alt="Diagramme Icon" className="menu-icon" />
                     Diagramme
                 </a>
-                <a href="/admin/documents">
-                    <img src={documentIcon} alt="Documents" className="menu-icon" />
+                <a href="/admin/documents" className="menu-item">
+                    <img src={documentIcon} alt="Unterlagen Icon" className="menu-icon" />
                     Unterlagen
                 </a>
-            </div>
+            </nav>
         </div>
     );
 };

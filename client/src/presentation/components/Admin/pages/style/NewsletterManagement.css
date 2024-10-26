@@ -1,3 +1,10 @@
+.newsletter-control-panel {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 h2 {
     color: #343a40;
     text-align: center;
@@ -5,145 +12,133 @@ h2 {
     font-size: 1.8em;
 }
 
+h3 {
+    color: #495057;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.newsletter-form-container,
+.newsletter-subscribers-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
 button {
     background-color: #007bff;
     color: #ffffff;
     border: none;
-    padding: 10px 15px;
+    padding: 12px 20px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-/* Modal styles */
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.95); /* Slight transparency */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    border-radius: 8px;
-    z-index: 1000;
-    width: 300px;
-    max-width: 90%;
+button:hover {
+    background-color: #0056b3;
 }
 
-/* Form styles */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.notification-message {
+    color: red;
 }
 
-
-input[type="checkbox"] {
-    margin-right: 10px;
-}
-
-/* Subscribers list styles */
-.subscribers-list {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-
-}
-
-.subscriber-card {
-    background: url('public/mail.jpg');/* Background image */
-    background-size: cover;
-    background-position: center;
-    padding: 15px;
+.newsletter-subscriber-card {
+    background-color: #ffffff;
     border-radius: 10px;
-    margin: 10px; /* Added margin for spacing between cards */
-    color: black;
-    width: 300px; /* Set a fixed width for uniformity */
-    max-width: 300px; /* Max width for smaller screens */
+    padding: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effect */
+    width: 300px;
     text-align: center;
 }
 
-/* Hover effect for subscriber cards */
-.subscriber-card:hover {
-    transform: translateY(-5px); /* Lift the card up */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+.newsletter-search-input {
+    padding: 10px;
+    width: 100%;
 }
 
-.subscriber-card h4 {
-    margin: 0 0 10px 0;
-    color: #343a40;
-}
-
-.subscriber-card p {
-    margin: 5px 0;
-    font-size: 0.9em;
-}
-
-/* Responsive modal */
-@media (max-width: 600px) {
-    .modal {
-        width: 90%;
-    }
-}
-
-.active-subscriptions-list {
+.newsletter-active-subscriptions-list {
     margin-top: 20px;
 }
 
-.active-subscription {
-    background-color: #e9ecef; /* Light gray background */
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.form-container {
-    display: flex;
-    gap: 10px; /* Space between input fields */
-    margin-bottom: 20px; /* Add margin to separate from next section */
-}
-
-.search-input {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.active-subscriptions-list table {
+.newsletter-active-subscriptions-list table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px; /* Add margin above the table */
+    margin-top: 20px;
 }
 
-.active-subscriptions-list th,
-.active-subscriptions-list td {
+.newsletter-active-subscriptions-list th,
+.newsletter-active-subscriptions-list td {
     border: 1px solid #dee2e6;
-    padding: 10px; /* Padding for table cells */
+    padding: 12px;
     text-align: left;
     font-size: 0.9em;
 }
 
-.active-subscriptions-list th {
-    background-color: #f8f9fa; /* Header background color */
+.newsletter-active-subscriptions-list th {
+    background-color: #f8f9fa;
 }
 
-/* Responsive layout */
+.newsletter-unsubscribe-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.newsletter-unsubscribe-button:hover {
+    background-color: #c82333;
+}
 @media (max-width: 768px) {
-    .form-container {
-        flex-direction: column;
+    .newsletter-control-panel {
+        padding: 15px;
     }
 
-    .subscriber-card {
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .newsletter-subscriber-card {
+        width: 90%;
+    }
+
+    button {
         width: 100%;
-        max-width: 100%;
+        padding: 10px;
+    }
+
+    .newsletter-form-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .newsletter-input {
+        width: 100%;
     }
 }
 
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.3em;
+    }
 
+    h3 {
+        font-size: 1.2em;
+    }
+
+    .newsletter-input {
+        padding: 8px;
+    }
+
+    .newsletter-subscriber-card {
+        padding: 10px;
+    }
+
+    .newsletter-active-subscriptions-list table {
+        font-size: 0.8em;
+    }
+}

@@ -1,7 +1,6 @@
 import React from 'react';
 import './style/FilterModal.css';
 
-// Importing all icons dynamically
 import wifiIcon from '../pages/style/public/searchIcons/wifi.svg';
 import tvIcon from '../pages/style/public/searchIcons/tv.svg';
 import privateBath from '../pages/style/public/searchIcons/privateBath.svg';
@@ -25,7 +24,6 @@ import quietLocation from '../pages/style/public/searchIcons/quietLocation.svg';
 import goodTransportation from '../pages/style/public/searchIcons/goodTransportation.svg';
 import shopsNearby from '../pages/style/public/searchIcons/shopsNearby.svg';
 
-// Icon array for easier mapping
 const icons = [
     { name: 'wifi', icon: wifiIcon },
     { name: 'tv', icon: tvIcon },
@@ -51,7 +49,6 @@ const icons = [
     { name: 'shopsNearby', icon: shopsNearby },
 ];
 
-// Reusable IconWrapper component
 const IconWrapper = ({ name, icon, isActive, onToggle }) => (
     <div
         className={`icon-wrapper ${isActive ? 'active' : ''}`}
@@ -71,7 +68,7 @@ const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
     };
 
     const handleApplyFilters = () => {
-        onClose(); // Close the modal
+        onClose();
     };
 
     const resetFilters = () => {
@@ -83,32 +80,28 @@ const FilterModal = ({ isOpen, onClose, filters, setFilters }) => {
     };
 
     const closeWithoutApplying = () => {
-        onClose(); // Just close the modal without applying any changes
+        onClose();
     };
 
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <h2>Filtereigenschaften</h2>
-                    <div className="icon-grid">
-                        {icons.map(({ name, icon }) => (
-                            <IconWrapper
-                                key={name}
-                                name={name}
-                                icon={icon}
-                                isActive={filters[name]}
-                                onToggle={handleIconToggle}
-                            />
-                        ))}
-                    </div>
-
+                <div className="icon-grid">
+                    {icons.map(({ name, icon }) => (
+                        <IconWrapper
+                            key={name}
+                            name={name}
+                            icon={icon}
+                            isActive={filters[name]}
+                            onToggle={handleIconToggle}
+                        />
+                    ))}
+                </div>
                 <div className="modal-buttons">
-                    {/* Cancel Filters button */}
-                    <button onClick={resetFilters}>Filter Zurücksetzen</button>
-                    {/* Close Modal button */}
+                    <button onClick={resetFilters}>Filter zurücksetzen</button>
                     <button onClick={closeWithoutApplying}>Schließen</button>
-                    {/* Apply Filters button */}
-                    <button onClick={handleApplyFilters}>Filter Anwenden</button>
+                    <button onClick={handleApplyFilters}>Filter anwenden</button>
                 </div>
             </div>
         </div>

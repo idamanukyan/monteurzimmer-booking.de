@@ -1,4 +1,3 @@
-/* SingleProperty.css */
 .property-details {
     margin: 20px auto;
     padding: 20px;
@@ -7,11 +6,13 @@
     background-color: #f9f9f9;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
+
 .property-details h1 {
     font-size: 2.2rem;
     margin-bottom: 10px;
     color: #333;
 }
+
 .property-details h2 {
     font-size: 1.5rem;
     margin-bottom: 20px;
@@ -19,14 +20,16 @@
 }
 
 .property-table,
-.property-details-table {
+.property-details-table,
+.boolean-values-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
 
 .property-table th,
-.property-details-table th {
+.property-details-table th,
+.boolean-values-table th {
     background-color: #007bff;
     color: white;
     padding: 10px;
@@ -34,7 +37,8 @@
 }
 
 .property-table td,
-.property-details-table td {
+.property-details-table td,
+.boolean-values-table td {
     border: 1px solid #ddd;
     padding: 8px;
 }
@@ -45,74 +49,81 @@
 }
 
 .preview-image {
-    width: 200px;
-    height: 80px;
+    width: 100%;
+    max-width: 150px;
+    height: auto;
     margin-right: 10px;
     object-fit: cover;
-    border-radius: 5px; /* Rounded corners for the image */
+    border-radius: 5px;
+}
 
+.preview-details {
+    flex-grow: 1;
 }
 
 .preview-details h4 {
     margin: 0;
-    font-size: 1.2rem;
+    font-size: 1.1rem; /* Adjusted for visibility */
     color: #007bff;
 }
 
 .preview-details p {
     margin: 5px 0 0;
-    font-size: 0.9em; /* Adjust size as necessary */
-    color: #666; /* Faded color for description */
+    font-size: 0.85rem;
+    color: #666;
 }
 
 .open-link-button {
-    padding: 10px 15px;
+    padding: 12px 16px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 1rem;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .open-link-button:hover {
     background-color: #0056b3;
 }
 
-.property-details-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.property-details-table th, .property-details-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
-
-.boolean-values-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.boolean-values-table th {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    text-align: left;
-}
-
-.boolean-values-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
 .icon {
-    width: 24px; /* Set the icon size */
+    width: 24px;
     height: auto;
 }
 
+@media (max-width: 600px) {
+    .property-details {
+        padding: 10px;
+    }
 
+    .property-details h1 {
+        font-size: 1.8rem;
+    }
 
+    .property-details h2 {
+        font-size: 1.2rem;
+    }
 
+    .link-preview {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .preview-image {
+        max-width: 50%;
+        margin-bottom: 10px;
+    }
+
+    .preview-details h4 {
+        font-size: 1rem;
+    }
+
+    .open-link-button {
+        width: 100%;
+    }
+}

@@ -9,9 +9,9 @@ const ConfigureProperties = () => {
     const [isAddModalOpen, setAddModalOpen] = useState(false);
     const [isRemoveModalOpen, setRemoveModalOpen] = useState(false);
     const [properties, setProperties] = useState([]);
-    const [selectedPropertyId, setSelectedPropertyId] = useState(null); // Add selectedPropertyId to state
-    const [url, setUrl] = useState(''); // Add url state for property removal
-    const [filterResults, setFilterResults] = useState([]); // Define filterResults and setFilterResults
+    const [selectedPropertyId, setSelectedPropertyId] = useState(null);
+    const [url, setUrl] = useState('');
+    const [filterResults, setFilterResults] = useState([]);
     const [formData, setFormData] = useState({
         propertyName: '',
         propertyType: '',
@@ -21,7 +21,7 @@ const ConfigureProperties = () => {
     });
 
     useEffect(() => {
-        fetchProperties(); // Fetch properties on component mount
+        fetchProperties();
     }, []);
 
     const fetchProperties = async () => {
@@ -65,18 +65,16 @@ const ConfigureProperties = () => {
         setFilterResults((prevResults) => [...prevResults, results]);
     };
 
-    // Determine if any modal is open
     const isModalOpen = isAddModalOpen || isRemoveModalOpen;
 
     return (
         <div>
-            {/* Wrap the content you want to blur */}
             <div className={isModalOpen ? 'blur' : ''}>
                 <h2>Konfigurieren von Eigenschaften</h2>
 
                 <div className="button-container">
                     <div className="button-box">
-                        <button onClick={() => setAddModalOpen(true)}>Hinzufügen </button>
+                        <button onClick={() => setAddModalOpen(true)}>Hinzufügen</button>
                         <button onClick={() => setRemoveModalOpen(true)}>Entfernen</button>
                     </div>
                 </div>
