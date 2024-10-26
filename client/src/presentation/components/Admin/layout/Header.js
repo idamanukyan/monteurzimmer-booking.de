@@ -8,11 +8,7 @@ const Header = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // Clear tokens from localStorage
         localStorage.removeItem('access_token');
-        localStorage.removeItem('refresh_token');
-
-        // Redirect to login page
         navigate('/login');
     };
 

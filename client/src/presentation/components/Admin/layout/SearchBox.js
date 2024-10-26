@@ -7,10 +7,9 @@ import { FilterSearchPropertyDTO } from "../models/FilterSearchPropertyDTO";
 
 const SearchBox = ({ filters, setFilters, fetchFilteredProperties }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [cities, setCities] = useState([]); // State for cities
-    const [loadingCities, setLoadingCities] = useState(true); // State for loading indicator
+    const [cities, setCities] = useState([]);
+    const [loadingCities, setLoadingCities] = useState(true);
 
-    // Fetch available cities
     const fetchCities = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/cities/all`);
@@ -23,10 +22,9 @@ const SearchBox = ({ filters, setFilters, fetchFilteredProperties }) => {
     };
 
     useEffect(() => {
-        fetchCities(); // Fetch cities when component mounts
+        fetchCities();
     }, []);
 
-    // Map filters to FilterSearchPropertyDTO
     const mapFiltersToDTO = () => {
         const dto = new FilterSearchPropertyDTO();
         dto.city = filters.city ? { name: filters.city } : null;
@@ -71,7 +69,6 @@ const SearchBox = ({ filters, setFilters, fetchFilteredProperties }) => {
 
     return (
         <div className="search-box-container">
-            {/* First Row */}
             <div className="search-inputs">
                 <div className="input-group city-input">
                     <label>Stadt</label>
@@ -92,7 +89,6 @@ const SearchBox = ({ filters, setFilters, fetchFilteredProperties }) => {
                         </select>
                     )}
                 </div>
-
                 <div className="input-group min-price-input">
                     <label>Min Preis</label>
                     <input
@@ -103,7 +99,6 @@ const SearchBox = ({ filters, setFilters, fetchFilteredProperties }) => {
                         className="search-input"
                     />
                 </div>
-
                 <div className="input-group guests-input">
                     <label>Gäste</label>
                     <input
@@ -117,8 +112,6 @@ const SearchBox = ({ filters, setFilters, fetchFilteredProperties }) => {
                     />
                 </div>
             </div>
-
-            {/* Second Row */}
             <div className="search-inputs">
                 <div className="input-group property-type-input">
                     <label>Eigenschaftstyp</label>
@@ -137,7 +130,6 @@ const SearchBox = ({ filters, setFilters, fetchFilteredProperties }) => {
                         <option value="Andere">Andere</option>
                     </select>
                 </div>
-
                 <div className="input-group max-price-input">
                     <label>Max Preis</label>
                     <input
@@ -148,21 +140,18 @@ const SearchBox = ({ filters, setFilters, fetchFilteredProperties }) => {
                         className="search-input"
                     />
                 </div>
-
                 <div className="filter-button-container button-container">
                     <button className="filter-button" onClick={handleOpenModal}>
                         <img src={filterIcon} alt="Filter Icon" className="filter-icon" />
-                        <span className="filter-text">Filter</span> {/* Added span for text */}
+                        <span className="filter-text">Filter</span>
                     </button>
                 </div>
-
                 <div className="apply-button-container button-container">
                     <button className="apply-button" onClick={handleApplyFilters}>
                         Filter Anwenden
                     </button>
                 </div>
-
-            {/* Filter Modal */}
+            </div>
             <FilterModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
@@ -170,7 +159,6 @@ const SearchBox = ({ filters, setFilters, fetchFilteredProperties }) => {
                 filters={filters}
                 setFilters={setFilters}
             />
-        </div>
         </div>
     );
 };

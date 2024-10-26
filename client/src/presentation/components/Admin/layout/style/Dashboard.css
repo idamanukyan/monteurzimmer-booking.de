@@ -1,21 +1,6 @@
 .dashboard-container {
-    background-color: #f0f0f0; /* Light gray background for the full page */
-    padding: 20px; /* Add some padding around the dashboard */
-    display: flex;
-    flex-direction: column; /* Column layout for main dashboard */
-}
-
-
-.main-content {
-    background-color: #fff; /* White background for the main content */
-    padding: 15px; /* Space around main content */
-    border: 1px solid #ccc; /* Border around main content */
-    flex-grow: 1; /* Allow main content to take up remaining space */
-    border-radius: 8px; /* Rounded edges */
-}
-
-/* Dashboard.css */
-.dashboard-container {
+    background-color: #f0f0f0;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -24,7 +9,11 @@
 .dashboard-content {
     display: flex;
     flex: 1;
-    /* Fill remaining space after header */
+}
+
+.right-menu {
+    width: 350px;
+    min-width: 300px;
 }
 
 .main-content {
@@ -32,6 +21,32 @@
     padding: 20px;
     background-color: #fff;
     overflow-y: auto;
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }
 
+@media (max-width: 768px) {
+    .dashboard-content {
+        flex-direction: column;
+    }
 
+    .right-menu {
+        width: 80%;
+        min-width: auto;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 10px;
+    }
+
+    .main-content {
+        padding: 10px;
+        border-radius: 4px;
+    }
+}

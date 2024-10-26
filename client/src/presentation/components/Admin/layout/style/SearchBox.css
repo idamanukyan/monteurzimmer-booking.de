@@ -6,7 +6,7 @@
 
 .search-inputs {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 15px;
 }
@@ -41,7 +41,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-left: auto; /* Ensures buttons are aligned to the right */
+    margin-left: auto;
 }
 
 .filter-button,
@@ -73,4 +73,22 @@
 
 .filter-text {
     font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .search-inputs {
+        flex-direction: column;
+    }
+
+    .input-group {
+        margin-right: 0;
+        width: 100%;
+    }
+
+    .filter-button-container,
+    .apply-button-container {
+        justify-content: center;
+        margin-left: 0;
+        margin-top: 15px;
+    }
 }

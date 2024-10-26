@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import './style/PropertyCard.css';
 import mockPhoto from "../pages/style/public/property-mock-photo.jpeg";
 
 const PropertyCard = ({ property }) => {
     const navigate = useNavigate();
-        const [primaryPhotoUrl, setPrimaryPhotoUrl] = useState('');
-
+    const [primaryPhotoUrl, setPrimaryPhotoUrl] = useState('');
 
     const handleSeeMoreClick = () => {
-        if (property && property.id) { // Ensure property exists before accessing its ID
+        if (property && property.id) {
             navigate(`/admin/properties/${property.id}`);
         }
     };
 
     if (!property) {
-        return <div>Property data is unavailable</div>; // Fallback if property is null or undefined
+        return <div>Property data is unavailable</div>;
     }
 
     return (

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import axios, {AxiosResponse} from 'axios';
+import axios from 'axios';
 import './style/SingleProperty.css';
 import wifiIcon from '../pages/style/public/searchIcons/wifi.svg';
 import tvIcon from '../pages/style/public/searchIcons/tv.svg';
@@ -28,26 +28,30 @@ import shopsNearby from '../pages/style/public/searchIcons/shopsNearby.svg';
 const SingleProperty = () => {
     const {propertyId} = useParams();
     const [property, setProperty] = useState(null);
-    const [linkPreview, setLinkPreview] = useState(null); // State for link preview data
-    const [error, setError] = useState(null); // State for error handling
+    const [linkPreview, setLinkPreview] = useState(null);
+    const [error, setError] = useState(null);
     const [isFavorite, setIsFavorite] = useState(false);
 
+    const api_url_link_preview = 'https://fetchlinkapi-production.up.railway.app/link-preview?api_key=';
+    const apiKey = '8c3ede4e-66c1-4da7-841f-795b75bb5e2c';
 
-    const api_url_link_preview = 'https://fetchlinkapi-production.up.railway.app/link-preview?api_key='; // Use the new URL for the link preview API
-    const apiKey = '8c3ede4e-66c1-4da7-841f-795b75bb5e2c'; // Updated API key
+    const accessToken = localStorage.getItem('access_token');
 
     const truncateDescription = (description, maxLength = 50) => {
-        if (!description) return '';  // Check if description is empty
+        if (!description) return '';
         return description.length > maxLength
             ? description.slice(0, maxLength) + '...'
-            : description;  // Append "..." only if truncated
+            : description;
     };
-
 
     useEffect(() => {
         const fetchProperty = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/api/properties/${propertyId}`);
+                const response = await axios.get(`http://localhost:8080/api/properties/${propertyId}`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
                 setProperty(response.data);
                 setIsFavorite(response.data.favorite);
                 if (response.data.socialMediaLink) {
@@ -59,27 +63,20 @@ const SingleProperty = () => {
             }
         };
         fetchProperty();
-    }, [propertyId]);
+    }, [propertyId, accessToken]);
 
-
-    // Function to fetch link preview data from LinkPreview API
     const fetchLinkPreview = async (link) => {
         try {
-            const apiKey = '4a7bef5d-e98c-4d24-9f8b-e3c1a6970c25';
             const response = await axios.get(`${api_url_link_preview}${apiKey}&url=${encodeURIComponent(link)}`);
-
-            // Check if response data exists
             if (response.data) {
-                // Set the link preview state using the correct keys from the response
                 setLinkPreview({
                     title: response.data.title || 'No title found',
                     description: response.data.description || 'No description found',
                     image: response.data.mainPhoto ? `https:${response.data.mainPhoto}` : 'default-image-url.jpg',
-                    price: response.data.price || 'No price available', // Include price if needed
-                    subtitle: response.data.subtitle || 'No subtitle available' // Include subtitle if needed
+                    price: response.data.price || 'No price available',
+                    subtitle: response.data.subtitle || 'No subtitle available'
                 });
             } else {
-                // Handle the case where there is no response data
                 throw new Error('No data returned from the API');
             }
         } catch (error) {
@@ -96,38 +93,27 @@ const SingleProperty = () => {
 
     const handleToggleFavorite = async () => {
         try {
-            const response =
-                await axios.put(`/api/properties/add-favorite-property/${propertyId}`, {
-                    propertyId,
-                    isFavorite: !isFavorite
-                });
-
-
-            // Fetch the property again to get the updated status
+            await axios.put(`/api/properties/add-favorite-property/${propertyId}`, {
+                propertyId,
+                isFavorite: !isFavorite
+            });
             const updatedPropertyResponse = await axios.get(`http://localhost:8080/api/properties/${propertyId}`);
-
             setProperty(updatedPropertyResponse.data);
-            setIsFavorite(updatedPropertyResponse.data.isFavorite); // Update local favorite state
+            setIsFavorite(updatedPropertyResponse.data.isFavorite);
         } catch (err) {
             console.error('Error updating favorite status:', err);
             setError('Failed to update favorite status. Please try again.');
         }
     };
 
-    useEffect(() => {
-    }, [isFavorite]);
-
-
-    // Display loading state or error message
-    if (error) return <div>{error}</div>; // Display error message
-    if (!property) return <div>Loading...</div>; // Loading state
+    if (error) return <div>{error}</div>;
+    if (!property) return <div>Loading...</div>;
 
     return (
         <div className="property-details">
             <h1>{property.propertyName}</h1>
             <h2>{property.propertyType}</h2>
 
-            {/* Table layout for property details */}
             <table className="property-table">
                 <thead>
                 <tr>
@@ -145,7 +131,7 @@ const SingleProperty = () => {
                                     <img src={linkPreview.image} alt="Link Preview" className="preview-image"/>
                                     <div className="preview-details">
                                         <h4>{linkPreview.title}</h4>
-                                        <p>{truncateDescription(property.description, 90)}</p> {/* Use the truncate function here */}
+                                        <p>{truncateDescription(property.description, 90)}</p>
                                     </div>
                                 </a>
                             </div>
@@ -153,7 +139,6 @@ const SingleProperty = () => {
                             <p>Loading...</p>
                         )}
                     </td>
-
                     <td>{property.price} €</td>
                     <td>
                         <button className="open-link-button"
@@ -165,7 +150,6 @@ const SingleProperty = () => {
                 </tbody>
             </table>
 
-            {/* Another Table for Other Property Details */}
             <table className="property-details-table">
                 <thead>
                 <tr>
@@ -216,12 +200,10 @@ const SingleProperty = () => {
                             <span>Refresh to see the update...</span>
                         )}
                     </td>
-
                 </tr>
                 </tbody>
             </table>
 
-            {/* Boolean Values Table */}
             <table className="boolean-values-table">
                 <thead>
                 <tr>

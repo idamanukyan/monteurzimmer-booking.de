@@ -20,10 +20,18 @@ const AllProperties = () => {
 
     const pageSize = 9;
     const navigate = useNavigate();
+    const token = localStorage.getItem('access_token');
+
+    const axiosInstance = axios.create({
+        baseURL: 'http://localhost:8080/api',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
 
     const fetchAllProperties = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/properties');
+            const response = await axiosInstance.get('/properties');
             setProperties(response.data);
             setTotalProperties(response.data.length);
         } catch (error) {
@@ -33,7 +41,7 @@ const AllProperties = () => {
 
     const fetchFilteredProperties = async (filterSearchPropertyDTO) => {
         try {
-            const response = await axios.post('http://localhost:8080/api/properties/search-result', filterSearchPropertyDTO);
+            const response = await axiosInstance.post('/properties/search-result', filterSearchPropertyDTO);
             setProperties(response.data);
             setTotalProperties(response.data.length);
         } catch (error) {
@@ -65,20 +73,19 @@ const AllProperties = () => {
     const handleFindByLink = async () => {
         try {
             const encodedUrl = encodeURIComponent(url);
-            const response = await axios.get(`http://localhost:8080/api/properties/find-by-link?url=${encodedUrl}`);
+            const response = await axiosInstance.get(`/properties/find-by-link?url=${encodedUrl}`);
             const newProperty = response.data;
 
             if (newProperty && newProperty.id) {
                 navigate(`/admin/properties/${newProperty.id}`);
             } else {
-                // Show message when no property is found by URL
-                setProperties([]);  // Empty the property list if not found
+                setProperties([]);
             }
 
-            setUrl('');  // Clear the input field after search
+            setUrl('');
         } catch (error) {
             console.error('Error fetching property by link:', error);
-            setProperties([]);  // Also clear properties on error
+            setProperties([]);
         }
     };
 
@@ -112,7 +119,6 @@ const AllProperties = () => {
                     Objekt per URL finden
                 </button>
             </div>
-
 
             {properties.length > 0 ? (
                 <div className="properties-list">

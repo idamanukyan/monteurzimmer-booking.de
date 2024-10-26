@@ -1,98 +1,96 @@
 .header {
-    background-color: #f1f1f1; /* Header background color */
-    display: flex; /* Flexbox for layout */
-    align-items: center; /* Center items vertically */
-    justify-content: space-between; /* Space between logo and title/button */
-    border-bottom: 2px solid #ccc; /* Border at the bottom */
-    padding: 10px 20px; /* Padding around header */
-    border-radius: 10px; /* Soften the edges */
-    margin-bottom: 20px; /* Space below the header */
+    background-color: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .admin-icon {
-    height: 50px; /* Set the height of the logo */
-    margin-right: 20px; /* Space between logo and title */
+    height: 50px;
+    margin-right: 20px;
 }
 
 .dashboard-title {
-    flex-grow: 1; /* Allow the title to take available space */
-    text-align: left; /* Center text */
-    text-decoration: none; /* Remove underline from links */
-    color: black; /* Set text color to black */
-    font-size: 1.2rem; /* Set a consistent font size */
+    flex-grow: 1;
+    text-align: left;
+    text-decoration: none;
+    color: black;
+    font-size: 1.2rem;
 }
 
 .header h1 {
-    font-size: 24px; /* Font size for the title */
-    color: #333; /* Dark color for the text */
-    margin: 0; /* Remove default margin */
+    font-size: 24px;
+    color: #333;
+    margin: 0;
 }
 
 .logout-button {
-    display: inline-flex; /* Inline-flex to prevent button from stretching */
-    align-items: center; /* Center the icon and text vertically */
+    display: inline-flex;
+    align-items: center;
     padding: 10px 15px;
-    background-color: #f1f1f1; /* Button background color */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    color: black; /* Text color */
-    text-decoration: none; /* No underline */
-    font-size: 1rem; /* Font size */
-    cursor: pointer; /* Pointer on hover */
-    margin-left: auto; /* Pushes the button to the right */
-    white-space: nowrap; /* Prevents text wrapping */
-    max-width: fit-content; /* Prevents the button from becoming too wide */
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-left: auto;
+    white-space: nowrap;
+    max-width: fit-content;
 }
 
 .logout-button:hover {
-    background-color: #e9ecef; /* Slightly darker on hover */
+    background-color: #e9ecef;
 }
 
 .logout-icon {
-    width: 20px; /* Set icon size */
-    height: 20px; /* Set icon size */
-    margin-right: 5px; /* Space between icon and text */
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
 }
 
-
-/* Responsive Styles */
 @media (max-width: 768px) {
     .header {
-        flex-direction: column; /* Stack items vertically */
-        align-items: flex-start; /* Align items to the start */
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .dashboard-title {
-        text-align: left; /* Align title to the left on smaller screens */
-        margin-bottom: 10px; /* Space below title */
+        text-align: left;
+        margin-bottom: 10px;
     }
 
     .admin-icon {
-        height: 40px; /* Smaller icon size for mobile */
-        margin-right: 10px; /* Adjust space for smaller screens */
+        height: 40px;
+        margin-right: 10px;
     }
 
     .header h1 {
-        font-size: 20px; /* Smaller font size for mobile */
+        font-size: 20px;
     }
 
     .logout-button {
-        margin-left: 0; /* Reset margin on smaller screens */
-        width: 100%; /* Make button full width */
-        justify-content: center; /* Center button text */
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
     }
 }
 
 @media (max-width: 480px) {
     .header {
-        padding: 10px; /* Less padding on very small screens */
+        padding: 10px;
     }
 
     .dashboard-title {
-        font-size: 1rem; /* Further reduce font size */
+        font-size: 1rem;
     }
 
     .logout-button {
-        font-size: 0.9rem; /* Smaller font size for button */
+        font-size: 0.9rem;
     }
 }

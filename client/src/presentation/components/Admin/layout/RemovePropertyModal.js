@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 const RemovePropertyModal = ({ isOpen, onClose, handleRemoveProperty }) => {
-    const [url, setUrl] = useState(''); // State to store the input URL
+    const [url, setUrl] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleRemoveProperty(url); // Call the remove function with the input URL
+        handleRemoveProperty(url);
     };
 
     if (!isOpen) return null;

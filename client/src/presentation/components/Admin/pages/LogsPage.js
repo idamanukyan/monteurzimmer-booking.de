@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './style/LogsPage.css';
 
@@ -6,10 +6,19 @@ const LogsPage = () => {
     const [logs, setLogs] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10; // Number of logs per page
+    const [searchTerm, setSearchTerm] = useState('');
 
     const fetchLogs = async (page) => {
+        const token = localStorage.getItem('access_token');
         try {
-            const response = await axios.get(`http://localhost:8080/api/logs?page=${page}&size=${pageSize}`);
+            const response = await axios.get(
+                `http://localhost:8080/api/logs?page=${page}&size=${pageSize}`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }
+            );
             setLogs(response.data);
         } catch (error) {
             console.error('Error fetching logs:', error);
@@ -20,14 +29,16 @@ const LogsPage = () => {
         fetchLogs(currentPage);
     }, [currentPage]);
 
-    if (!logs || logs.length === 0) {
-        return <p>Keine Protokolle verfügbar</p>;
-    }
+    // Filter logs based on searchTerm
+    const filteredLogs = logs.filter(log =>
+        log.message.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-    const totalPages = Math.ceil(logs.length / pageSize);
+    // Calculate total pages based on filtered logs
+    const totalPages = Math.ceil(filteredLogs.length / pageSize);
 
-    // Get the logs for the current page
-    const currentLogs = logs.slice(
+    // Get the logs for the current page after filtering
+    const currentLogs = filteredLogs.slice(
         (currentPage - 1) * pageSize,
         currentPage * pageSize
     );
@@ -62,6 +73,13 @@ const LogsPage = () => {
     return (
         <div className="logs-page">
             <h2>Protokolle der letzten 5 Tage</h2>
+            <input
+                type="text"
+                placeholder="Nach Logs suchen..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+            />
             <div className="logs-list">
                 {currentLogs.length > 0 ? (
                     currentLogs.map((log, index) => (
