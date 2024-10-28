@@ -19,7 +19,6 @@
     border-radius: 15px; /* Rounded corners */
     width: 400px;
     max-width: 90%;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Softer shadow */
     animation: fadeIn 0.3s ease; /* Animation for modal appearance */
 }
 
@@ -46,12 +45,16 @@
     text-align: left;
 }
 
+.modalContent form label input {
+    min-height: 40px;
+}
+
 .inputField,
 .textareaField {
     width: 100%; /* Full width */
     padding: 10px; /* Increased padding */
-    border-radius: 8px; /* Rounded input corners */
-    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 15px; /* Rounded input corners */
+    border: 2px solid #ccc; /* Light gray border */
     transition: border-color 0.3s; /* Smooth border color transition */
 }
 
@@ -105,4 +108,14 @@
     color: red;
     font-size: 0.875rem;
     margin-top: 0.25rem;
+}
+
+@media (max-width: 500px) {
+    .modalContent {
+        max-width: 70%;
+    }
+
+    .modalActions button {
+        font-size: 14px;
+    }
 }

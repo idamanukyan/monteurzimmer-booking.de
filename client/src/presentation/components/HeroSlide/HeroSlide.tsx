@@ -2,7 +2,8 @@ import React, { ChangeEvent, useState } from 'react';
 import styles from './HeroSlide.module.css';
 import Box from '@mui/material/Box';
 import Header from "../Header";
-import { Slider } from "@mui/material"; // Fixed import for Slider
+import { Slider } from "@mui/material";
+import {color} from "chart.js/helpers"; // Fixed import for Slider
 
 interface HeroSlideProps {
     onSearchClick: () => void;
@@ -83,7 +84,7 @@ const HeroSlide: React.FC<HeroSlideProps> = ({
                                         value={selectedType}
                                         onChange={handleTypeChange}
                                     >
-                                        <option value="">Unterkunftstyp</option>
+                                        <option value="" style={{color: 'gray'}}>Unterkunftstyp</option>
                                         <option value="Gästezimmer">Gästezimmer</option>
                                         <option value="Haus">Haus</option>
                                         <option value="Wohnung">Wohnung</option>

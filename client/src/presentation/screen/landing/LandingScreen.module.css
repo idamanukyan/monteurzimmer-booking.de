@@ -26,28 +26,29 @@
     font-size: 34px;
     text-align: left;
     color: #000000;
-    padding: 0 15px;
+    padding: 0 15px !important;
 }
 
 .favCitiesContainer {
-    padding: 20px 50px;
+    padding: 0 30px;
 }
 
 .favCitiesContainer > div {
     margin-bottom: 20px;
     margin-top: 20px;
+    text-align: left;
 }
 
 .allCitiesContainer {
-    padding: 20px 50px;
-    background-color: #f0f0f0; /* Light gray background */
+    padding: 20px 30px;
 }
 
 .allCitiesContainer > div {
     margin-bottom: 20px;
     margin-top: 20px;
-    padding: 15px; /* Padding inside cards */
-    transition: transform 0.2s; /* Smooth scale on hover */
+    padding: 15px;
+    text-align: left;
+    transition: transform 0.2s;
 }
 
 .aboutUsTitle {
@@ -95,7 +96,7 @@
     margin: 0 15px;
 }
 
-.dividerLineFavortieCities {
+.dividerLineFavoriteCities {
     border: none;
     width: 245px;
     height: 3px;
@@ -103,22 +104,50 @@
     background-color: #ff3c00;
     margin: 0 15px;
 }
-/* Media Queries for Mobile Responsiveness */
+
+.dividerLineAllCities {
+    border: none;
+    width: 245px;
+    height: 3px;
+    border-radius: 5px;
+    background-color: #ff3c00;
+    margin: 0 15px;
+}
+
 @media (max-width: 768px) {
+    .allCitiesContainer {
+        padding: 15px;
+    }
+
+    .favProdsContainer > div {
+        margin-top: 30px;
+        text-align: left;
+    }
+
+    .dividerLineAllCities {
+        width: 100%;
+        margin: 0;
+    }
+
     .heroSlideContainer {
         height: auto; /* Adjust height for smaller screens */
-        padding: 20px; /* Add padding */
         margin-bottom: 20px; /* Add margin below HeroSlide to separate it from FavCities */
     }
 
     .favCitiesContainer, .favProdsContainer, .aboutUsContainer {
-        padding: 0 15px; /* Reduce padding */
-        margin-bottom: 20px; /* Add bottom margin to separate sections */
+        padding: 0 15px;
+        text-align: left;
+        margin-bottom: 20px;
     }
 
     .favTitle, .favTitle2, .favCityTitle, .aboutUsTitle {
         font-size: 24px; /* Reduce font size */
         text-align: center; /* Center align titles */
+    }
+
+    .dividerLineFavoriteCities {
+        width: 100%;
+        margin: 0 !important;
     }
 
     .dividerLineCheapestProperties,

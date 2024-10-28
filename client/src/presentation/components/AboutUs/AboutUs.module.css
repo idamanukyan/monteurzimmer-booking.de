@@ -11,11 +11,10 @@
     border-color: #ea5e47;
     border-width: 2px;
     color: black; /* Text color */
-    padding: 15px 30px; /* Add some padding */
+    padding: 25px 30px; /* Add some padding */
     border-radius: 20px; /* Optional: round the corners */
     transition: transform 0.3s, background-color 0.3s; /* Smooth transition */
     text-align: center; /* Center text */
-    width: 350px; /* Fixed width for the items */
 }
 
 .aboutUsItem:hover {
@@ -31,4 +30,17 @@
 
 .aboutUsItem > p {
     font-size: 17px;
+}
+
+@media (max-width: 768px) {
+    .aboutUsItem > p {
+        font-size: 12px;
+    }
+    .aboutUsItem > h3 {
+        font-size: 16px;
+    }
+    .aboutUsContainer {
+        flex-direction: column;
+        padding: 0 10px;
+    }
 }

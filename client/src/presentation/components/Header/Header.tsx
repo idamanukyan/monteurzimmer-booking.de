@@ -4,11 +4,13 @@ import {PropertyService} from "../../../data/service/PropertyService";
 import HeaderModel from "./HeaderModel";
 import {useNavigate} from "react-router-dom";
 import ContactUsModal from "../ContactUs/ContactUsModal";
-import Button from "@mui/material/Button";
 import SubscribeModal from "../Subscribe/SubscribeModal";
+import {useMediaQuery} from "@mui/material";
+import ContactMailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 interface HeaderProps {
-    city?: string
+    city?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({ city }) => {
@@ -24,32 +26,35 @@ const Header: React.FC<HeaderProps> = ({ city }) => {
             setCity(city)
         }
     }, []);
-    const navigate = useNavigate()
+
+    const navigate = useNavigate();
+    const isMobile = useMediaQuery('(max-width:768px)');
 
     return (
         <>
-        <header className={styles.header}>
-            <img src={'/assets/images/logo.png'} alt={''} onClick={() => navigate('/')}/>
-            <div>
-                <button
-                    className={styles.searchButton}
-                    onClick={() => setIsModalContactUsOpen(true)}
-                >
-                    Kontaktieren Sie uns
-                </button>
-                <button
-                    className={styles.searchButton}
-                    onClick={() => setIsModalSubscribeOpen(true)}
-                >
-                    Preiswecker
-                </button>
-            </div>
-        </header>
+            <header className={styles.header}>
+                <img src={'/assets/images/logo.png'} alt={''} onClick={() => navigate('/')}/>
+                <div>
+                    {/* Conditionally render buttons with icons for mobile */}
+                    <button
+                        className={styles.searchButton}
+                        onClick={() => setIsModalContactUsOpen(true)}
+                    >
+                        {isMobile ? <ContactMailIcon /> : 'Kontaktieren Sie uns'}
+                    </button>
+                    <button
+                        className={styles.searchButton}
+                        onClick={() => setIsModalSubscribeOpen(true)}
+                    >
+                        {isMobile ? <NotificationsIcon /> : 'Preiswecker'}
+                    </button>
+                </div>
+            </header>
 
             {isModalContactUsOpen && <ContactUsModal closeModal={() => setIsModalContactUsOpen(false)}/>}
             {isModalSubscribeOpen && <SubscribeModal closeModal={() => setIsModalSubscribeOpen(false)}/>}
         </>
-);
+    );
 };
 
 export default Header;

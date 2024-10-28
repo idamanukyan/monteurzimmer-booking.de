@@ -32,12 +32,12 @@ export default function LandingScreen() {
 
             <div className={styles.favCitiesContainer}>
                 <div className={styles.favTitle2}>Beliebte Städte</div>
-                <hr className={styles.dividerLineFavoriteCities}/> {/* Corrected "Favortie" to "Favorite" */}
+                <hr className={styles.dividerLineFavoriteCities}/>
                 <FavCities favCities={state.favCities}/>
             </div>
 
             <div className={styles.favProdsContainer}>
-                <div className={styles.favTitle2}>Beliebte Unterkünfte</div> {/* Corrected "Unterkunfte" to "Unterkünfte" */}
+                <div className={styles.favTitle2}>Beliebte Unterkünfte</div>
                 <hr className={styles.dividerLineFavoriteProperties}/>
                 <FavoriteProperties favoriteProperties={state.favoriteProperties}/>
             </div>
@@ -50,7 +50,7 @@ export default function LandingScreen() {
 
             <div className={styles.allCitiesContainer}>
                 <div className={styles.favTitle2}>Alle Städte</div>
-                <hr className={styles.dividerLineFavoriteCities}/> {/* Corrected "Favortie" to "Favorite" */}
+                <hr className={styles.dividerLineAllCities}/>
                 <AllCities favCities={state.allCities}/>
             </div>
 
