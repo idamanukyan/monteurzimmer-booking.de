@@ -3,12 +3,14 @@ package de.monteurzimmer.monteurzimmer_booking.property_management.controller;
 import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import de.monteurzimmer.monteurzimmer_booking.city_management.repository.CityRepository;
 import de.monteurzimmer.monteurzimmer_booking.log.LogEntryService;
-import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FavoritePropertyDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyByLinkDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.service.PropertyService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,12 +42,12 @@ public class PropertyController {
 
     private final PropertyService propertyService;
     private final CityRepository cityRepository;
-    private final LogEntryService logEntryService; // Add your custom LogEntryService
+    private final LogEntryService logEntryService;
 
     @GetMapping
-    public ResponseEntity<List<PropertyDTO>> getAllProperties() {
-        List<PropertyDTO> properties = propertyService.getAllProperties();
-        logEntryService.log("INFO", "Retrieved " + properties.size() + " properties.");
+    public ResponseEntity<Page<PropertyDTO>> getAllProperties(@PageableDefault(size = 20) Pageable pageable) {
+        Page<PropertyDTO> properties = propertyService.getAllProperties(pageable);
+        logEntryService.log("INFO", "Retrieved " + properties.getTotalElements() + " properties.");
         return ResponseEntity.ok(properties);
     }
 
@@ -57,9 +59,10 @@ public class PropertyController {
     }
 
     @GetMapping("/city/{city}")
-    public ResponseEntity<List<PropertyDTO>> getPropertyByCity(@PathVariable String city) {
-        List<PropertyDTO> properties = propertyService.getPropertyByCity(city);
-        logEntryService.log("INFO", "Retrieved " + properties.size() + " properties for city: " + city);
+    public ResponseEntity<Page<PropertyDTO>> getPropertyByCity(@PathVariable String city,
+                                                               @PageableDefault(size = 20) Pageable pageable) {
+        Page<PropertyDTO> properties = propertyService.getPropertyByCity(city, pageable);
+        logEntryService.log("INFO", "Retrieved " + properties.getTotalElements() + " properties for city: " + city);
         return ResponseEntity.ok(properties);
     }
 
@@ -92,15 +95,18 @@ public class PropertyController {
     }
 
     @PostMapping("/search-result")
-    public ResponseEntity<List<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO) {
-        List<PropertyDTO> properties = propertyService.getFilteredProperties(filterSearchPropertyDTO);
+    public ResponseEntity<Page<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO,
+                                                                   @PageableDefault(size = 20) Pageable pageable) {
+
+        Page<PropertyDTO> properties = propertyService.getFilteredProperties(filterSearchPropertyDTO, pageable);
+
         if (filterSearchPropertyDTO.getDistance() != null && filterSearchPropertyDTO.getCity() != null) {
             City city = cityRepository.findByName(filterSearchPropertyDTO.getCity().getName());
             double propertyLat = city.getLatitude();
             double propertyLon = city.getLongitude();
             propertyService.findPropertiesWithinDistance(propertyLat, propertyLon, filterSearchPropertyDTO.getDistance());
         }
-        logEntryService.log("INFO", "Retrieved " + properties.size() + " filtered properties.");
+        logEntryService.log("INFO", "Retrieved " + properties.getTotalElements() + " filtered properties.");
         return ResponseEntity.ok(properties);
     }
 

@@ -10,6 +10,8 @@ import de.monteurzimmer.monteurzimmer_booking.property_management.repository.Pro
 import de.monteurzimmer.monteurzimmer_booking.property_management.util.DistanceUtils;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -27,16 +29,15 @@ public class PropertyService {
     private final ModelMapper modelMapper;
     private final LogEntryService logEntryService; // Inject your custom logger
 
-    public List<PropertyDTO> getAllProperties() {
+    public Page<PropertyDTO> getAllProperties(Pageable pageable) {
         logEntryService.log("INFO", "Fetching all properties.");
-        List<Property> properties = propertyRepository.findAll();
+        Page<Property> properties = propertyRepository.findAll(pageable);
 
-        return properties.stream()
-                .map(property -> modelMapper.map(property, PropertyDTO.class))
-                .collect(Collectors.toList());
+        return properties.map(property -> modelMapper.map(property, PropertyDTO.class));
+
     }
 
-    public List<PropertyDTO> getFilteredProperties(FilterSearchPropertyDTO propertyDTO) {
+    public Page<PropertyDTO> getFilteredProperties(FilterSearchPropertyDTO propertyDTO, Pageable pageable) {
         Specification<Property> spec = Specification.where(null);
 
         if (propertyDTO.getCity() != null) {
@@ -71,11 +72,10 @@ public class PropertyService {
 
         addBooleanSpecifications(spec, propertyDTO);
 
-        List<Property> filteredProperties = propertyRepository.findAll(spec);
-        logEntryService.log("INFO", "Retrieved {} filtered properties." + filteredProperties.size());
-        return filteredProperties.stream()
-                .map(property -> modelMapper.map(property, PropertyDTO.class))
-                .collect(Collectors.toList());
+        Page<Property> filteredProperties = propertyRepository.findAll(spec, pageable);
+        logEntryService.log("INFO", "Retrieved {} filtered properties." + filteredProperties.getTotalElements());
+        return filteredProperties.map(property -> modelMapper.map(property, PropertyDTO.class));
+
     }
 
     private void addBooleanSpecifications(Specification<Property> spec, FilterSearchPropertyDTO propertyDTO) {
@@ -163,12 +163,10 @@ public class PropertyService {
         return modelMapper.map(property, PropertyDTO.class);
     }
 
-    public List<PropertyDTO> getPropertyByCity(String city) {
+    public Page<PropertyDTO> getPropertyByCity(String city, Pageable pageable) {
         logEntryService.log("INFO", "Fetching properties in city: {}" + city);
-        List<Property> propertyList = propertyRepository.findByCity_Name(city);
-        return propertyList.stream()
-                .map(property -> modelMapper.map(property, PropertyDTO.class))
-                .collect(Collectors.toList());
+        Page<Property> propertyList = propertyRepository.findByCity_Name(city, pageable);
+        return propertyList.map(property -> modelMapper.map(property, PropertyDTO.class));
     }
 
     public PropertyDTO getPropertyByLink(String url) {
