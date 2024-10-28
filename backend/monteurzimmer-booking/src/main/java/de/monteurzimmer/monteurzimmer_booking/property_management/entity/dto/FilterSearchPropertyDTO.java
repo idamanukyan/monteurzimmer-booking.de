@@ -61,4 +61,59 @@ public class FilterSearchPropertyDTO {
     //for price range search
     private Long maxPrice;
     private Long minPrice;
+
+    @Override
+    public String toString() {
+        return "FilterSearchPropertyDTO{" +
+                "propertyName='" + propertyName + '\'' +
+                ", propertyType='" + propertyType + '\'' +
+                ", description='" + description + '\'' +
+                ", address='" + address + '\'' +
+                ", pricePerNight=" + pricePerNight +
+                ", fullPrice=" + fullPrice +
+                ", pricePerBed=" + pricePerBed +
+                ", rating=" + rating +
+                ", isAvailable=" + isAvailable +
+                ", country='" + country + '\'' +
+                ", city=" + city +
+                ", roomCount=" + roomCount +
+                ", bedCount=" + bedCount +
+                ", numberOfGuests=" + numberOfGuests +
+                ", socialMediaLink='" + socialMediaLink + '\'' +
+                ", wifi=" + wifi +
+                ", tv=" + tv +
+                ", separateBeds=" + separateBeds +
+                ", privateBath=" + privateBath +
+                ", cookingFacilities=" + cookingFacilities +
+                ", radio=" + radio +
+                ", towels=" + towels +
+                ", extraBedPossible=" + extraBedPossible +
+                ", bedLinen=" + bedLinen +
+                ", fridge=" + fridge +
+                ", coffeeMachine=" + coffeeMachine +
+                ", microwave=" + microwave +
+                ", dishwasher=" + dishwasher +
+                ", wc=" + wc +
+                ", terrace=" + terrace +
+                ", kettle=" + kettle +
+                ", bathtub=" + bathtub +
+                ", garden=" + garden +
+                ", cookingUtensils=" + cookingUtensils +
+                ", washingMachine=" + washingMachine +
+                ", selfCheckIn=" + selfCheckIn +
+                ", smoking=" + smoking +
+                ", quietLocation=" + quietLocation +
+                ", goodTransportation=" + goodTransportation +
+                ", shopsNearby=" + shopsNearby +
+                ", neighborhood='" + neighborhood + '\'' +
+                ", bathrooms=" + bathrooms +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", isFavorite=" + isFavorite +
+                ", photos=" + photos +
+                ", distance=" + distance +
+                ", maxPrice=" + maxPrice +
+                ", minPrice=" + minPrice +
+                '}';
+    }
 }
