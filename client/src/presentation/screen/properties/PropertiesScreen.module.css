@@ -247,3 +247,53 @@ h3 {
     height: auto; /* Maintain aspect ratio */
     margin-bottom: 10px; /* Space between logo and other content */
 }
+
+
+@media (max-width: 500px) {
+    .propertyFilterContainer > h2 {
+        font-size: 20px;
+    }
+
+    .propertyBodyContainer {
+        flex-direction: column;
+    }
+
+    .propertyFilterContainer {
+        width: auto;
+    }
+
+    .filterItem {
+        flex-direction: row;
+        margin-bottom: 0;
+    }
+
+    .filterCategory {
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    .filterCategory > h4 {
+        width: 100%;
+        margin: 5px;
+    }
+
+    .filterItemText {
+        width: 50%;
+        margin: 0;
+    }
+
+    .filterItemText input {
+        width: -webkit-fill-available;
+    }
+
+    .propertyListContainer {
+        padding: 25px;
+        margin: 0;
+        width: auto;
+    }
+
+    .propertyListContainer > h2 {
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+}

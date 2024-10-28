@@ -327,31 +327,42 @@ input[type="range"]:disabled {
     padding: -1px !important;
 }
 
-/* Mobile Styles */
-/* Mobile Styles */
 @media (max-width: 768px) {
     .heroSlide {
-        background-size: cover; /* Ensure the background covers fully */
-        height: 50vh; /* Reduced height for mobile */
+        background-size: cover;
+        height: fit-content;
+    }
+
+    .motto {
+        margin-bottom: 50px;
+        align-items: center;
     }
 
     .motto > p {
-        font-size: 32px; /* Smaller font size for motto */
+        font-size: 32px;
     }
 
     .headerContainer {
-        padding: 15px 20px; /* Adjust padding for mobile */
-        width: 90vw; /* Maintain width */
+        padding: 15px 20px;
+        width: 90vw;
+    }
+
+    .heroSlideDetails {
+        width: 90vw;
     }
 
     .searchContainer {
-        width: 90vw; /* Adjust search container width for mobile */
-        padding: 0 20px; /* Adjust padding for mobile */
+        width: fit-content;
+        padding: 0 30px;
+        height: fit-content;
+    }
+
+    .searchContainer > div > h1 {
+        font-size: 20px;
     }
 
     .searchInput,
     .dropdown {
-        height: 40px; /* Adjust height for inputs on mobile */
         font-size: 14px; /* Adjust font size for mobile */
     }
 
@@ -363,6 +374,11 @@ input[type="range"]:disabled {
     .inputFields {
         flex-direction: column; /* Stack input fields on mobile */
         gap: 10px; /* Reduce gap between fields */
+        width: 100%;
+    }
+
+    .inputFields > div {
+        width: 100%;
     }
 
     .datePicker {

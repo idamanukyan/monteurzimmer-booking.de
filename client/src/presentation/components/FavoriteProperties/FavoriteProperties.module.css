@@ -9,6 +9,7 @@
 
 button[type="button"] {
     background-color: #ff3c00;
+    color: #fff;
 }
 
 button[type="button"]:hover {
