@@ -27,7 +27,7 @@ public class PropertyService {
     private final PropertyRepository propertyRepository;
     private final CityRepository cityRepository;
     private final ModelMapper modelMapper;
-    private final LogEntryService logEntryService; // Inject your custom logger
+    private final LogEntryService logEntryService;
 
     public Page<PropertyDTO> getAllProperties(Pageable pageable) {
         logEntryService.log("INFO", "Fetching all properties.");

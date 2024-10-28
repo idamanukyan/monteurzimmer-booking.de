@@ -31,7 +31,4 @@ public interface PropertyRepository extends JpaRepository<Property, Long>, JpaSp
 
     Optional<Property> findBySocialMediaLink(String url);
 
-    Page<Property> findFilteredProperties(FilterSearchPropertyDTO filterSearchPropertyDTO, Pageable pageable);
-
-
 }

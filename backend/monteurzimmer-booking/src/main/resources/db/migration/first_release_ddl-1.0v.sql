@@ -206,3 +206,14 @@ CREATE TABLE cities
 
 alter table properties
     add column city_id bigint references cities (id);
+
+CREATE TABLE SearchLog
+(
+    id           BIGINT AUTO_INCREMENT PRIMARY KEY,
+    city         VARCHAR(255),
+    distance     DOUBLE,
+    otherFilters VARCHAR(500),
+    ipAddress    VARCHAR(45),
+    timestamp    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    searchParams TEXT
+);

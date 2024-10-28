@@ -3,10 +3,13 @@ package de.monteurzimmer.monteurzimmer_booking.property_management.controller;
 import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import de.monteurzimmer.monteurzimmer_booking.city_management.repository.CityRepository;
 import de.monteurzimmer.monteurzimmer_booking.log.LogEntryService;
+import de.monteurzimmer.monteurzimmer_booking.log.search_log.SearchLog;
+import de.monteurzimmer.monteurzimmer_booking.log.search_log.SearchLogRepository;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.FilterSearchPropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyByLinkDto;
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.service.PropertyService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -43,6 +47,7 @@ public class PropertyController {
     private final PropertyService propertyService;
     private final CityRepository cityRepository;
     private final LogEntryService logEntryService;
+    private final SearchLogRepository searchLogRepository;
 
     @GetMapping
     public ResponseEntity<Page<PropertyDTO>> getAllProperties(@PageableDefault(size = 20) Pageable pageable) {
@@ -96,7 +101,20 @@ public class PropertyController {
 
     @PostMapping("/search-result")
     public ResponseEntity<Page<PropertyDTO>> getFilteredProperties(@RequestBody FilterSearchPropertyDTO filterSearchPropertyDTO,
-                                                                   @PageableDefault(size = 20) Pageable pageable) {
+                                                                   @PageableDefault(size = 20) Pageable pageable,
+                                                                   HttpServletRequest request) {
+
+        //Search Log Logic
+        String ipAddress = request.getRemoteAddr();
+        SearchLog searchLog = new SearchLog();
+        searchLog.setCity(filterSearchPropertyDTO.getCity() != null ? filterSearchPropertyDTO.getCity().getName() : null);
+        searchLog.setDistance(Double.valueOf(filterSearchPropertyDTO.getDistance()));
+        searchLog.setIpAddress(ipAddress);
+        searchLog.setTimestamp(LocalDateTime.now());
+        searchLog.setSearchParams(filterSearchPropertyDTO.toString());
+        searchLogRepository.save(searchLog);
+
+        //Rest of the logic
 
         Page<PropertyDTO> properties = propertyService.getFilteredProperties(filterSearchPropertyDTO, pageable);
 
