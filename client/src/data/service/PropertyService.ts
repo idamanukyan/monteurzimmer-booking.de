@@ -4,7 +4,7 @@ import {PropertiesModel, PropertyMainFields} from "../model/PropertiesModel";
 const api_url_main = 'http://localhost:8080/api/properties';
 
 const api_url_link_preview = 'https://fetchlinkapi-production.up.railway.app/link-preview?api_key='; // Use the new URL for the link preview API
-const apiKey = '8c3ede4e-66c1-4da7-841f-795b75bb5e2c'; // Updated API key
+const apiKey = '8c3ede4e-66c1-4da7-841f-795b75bb5e2c';
 
 export class PropertyService {
     getProperties = async (city: string) : Promise<PropertiesModel | null> => {

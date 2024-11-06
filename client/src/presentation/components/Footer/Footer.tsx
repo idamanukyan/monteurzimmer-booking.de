@@ -28,9 +28,8 @@ const Footer = () => {
             <div className={styles.footerColumn}>
                 <h3>Rechtliche Informationen</h3>
                 <ul className={styles.legalLinks}>
-                    <li><a href="#">Nutzungsbedingungen</a></li>
-                    <li><a href="#">Datenschutzbestimmungen</a></li>
-                    <li><a href="#">Rechtlicher Hinweis</a></li>
+                    <li><a href="/AGB.pdf" target="_blank">AGB</a></li>
+                    <li><a href="/Datenschutzerklarung.pdf" target="_blank">Datenschutzbestimmungen</a></li>
                 </ul>
             </div>
         </footer>
