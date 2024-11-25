@@ -71,6 +71,7 @@ public class PropertyController {
         return ResponseEntity.ok(properties);
     }
 
+    @CrossOrigin(origins = "https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com")  // Allow CORS for this method
     @GetMapping("/cheapest")
     public ResponseEntity<List<PropertyDTO>> get20CheapestProperties() {
         List<PropertyDTO> properties = propertyService.get20Chepeastproperties();
@@ -78,6 +79,7 @@ public class PropertyController {
         return ResponseEntity.ok(properties);
     }
 
+    @CrossOrigin(origins = "https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com")  // Allow CORS for this method
     @GetMapping("/favorites")
     public ResponseEntity<List<PropertyDTO>> get20FavoriteProperties() {
         List<PropertyDTO> properties = propertyService.get20FavoriteProperties();
@@ -85,6 +87,7 @@ public class PropertyController {
         return ResponseEntity.ok(properties);
     }
 
+    @CrossOrigin(origins = "https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com")  // Allow CORS for this method
     @GetMapping("/latest")
     public ResponseEntity<List<PropertyDTO>> getLast20Properties() {
         List<PropertyDTO> properties = propertyService.get20LastProperties();

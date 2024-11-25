@@ -9,13 +9,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        System.out.println("CORS mappings applied!");
         registry.addMapping("/**")
-                .allowedOrigins(
-                        "*"
-                )
+                .allowedOrigins("https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com") // Make sure the frontend URL is correct
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*");
-                //.allowCredentials(false);
+                .allowedHeaders("*") // Add any custom headers if needed
+                .allowCredentials(true);
     }
+
 }

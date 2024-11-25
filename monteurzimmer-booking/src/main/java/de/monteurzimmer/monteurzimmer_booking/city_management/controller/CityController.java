@@ -65,6 +65,7 @@ public class CityController {
         return ResponseEntity.ok(createdCity);
     }
 
+    @CrossOrigin(origins = "https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com")  // Allow CORS for this method
     @GetMapping("/all")
     public ResponseEntity<List<CityDto>> getAllCities() {
         logEntryService.log("info", "Fetching all cities.");
@@ -86,6 +87,7 @@ public class CityController {
         }
     }
 
+    @CrossOrigin(origins = "https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com")  // Allow CORS for this method
     @GetMapping("/favorites")
     public ResponseEntity<List<CityDto>> getFavoriteCities() {
         logEntryService.log("info", "Fetching favorite cities.");
