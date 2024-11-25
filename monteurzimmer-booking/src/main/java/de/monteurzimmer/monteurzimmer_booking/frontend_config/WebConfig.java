@@ -12,10 +12,7 @@ public class WebConfig implements WebMvcConfigurer {
         System.out.println("CORS mappings applied!");
         registry.addMapping("/**")
                 .allowedOrigins(
-                        "http://localhost:3000",
-                        "http://check-monteruzimmer.de",
-                        "http://checkmonteurzimmer.de",
-                        "https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com"
+                        "*"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
