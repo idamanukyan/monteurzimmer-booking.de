@@ -13,6 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000")
                 .allowedOrigins("http://check-monteruzimmer.de")
                 .allowedOrigins("http://checkmonteurzimmer.de")
+                .allowedOrigins("https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com/")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
