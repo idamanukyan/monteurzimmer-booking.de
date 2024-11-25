@@ -23,26 +23,6 @@ public class SecurityConfig {
         this.jwtRequestFilter = jwtRequestFilter;
         this.userDetailsService = userDetailsService;
     }
-/*
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.cors()
-                .and()
-                .csrf(csrf -> csrf.disable()) // Disable CSRF for API-based applications
-              *//*  .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/sign-in").permitAll()
-                        .requestMatchers("/api/properties/cheapest").permitAll()
-                        .requestMatchers("/api/properties/favorites").permitAll()
-                        .requestMatchers("/api/cities/favorites").permitAll()
-                        .requestMatchers("/api/cities/all").permitAll()
-                        .requestMatchers("api/properties/city/{city}").permitAll()
-                        .anyRequest().permitAll()
-                )*//*
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Set session policy to stateless (JWT)
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT filter before authentication
-                .build();
-    }*/
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -50,11 +30,17 @@ public class SecurityConfig {
                 .and()
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for API-based applications
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll() // Allow all requests (temporary for debugging)
+                        .requestMatchers("/api/users/sign-in").permitAll()
+                        .requestMatchers("/api/properties/cheapest").permitAll()
+                        .requestMatchers("/api/properties/favorites").permitAll()
+                        .requestMatchers("/api/cities/favorites").permitAll()
+                        .requestMatchers("/api/cities/all").permitAll()
+                        .requestMatchers("api/properties/city/{city}").permitAll()
+                        .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless sessions
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class) // JWT filter
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Set session policy to stateless (JWT)
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class) // Add JWT filter before authentication
                 .build();
     }
 
