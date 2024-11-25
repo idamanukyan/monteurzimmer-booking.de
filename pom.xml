@@ -48,7 +48,7 @@
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.28</version> <!-- Use the latest stable version or the one that suits your project -->
+			<version>8.0.33</version> <!-- Use the latest stable version or the one that suits your project -->
 		</dependency>
 
 		<dependency>
