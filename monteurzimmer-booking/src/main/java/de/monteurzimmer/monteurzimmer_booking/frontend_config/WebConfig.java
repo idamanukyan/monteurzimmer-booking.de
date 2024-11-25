@@ -1,3 +1,4 @@
+/*
 package de.monteurzimmer.monteurzimmer_booking.frontend_config;
 
 import org.springframework.context.annotation.Configuration;
@@ -21,4 +22,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedHeaders("*")
                 .allowCredentials(true);
     }
-}
+}*/

@@ -2,26 +2,22 @@ package de.monteurzimmer.monteurzimmer_booking.frontend_config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 @Configuration
-public class CorsConfig {
+public class GlobalCorsConfig {
+
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:3000",
-                "http://check-monteruzimmer.de",
-                "http://checkmonteurzimmer.de",
-                "https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com"
-        ));
-        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
-        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedOrigins(Collections.singletonList("*")); // Allow all origins
+        corsConfiguration.setAllowedMethods(Collections.singletonList("*")); // Allow all HTTP methods
+        corsConfiguration.setAllowedHeaders(Collections.singletonList("*")); // Allow all headers
+        corsConfiguration.setAllowCredentials(true); // Allow credentials (cookies)
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
