@@ -1,0 +1,712 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-users-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: VARCHAR(15)
+              - column:
+                  name: address
+                  type: TEXT
+              - column:
+                  name: profile_picture
+                  type: VARCHAR(255)
+              - column:
+                  name: created
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: deleted
+                  type: BOOLEAN
+                  defaultValue: false
+              - column:
+                  name: last_login_date
+                  type: TIMESTAMP
+              - column:
+                  name: is_verified_via_email
+                  type: BOOLEAN
+                  defaultValue: false
+              - column:
+                  name: has_admin_approved
+                  type: BOOLEAN
+                  defaultValue: false
+              - column:
+                  name: social_media_provider
+                  type: VARCHAR(50)
+              - column:
+                  name: social_media_id
+                  type: VARCHAR(255)
+        - addUniqueConstraint:
+            tableName: users
+            columnNames: email, deleted
+
+  - changeSet:
+      id: 2-create-roles-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+
+  - changeSet:
+      id: 3-create-permissions-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: permissions
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 4-create-roles-permissions-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: roles_permissions
+            columns:
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: permission_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: roles_permissions
+            columnNames: role_id, permission_id
+        - addForeignKeyConstraint:
+            baseTableName: roles_permissions
+            baseColumnNames: role_id
+            constraintName: fk_roles_permissions_role_id
+            referencedTableName: roles
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: roles_permissions
+            baseColumnNames: permission_id
+            constraintName: fk_roles_permissions_permission_id
+            referencedTableName: permissions
+            referencedColumnNames: id
+            onDelete: CASCADE
+  - changeSet:
+      id: 5-create-roles-users-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: roles_users
+            columns:
+              - column:
+                  name: role_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: roles_users
+            columnNames: role_id, user_id
+        - addForeignKeyConstraint:
+            baseTableName: roles_users
+            baseColumnNames: role_id
+            constraintName: fk_roles_users_role_id
+            referencedTableName: roles
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: roles_users
+            baseColumnNames: user_id
+            constraintName: fk_roles_users_user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+  - changeSet:
+      id: 6-create-user-sessions-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: user_sessions
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: session_id
+                  type: VARCHAR(255)
+              - column:
+                  name: expiry_timestamp
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValue: true
+        - addForeignKeyConstraint:
+            baseTableName: user_sessions
+            baseColumnNames: user_id
+            constraintName: fk_user_sessions_user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+  - changeSet:
+      id: 7-create-email-verifications-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: email_verifications
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: verification_code
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expiry_timestamp
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_verified
+                  type: BOOLEAN
+                  defaultValue: false
+        - addForeignKeyConstraint:
+            baseTableName: email_verifications
+            baseColumnNames: user_id
+            constraintName: fk_email_verifications_user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+  - changeSet:
+      id: 8-create-password-resets-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: password_resets
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: reset_code
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: expiry_timestamp
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_reset
+                  type: BOOLEAN
+                  defaultValue: false
+        - addForeignKeyConstraint:
+            baseTableName: password_resets
+            baseColumnNames: user_id
+            constraintName: fk_password_resets_user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+  - changeSet:
+      id: 9-create-logs-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: logs
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: timestamp
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: level
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: message
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 10-create-contact-form-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: contact_form
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_phone
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_message
+                  type: TEXT
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 11-create-properties-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: properties
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: property_name
+                  type: VARCHAR(255)
+              - column:
+                  name: property_type
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: address
+                  type: VARCHAR(255)
+              - column:
+                  name: price
+                  type: DECIMAL(10, 2)
+              - column:
+                  name: rating
+                  type: DECIMAL(3, 2)
+              - column:
+                  name: room_count
+                  type: INT
+              - column:
+                  name: bed_count
+                  type: INT
+              - column:
+                  name: max_number_of_guests
+                  type: INT
+              - column:
+                  name: social_media_link
+                  type: VARCHAR(255)
+              - column:
+                  name: wifi
+                  type: BOOLEAN
+              - column:
+                  name: tv
+                  type: BOOLEAN
+              - column:
+                  name: separate_beds
+                  type: BOOLEAN
+              - column:
+                  name: private_bath
+                  type: BOOLEAN
+              - column:
+                  name: cooking_facilities
+                  type: BOOLEAN
+              - column:
+                  name: radio
+                  type: BOOLEAN
+              - column:
+                  name: towels
+                  type: BOOLEAN
+              - column:
+                  name: extra_bed_possible
+                  type: BOOLEAN
+              - column:
+                  name: bed_linen
+                  type: BOOLEAN
+              - column:
+                  name: fridge
+                  type: BOOLEAN
+              - column:
+                  name: coffee_machine
+                  type: BOOLEAN
+              - column:
+                  name: microwave
+                  type: BOOLEAN
+              - column:
+                  name: dishwasher
+                  type: BOOLEAN
+              - column:
+                  name: wc
+                  type: BOOLEAN
+              - column:
+                  name: terrace
+                  type: BOOLEAN
+              - column:
+                  name: kettle
+                  type: BOOLEAN
+              - column:
+                  name: bathtub
+                  type: BOOLEAN
+              - column:
+                  name: garden
+                  type: BOOLEAN
+              - column:
+                  name: cooking_utensils
+                  type: BOOLEAN
+              - column:
+                  name: washing_machine
+                  type: BOOLEAN
+              - column:
+                  name: self_check_in
+                  type: BOOLEAN
+              - column:
+                  name: smoking
+                  type: BOOLEAN
+              - column:
+                  name: quiet_location
+                  type: BOOLEAN
+              - column:
+                  name: good_transportation
+                  type: BOOLEAN
+              - column:
+                  name: shops_nearby
+                  type: BOOLEAN
+              - column:
+                  name: neighborhood
+                  type: VARCHAR(100)
+              - column:
+                  name: bathrooms
+                  type: INT
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: is_favorite
+                  type: BOOLEAN
+  - changeSet:
+      id: 12-create-search-history-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: search_history
+            columns:
+              - column:
+                  name: search_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: search_timestamp
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: country
+                  type: VARCHAR(100)
+              - column:
+                  name: city
+                  type: VARCHAR(100)
+              - column:
+                  name: property_type
+                  type: VARCHAR(255)
+              - column:
+                  name: check_in_date
+                  type: DATE
+              - column:
+                  name: check_out_date
+                  type: DATE
+              - column:
+                  name: number_of_people
+                  type: INT
+              - column:
+                  name: budget_range
+                  type: DECIMAL(10, 2)
+        - addForeignKeyConstraint:
+            baseTableName: search_history
+            baseColumnNames: user_id
+            constraintName: fk_search_history_user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+  - changeSet:
+      id: 13-create-newsletter-subscriptions-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: newsletter_subscriptions
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: VARCHAR(255)
+              - column:
+                  name: birth_date
+                  type: DATE
+              - column:
+                  name: subscribed_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValue: true
+
+  - changeSet:
+      id: 14-create-favorites-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: favorites
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: session_id
+                  type: VARCHAR(255)
+              - column:
+                  name: property_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: added_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+        - addForeignKeyConstraint:
+            baseTableName: favorites
+            baseColumnNames: user_id
+            constraintName: fk_favorites_user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: favorites
+            baseColumnNames: property_id
+            constraintName: fk_favorites_property_id
+            referencedTableName: properties
+            referencedColumnNames: id
+            onDelete: CASCADE
+  - changeSet:
+      id: 15-create-cities-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: cities
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_favorite
+                  type: BOOLEAN
+                  defaultValue: false
+              - column:
+                  name: photo_url
+                  type: VARCHAR(255)
+              - column:
+                  name: latitude
+                  type: DECIMAL(9, 6)
+              - column:
+                  name: longitude
+                  type: DECIMAL(9, 6)
+
+  - changeSet:
+      id: 16-add-city-id-to-properties
+      author: imanukyan
+      changes:
+        - addColumn:
+            tableName: properties
+            columns:
+              - column:
+                  name: city_id
+                  type: BIGINT
+        - addForeignKeyConstraint:
+            baseTableName: properties
+            baseColumnNames: city_id
+            constraintName: fk_properties_city_id
+            referencedTableName: cities
+            referencedColumnNames: id
+            onDelete: SET NULL
+
+  - changeSet:
+      id: 17-create-searchlog-table
+      author: imanukyan
+      changes:
+        - createTable:
+            tableName: SearchLog
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: city
+                  type: VARCHAR(255)
+              - column:
+                  name: distance
+                  type: DOUBLE
+              - column:
+                  name: otherFilters
+                  type: VARCHAR(500)
+              - column:
+                  name: ipAddress
+                  type: VARCHAR(45)
+              - column:
+                  name: timestamp
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: searchParams
+                  type: TEXT
