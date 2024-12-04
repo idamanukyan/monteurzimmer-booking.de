@@ -55,6 +55,15 @@ public class PropertyDTO {
     private List<PropertyPhoto> photos;
     private String socialMediaLink;
     private Boolean isFavorite;
+    private String mainPhoto;
+
+    public String getMainPhoto() {
+        return mainPhoto;
+    }
+
+    public void setMainPhoto(String mainPhoto) {
+        this.mainPhoto = mainPhoto;
+    }
 
     public Long getId() {
         return id;

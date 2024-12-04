@@ -78,5 +78,6 @@ public class Property {
     private Boolean isFavorite;
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     private List<PropertyPhoto> photos;
+    private String mainPhoto;
 }
 
