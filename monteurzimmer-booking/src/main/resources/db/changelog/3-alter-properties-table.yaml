@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: imanukyan
+      changes:
+        - addColumn:
+            tableName: properties
+            columns:
+              - column:
+                  name: mainPhoto
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: true
