@@ -7,6 +7,7 @@ import de.monteurzimmer.monteurzimmer_booking.property_management.entity.Propert
 import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.PropertyDTO;
 import de.monteurzimmer.monteurzimmer_booking.property_management.service.PropertyService;
 import de.monteurzimmer.monteurzimmer_booking.user_management.entity.User;
+import de.monteurzimmer.monteurzimmer_booking.user_management.repository.UserSessionsRepository;
 import de.monteurzimmer.monteurzimmer_booking.user_management.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,16 @@ import java.util.List;
 public class FavoriteService {
 
     private final FavoriteRepository favoriteRepository;
+    private final UserSessionsRepository userSessionRepository;
     private final UserService userService;
     private final ModelMapper mapper;
     private final PropertyService propertyService;
     private final LogEntryService logEntryService;
 
     @Autowired
-    public FavoriteService(FavoriteRepository favoriteRepository, UserService userService, ModelMapper mapper, PropertyService propertyService, LogEntryService logEntryService) {
+    public FavoriteService(FavoriteRepository favoriteRepository, UserSessionsRepository userSessionRepository, UserService userService, ModelMapper mapper, PropertyService propertyService, LogEntryService logEntryService) {
         this.favoriteRepository = favoriteRepository;
+        this.userSessionRepository = userSessionRepository;
         this.userService = userService;
         this.mapper = mapper;
         this.propertyService = propertyService;
@@ -104,5 +107,16 @@ public class FavoriteService {
         }
 
         return favorites;
+    }
+
+    public Boolean checkIsActiveAndPresent(String sessionId){
+
+        Boolean response = false;
+
+        if(userSessionRepository.existsBySessionId(sessionId)){
+            response = true;
+        }
+
+        return response;
     }
 }

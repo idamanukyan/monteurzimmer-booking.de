@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/favorites")
+@RequestMapping("/session/favorites")
 public class FavoriteController {
 
     private final FavoriteService favoriteService;
@@ -58,6 +58,19 @@ public class FavoriteController {
 
         logEntryService.log("info", "Favorites retrieved: " + favorites.size() + " items found.");
         return ResponseEntity.ok(favorites);
+    }
+
+    //Check if the session is present (sessionID) -> check the expiry timestamp
+    @GetMapping("/session/isActive")
+    public ResponseEntity<Boolean> isSessionActive(@RequestParam String sessionId){
+        logEntryService.log("info", "Received request to check if the sessionId: " +
+                sessionId + " is present and expired.");
+
+        sessionId = sessionId.trim();
+
+        Boolean isActive = favoriteService.checkIsActiveAndPresent(sessionId);
+
+        return ResponseEntity.ok(isActive);
     }
 }
 

@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserSessionsRepository extends JpaRepository<UserSession, Long> {
+
+    Boolean existsBySessionId(String sessionId);
 }
