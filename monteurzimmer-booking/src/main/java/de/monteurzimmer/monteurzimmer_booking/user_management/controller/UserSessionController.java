@@ -17,9 +17,9 @@ public class UserSessionController {
     private UserSessionsService userSessionService;
 
     @GetMapping("/create")
-    public ResponseEntity<Map<String, String>> createSession() {
+    public String createSession() {
         String sessionId = userSessionService.createSession();
         System.out.println(sessionId);
-        return ResponseEntity.ok(Map.of("sessionId", sessionId));
+        return sessionId;
     }
 }

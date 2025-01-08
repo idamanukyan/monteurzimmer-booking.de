@@ -10,9 +10,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com") // Make sure the frontend URL is correct
+                .allowedOrigins("https://check-monteurzimmer-frontend-6f3b50cb8e29.herokuapp.com")
+                .allowedOrigins("http://localhost:3000")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*") // Add any custom headers if needed
+                .allowedHeaders("*")
                 .allowCredentials(true);
     }
 
