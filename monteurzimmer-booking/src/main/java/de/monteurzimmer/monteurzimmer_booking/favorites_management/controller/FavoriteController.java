@@ -35,7 +35,7 @@ public class FavoriteController {
         }
 
         Favorite favorite = favoriteService.addFavorite(propertyId, sessionId);
-        logEntryService.log("info", "Favorite added successfully: " + favorite);
+        logEntryService.log("info", "Favorite added successfully: " + favorite.getId());
         return ResponseEntity.ok(favorite);
     }
 
