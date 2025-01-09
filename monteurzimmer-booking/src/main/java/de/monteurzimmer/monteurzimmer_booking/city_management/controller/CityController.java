@@ -69,6 +69,8 @@ public class CityController {
     @GetMapping("/all")
     public ResponseEntity<List<CityDto>> getAllCities() {
         logEntryService.log("info", "Fetching all cities.");
+
+        logEntryService.log("info", "DEPLOYMENT CHECK LOG");
         List<CityDto> cities = cityService.getAllCities();
         logEntryService.log("info", "Retrieved " + cities.size() + " cities.");
         return ResponseEntity.ok(cities);
