@@ -24,7 +24,7 @@ public class FavoriteController {
     }
 
     @PostMapping("/add/{propertyId}")
-    public ResponseEntity<Favorite> addFavorite(@PathVariable Long propertyId,
+    public ResponseEntity<Favorite> addFavorite(@PathVariable("propertyId") Long propertyId,
                                                 @RequestParam String sessionId) {
 
         logEntryService.log("info", "Received request to add favorite with propertyId: " + propertyId + " and sessionId: " + sessionId);
