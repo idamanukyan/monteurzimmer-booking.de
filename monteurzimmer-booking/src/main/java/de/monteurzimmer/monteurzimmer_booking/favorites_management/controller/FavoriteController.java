@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/session/favorites")
+@RequestMapping("/api/session/favorites")
 public class FavoriteController {
 
     private final FavoriteService favoriteService;
@@ -25,7 +25,7 @@ public class FavoriteController {
 
     @PostMapping("/add/{propertyId}")
     public ResponseEntity<Favorite> addFavorite(@PathVariable("propertyId") Long propertyId,
-                                                @RequestParam String sessionId) {
+                                                @RequestParam("sessionId") String sessionId) {
 
         logEntryService.log("info", "Received request to add favorite with propertyId: " + propertyId + " and sessionId: " + sessionId);
 
