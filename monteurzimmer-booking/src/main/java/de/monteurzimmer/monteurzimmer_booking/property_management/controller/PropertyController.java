@@ -1,5 +1,6 @@
 package de.monteurzimmer.monteurzimmer_booking.property_management.controller;
 
+import com.mysql.cj.log.Log;
 import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import de.monteurzimmer.monteurzimmer_booking.city_management.repository.CityRepository;
 import de.monteurzimmer.monteurzimmer_booking.log.LogEntryService;
@@ -11,6 +12,8 @@ import de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto.Pro
 import de.monteurzimmer.monteurzimmer_booking.property_management.service.PropertyService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -48,6 +51,8 @@ public class PropertyController {
     private final CityRepository cityRepository;
     private final LogEntryService logEntryService;
     private final SearchLogRepository searchLogRepository;
+    private static final Logger logger = LoggerFactory.getLogger(PropertyController.class);
+
 
     @GetMapping
     public ResponseEntity<Page<PropertyDTO>> getAllProperties(@PageableDefault(size = 20) Pageable pageable) {
@@ -66,8 +71,14 @@ public class PropertyController {
     @GetMapping("/city/{city}")
     public ResponseEntity<Page<PropertyDTO>> getPropertyByCity(@PathVariable String city,
                                                                @PageableDefault(size = 20) Pageable pageable) {
+        logger.info("Entering getPropertyByCity method with city: {} and pageable: {}", city, pageable);
+
         Page<PropertyDTO> properties = propertyService.getPropertyByCity(city, pageable);
+
+        logger.info("Retrieved {} properties for city: {}", properties.getTotalElements(), city);
+
         logEntryService.log("INFO", "Retrieved " + properties.getTotalElements() + " properties for city: " + city);
+
         return ResponseEntity.ok(properties);
     }
 
