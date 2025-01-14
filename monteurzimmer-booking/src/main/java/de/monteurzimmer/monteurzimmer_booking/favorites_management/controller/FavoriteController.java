@@ -28,19 +28,19 @@ public class FavoriteController {
     }
 
     @PostMapping("/add/{id}")
-    public ResponseEntity<Favorite> addFavorite(@PathVariable("id") Long propertyId,
+    public ResponseEntity<Favorite> addFavorite(@PathVariable("id") Long id,
                                                 @RequestParam("sessionId") String sessionId) {
 
         logger.info("Received POST request to add favorite with id: {} and sessionId: {}", id, sessionId);
 
-        logEntryService.log("info", "Received request to add favorite with propertyId: " + propertyId + " and sessionId: " + sessionId);
+        logEntryService.log("info", "Received request to add favorite with propertyId: " + id + " and sessionId: " + sessionId);
 
         if (sessionId == null || sessionId.isEmpty()) {
             logEntryService.log("error", "Session ID is null or empty.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
-        Favorite favorite = favoriteService.addFavorite(propertyId, sessionId);
+        Favorite favorite = favoriteService.addFavorite(id, sessionId);
         logEntryService.log("info", "Favorite added successfully: " + favorite.getId());
         return ResponseEntity.ok(favorite);
     }
