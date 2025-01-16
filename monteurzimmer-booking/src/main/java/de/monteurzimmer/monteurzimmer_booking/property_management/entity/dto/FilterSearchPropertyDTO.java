@@ -3,11 +3,15 @@ package de.monteurzimmer.monteurzimmer_booking.property_management.entity.dto;
 import de.monteurzimmer.monteurzimmer_booking.city_management.entity.City;
 import de.monteurzimmer.monteurzimmer_booking.photo_management.entity.PropertyPhoto;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 public class FilterSearchPropertyDTO {
     private String propertyName;
     private String propertyType;
