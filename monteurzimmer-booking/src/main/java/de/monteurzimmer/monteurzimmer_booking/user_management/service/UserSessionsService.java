@@ -26,16 +26,5 @@ public class UserSessionsService {
         userSessionsRepository.save(userSession);
         return sessionId;
     }
-
-   /* @Scheduled(fixedRate = 60000) // Check every minute
-    public void updateExpiredSessions() {
-        List<UserSession> sessions = userSessionsRepository.findAll();
-        for (UserSession session : sessions) {
-            if (session.getExpiryTimestamp().isBefore(LocalDateTime.now())) {
-                session.setActive(false);
-                userSessionsRepository.save(session);
-            }
-        }
-    }*/
 }
 
