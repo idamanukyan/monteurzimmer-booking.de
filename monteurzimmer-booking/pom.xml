@@ -113,7 +113,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>de.monteurzimmer.MonteurzimmerBookingApplication</mainClass>
+					<mainClass>de.monteurzimmer.monteurzimmer_booking.MonteurzimmerBookingApplication</mainClass>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
